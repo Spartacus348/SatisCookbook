@@ -1,16 +1,17 @@
 use crate::objects::{Process, Building::*, Conveyable::*, Mineable::*, Pipeable::*, Pumpable::*};
-use crate::tiers::{Tier::*, ProgressTier::*, Tier0::*, Tier1::*, Tier2::*, Tier3::*, Tier4::*,
-                   Tier5::*, Tier6::*, Tier7::*,Tier8::*,
-                   HardDriveTier::*, MamTrees::*, CateriumTier::*, FicsmasTier::*, SulfurTier::*,
-                    FlowerTier::*, FungusTier::*, OrgoTier::*, QuartzTier::*, SlugTier::*};
+use crate::tiers::  {Tier::*, ProgressTier::*,
+                        Tier0::*, Tier2::*, Tier3::*, Tier4::*, Tier5::*, Tier7::*, Tier8::*,
+                        HardDriveTier::*, MamTrees::*, CateriumTier::*, FicsmasTier::*,
+                        SulfurTier::*, FlowerTier::*, FungusTier::*, OrgoTier::*, QuartzTier::*,
+                        SlugTier::*};
 
 pub static RECIPES: [Process;145] = [
     Process {
         name:"Mine Iron",
         time:1,
         building: Miner1{
-            input:(FeNode {amount:1},),
-            output:(FeOre {amount:1},)
+            input:(FeNode (1),),
+            output:(FeOre (1),)
         },
         tier:MainProgression(Tier0(HubUpgrade2))
     },
@@ -18,8 +19,8 @@ pub static RECIPES: [Process;145] = [
         name:"Mine Copper",
         time:1,
         building: Miner1 {
-            input:(CuNode {amount:1},),
-            output:(CuOre {amount:1},),
+            input:(CuNode (1),),
+            output:(CuOre (1),),
         },
         tier:MainProgression(Tier0(Onboarding))
     },
@@ -27,8 +28,8 @@ pub static RECIPES: [Process;145] = [
         name:"Mine Caterium",
         time:1,
         building: Miner1{
-            input:(CateriumNode {amount:1},),
-            output:(CateriumOre {amount:1},)
+            input:(CateriumNode (1),),
+            output:(CateriumOre (1),)
         },
         tier:MainProgression(Tier0(Onboarding))
     },
@@ -36,8 +37,8 @@ pub static RECIPES: [Process;145] = [
         name:"Mine Coal",
         time:1,
         building: Miner1{
-            input:(CoalNode {amount:1},),
-            output:(Coal {amount:1},)
+            input:(CoalNode (1),),
+            output:(Coal (1),)
         },
         tier:MainProgression(Tier0(Onboarding))
     },
@@ -45,8 +46,8 @@ pub static RECIPES: [Process;145] = [
         name:"Mine Sulfur",
         time:1,
         building: Miner1{
-            input:(SulfurNode {amount:1},),
-            output:(Sulfur    {amount:1},)
+            input:(SulfurNode (1),),
+            output:(Sulfur    (1),)
         },
         tier:MainProgression(Tier0(Onboarding))
     },
@@ -54,8 +55,8 @@ pub static RECIPES: [Process;145] = [
         name:"Mine Raw Quartz",
         time:1,
         building: Miner1 {
-            input:(QuartzNode {amount:1},),
-            output:(RawQuartz {amount:1},)
+            input:(QuartzNode (1),),
+            output:(RawQuartz (1),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -63,8 +64,8 @@ pub static RECIPES: [Process;145] = [
         name:"Blue Ficsmas Ornament",
         time:12,
         building: Smelter {
-            input:(FicsmasGift {amount:1},),
-            output:(BlueOrnament {amount:2},)
+            input:(FicsmasGift (1),),
+            output:(BlueOrnament (2),)
         },
         tier:MAM(Ficsmas(TreeUpgrade1))
     },
@@ -72,8 +73,8 @@ pub static RECIPES: [Process;145] = [
         name:"Caterium Ingot",
         time:4,
         building: Smelter {
-            input:(CateriumOre {amount:3},),
-            output:(CateriumIngot {amount:1},)
+            input:(CateriumOre (3),),
+            output:(CateriumIngot (1),)
         },
         tier:MAM(Caterium(CateriumIngotResearch))
     },
@@ -81,8 +82,8 @@ pub static RECIPES: [Process;145] = [
         name:"Copper Ingot",
         time:2,
         building: Smelter {
-            input:(CuOre {amount:1},),
-            output:(CuIngot {amount:1},)
+            input:(CuOre (1),),
+            output:(CuIngot (1),)
         },
         tier:MainProgression(Tier0(HubUpgrade2))
     },
@@ -90,8 +91,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Ingot",
         time:2,
         building: Smelter {
-            input:(FeOre {amount:1},),
-            output:(FeIngot {amount:1},),
+            input:(FeOre (1),),
+            output:(FeIngot (1),),
         },
         tier: MainProgression(Tier0(HubUpgrade2))
     },
@@ -99,8 +100,8 @@ pub static RECIPES: [Process;145] = [
         name:"Red Ficsmas Ornament",
         time:12,
         building:Smelter{
-            input:(FicsmasGift {amount:1},),
-            output:(RedOrnament {amount:1},)
+            input:(FicsmasGift (1),),
+            output:(RedOrnament (1),)
         },
         tier:MAM(Ficsmas(TreeUpgrade1))
     },
@@ -108,8 +109,8 @@ pub static RECIPES: [Process;145] = [
         name: "Pure Aluminum Ingot",
         time: 2,
         building:Smelter {
-            input:(AlScrap {amount:2},),
-            output:(AlIngot{amount:1},)
+            input:(AlScrap (2),),
+            output:(AlIngot(1),)
         },
         tier:HardDrive(MainUnlock(Tier7(BauxiteRefinement)))
     },
@@ -117,8 +118,8 @@ pub static RECIPES: [Process;145] = [
         name:"Extract Water",
         time:1,
         building:WaterExtractor {
-            input:(WaterSource {amount:1},),
-            output:(Water {amount:120},)
+            input:(WaterSource(1),),
+            output:(Water(120),)
         },
         tier:MainProgression(Tier3(CoalPower))
     },
@@ -126,8 +127,8 @@ pub static RECIPES: [Process;145] = [
         name:"Extract Oil",
         time:1,
         building: OilExtractor {
-            input:(OilSource{amount:1},),
-            output:(CrudeOil {amount:1},)
+            input:(OilSource(1),),
+            output:(CrudeOil(1),)
         },
         tier:MainProgression(Tier5(OilProcessing))
     },
@@ -135,8 +136,8 @@ pub static RECIPES: [Process;145] = [
         name:"Aluminum Ingot",
         time:4,
         building:Foundry{
-            input:(AlScrap {amount:6}, Some(Silica {amount:5})),
-            output:(AlIngot {amount:4},)
+            input:(AlScrap(6), Silica (5)),
+            output:(AlIngot(4),)
         },
         tier:MainProgression(Tier7(BauxiteRefinement))
     },
@@ -144,8 +145,8 @@ pub static RECIPES: [Process;145] = [
         name:"Copper Ficsmas Ornament",
         time:12,
         building:Foundry{
-            input:(RedOrnament {amount:2},Some(CuIngot {amount:2})),
-            output:(CuOrnament {amount:1},)
+            input:(RedOrnament (2), CuIngot (2)),
+            output:(CuOrnament (1),)
         },
         tier:MAM(Ficsmas(FicsmasGiftTree))
     },
@@ -153,8 +154,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Ficsmas Ornament",
         time:12,
         building:Foundry{
-            input:(BlueOrnament {amount:3}, Some(FeIngot {amount:3})),
-            output:(FeOrnament {amount:1},)
+            input:(BlueOrnament (3), FeIngot (3)),
+            output:(FeOrnament (1),)
         },
         tier:MAM(Ficsmas(FicsmasGiftTree))
     },
@@ -162,8 +163,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Ingot",
         time:4,
         building:Foundry{
-            input:(FeOre {amount:3},Some(Coal {amount:3})),
-            output:(SteelIngot {amount:3},)
+            input:(FeOre (3),Coal (3)),
+            output:(SteelIngot (3),)
         },
         tier:MainProgression(Tier3(BasicSteel))
     },
@@ -171,8 +172,8 @@ pub static RECIPES: [Process;145] = [
         name:"Coke Steel Ingot",
         time:12,
         building:Foundry{
-            input:(FeOre {amount:15}, Some(PetroleumCoke {amount:15})),
-            output:(SteelIngot {amount:20},)
+            input:(FeOre (15), PetroleumCoke (15)),
+            output:(SteelIngot (20),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -180,8 +181,8 @@ pub static RECIPES: [Process;145] = [
         name:"Compacted Steel Ingot",
         time:16,
         building:Foundry{
-            input:(FeOre {amount:15}, Some(CompactedCoal {amount:3})),
-            output:(SteelIngot {amount:10},)
+            input:(FeOre (15), CompactedCoal (3)),
+            output:(SteelIngot (10),)
         },
         tier:HardDrive(MainUnlock(Tier3(BasicSteel)))
     },
@@ -189,8 +190,8 @@ pub static RECIPES: [Process;145] = [
         name:"Compacted Steel Ingot",
         time:16,
         building:Foundry{
-            input:(FeOre {amount:15}, Some(CompactedCoal {amount:3})),
-            output:(SteelIngot {amount:10},)
+            input:(FeOre (15), CompactedCoal (3)),
+            output:(SteelIngot (10),)
         },
         tier:HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
     },
@@ -198,8 +199,8 @@ pub static RECIPES: [Process;145] = [
         name:"Copper Alloy Ingot",
         time:12,
         building:Foundry{
-            input:(CuOre {amount:10}, Some(FeOre {amount:5})),
-            output:(CuIngot {amount:20},)
+            input:(CuOre (10),FeOre (5)),
+            output:(CuIngot (20),)
         },
         tier:HardDrive(MainUnlock(Tier0(Onboarding)))
     },
@@ -207,8 +208,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Alloy Ingot",
         time: 6,
         building:Foundry {
-            input:(FeOre {amount:2}, Some(CuOre {amount:2})),
-            output:(FeIngot {amount:5},)
+            input:(FeOre (2),CuOre (2)),
+            output:(FeIngot (5),)
         },
         tier:HardDrive(MainUnlock(Tier0(Onboarding)))
     },
@@ -216,8 +217,8 @@ pub static RECIPES: [Process;145] = [
         name:"Solid Steel Ingot",
         time: 3,
         building:Foundry{
-            input:(FeIngot {amount:2}, Some(Coal {amount:2})),
-            output:(SteelIngot {amount:3},)
+            input:(FeIngot (2),Coal (2)),
+            output:(SteelIngot (3),)
         },
         tier:HardDrive(MainUnlock(Tier3(BasicSteel)))
     },
@@ -225,8 +226,8 @@ pub static RECIPES: [Process;145] = [
         name:"Actual Snow",
         time:12,
         building:Constructor {
-            input:(FicsmasGift {amount:5},),
-            output:(ActualSnow {amount:2},)
+            input:(FicsmasGift (5),),
+            output:(ActualSnow (2),)
         },
         tier:MAM(Ficsmas(AFriend))
     },
@@ -234,8 +235,8 @@ pub static RECIPES: [Process;145] = [
         name:"Alien DNA Capsule",
         time:6,
         building:Constructor{
-            input:(AlienProtein {amount:1},),
-            output:(AlienDNA {amount:1},)
+            input:(AlienProtein (1),),
+            output:(AlienDNA (1),)
         },
         tier:MAM(Organisms(BioOrganicProperties))
     },
@@ -243,8 +244,8 @@ pub static RECIPES: [Process;145] = [
         name:"Aluminum Casing",
         time: 2,
         building:Constructor {
-            input:(AlIngot {amount:3},),
-            output:(AlCasing {amount:2},)
+            input:(AlIngot (3),),
+            output:(AlCasing (2),)
         },
         tier:MainProgression(Tier7(BauxiteRefinement))
     },
@@ -252,8 +253,8 @@ pub static RECIPES: [Process;145] = [
         name:"Biomass (Alien Protein)",
         time:4,
         building: Constructor {
-            input:(AlienProtein {amount:1},),
-            output:(Biomass {amount:100},)
+            input:(AlienProtein (1),),
+            output:(Biomass (100),)
         },
         tier:MAM(Organisms(BioOrganicProperties))
     },
@@ -261,8 +262,8 @@ pub static RECIPES: [Process;145] = [
         name:"Biomass (Leaves)",
         time:5,
         building:Constructor {
-            input:(Leaves {amount:10},),
-            output:(Biomass {amount:5},)
+            input:(Leaves (10),),
+            output:(Biomass (5),)
         },
         tier:MainProgression(Tier0(HubUpgrade6))
     },
@@ -270,8 +271,8 @@ pub static RECIPES: [Process;145] = [
         name:"Biomass (Mycelia)",
         time:4,
         building:Constructor {
-            input:(Mycelia {amount:1},),
-            output:(Biomass {amount:10},)
+            input:(Mycelia (1),),
+            output:(Biomass (10),)
         },
         tier: MAM(Fungi(MyceliaResearch))
     },
@@ -279,8 +280,8 @@ pub static RECIPES: [Process;145] = [
         name:"Biomass (Wood)",
         time:4,
         building:Constructor {
-            input:(Wood {amount:4},),
-            output:(Biomass {amount: 20},)
+            input:(Wood (4),),
+            output:(Biomass ( 20),)
         },
         tier:MainProgression(Tier0(HubUpgrade6))
     },
@@ -288,8 +289,8 @@ pub static RECIPES: [Process;145] = [
         name:"Cable",
         time:2,
         building:Constructor {
-            input:(CuWire {amount:2},),
-            output:(Cable {amount:1},)
+            input:(CuWire (2),),
+            output:(Cable (1),)
         },
         tier:MainProgression(Tier0(HubUpgrade2))
     },
@@ -297,8 +298,8 @@ pub static RECIPES: [Process;145] = [
         name:"Candy Cane",
         time:12,
         building:Constructor {
-            input:(FicsmasGift {amount:3},),
-            output:(CandyCane {amount:5},)
+            input:(FicsmasGift(3),),
+            output:(CandyCane(5),)
         },
         tier:MAM(Ficsmas(CandyCaneBasher))
     },
@@ -306,8 +307,8 @@ pub static RECIPES: [Process;145] = [
         name:"Color Cartridge",
         time:6,
         building:Constructor {
-            input:(FlowerPetals {amount:5},),
-            output:(ColorCartridge {amount:10},)
+            input:(FlowerPetals (5),),
+            output:(ColorCartridge (10),)
         },
         tier:MAM(Flowers(ColorCartridges))
     },
@@ -315,8 +316,8 @@ pub static RECIPES: [Process;145] = [
         name:"Color Cartridge",
         time:6,
         building:Constructor {
-            input:(FlowerPetals {amount:5},),
-            output:(ColorCartridge {amount:10},)
+            input:(FlowerPetals (5),),
+            output:(ColorCartridge (10),)
         },
         tier:MainProgression(Tier2(ResourceSinkBonus))
     },
@@ -324,8 +325,8 @@ pub static RECIPES: [Process;145] = [
         name:"Concrete",
         time:4,
         building:Constructor {
-            input:(Limestone {amount:3},),
-            output:(Concrete {amount:1},)
+            input:(Limestone (3),),
+            output:(Concrete (1),)
         },
         tier:MainProgression(Tier0(HubUpgrade3))
     },
@@ -333,8 +334,8 @@ pub static RECIPES: [Process;145] = [
         name:"Copper Powder",
         time:6,
         building:Constructor {
-            input:(CuIngot {amount:30},),
-            output:(CuPowder {amount:5},)
+            input:(CuIngot (30),),
+            output:(CuPowder (5),)
         },
         tier:MainProgression(Tier8(ParticleEnrichment))
     },
@@ -342,8 +343,8 @@ pub static RECIPES: [Process;145] = [
         name:"Copper Sheet",
         time:6,
         building:Constructor {
-            input:(CuIngot {amount:2},),
-            output:(CuSheet {amount:1},)
+            input:(CuIngot (2),),
+            output:(CuSheet (1),)
         },
         tier:MainProgression(Tier2(PartAssembly))
     },
@@ -351,8 +352,8 @@ pub static RECIPES: [Process;145] = [
         name:"Empty Canister",
         time:4,
         building:Constructor {
-            input:(Plastic {amount:2},),
-            output:(EmptyCanister {amount:4},)
+            input:(Plastic (2),),
+            output:(EmptyCanister (4),)
         },
         tier:MainProgression(Tier5(AlternativeFuelTransport))
     },
@@ -360,8 +361,8 @@ pub static RECIPES: [Process;145] = [
         name:"Empty Fluid Tank",
         time:1,
         building:Constructor {
-            input:(AlIngot {amount:1},),
-            output:(EmptyFluidTank {amount:1},)
+            input:(AlIngot (1),),
+            output:(EmptyFluidTank (1),)
         },
         tier:MainProgression(Tier8(AdvancedAluminumProduction))
     },
@@ -369,8 +370,8 @@ pub static RECIPES: [Process;145] = [
         name:"Ficsmas Bow",
         time:12,
         building:Constructor {
-            input:(FicsmasGift {amount:2},),
-            output:(FicsmasBow {amount:1},)
+            input:(FicsmasGift (2),),
+            output:(FicsmasBow (1),)
         },
         tier:MAM(Ficsmas(CandyCaneDecor))
     },
@@ -378,8 +379,8 @@ pub static RECIPES: [Process;145] = [
         name:"Ficsmas Tree Branch",
         time:6,
         building:Constructor {
-            input:(FicsmasGift {amount:1},),
-            output:(FicsmasBranch {amount:1},)
+            input:(FicsmasGift (1),),
+            output:(FicsmasBranch (1),)
         },
         tier:MAM(Ficsmas(TreeUpgrade0))
     },
@@ -387,8 +388,8 @@ pub static RECIPES: [Process;145] = [
         name:"Hatcher Protein",
         time:3,
         building:Constructor {
-            input:(HatcherProtein {amount:1},),
-            output:(AlienProtein {amount:1},)
+            input:(HatcherProtein (1),),
+            output:(AlienProtein (1),)
         },
         tier:MAM(Organisms(HatcherResearch))
     },
@@ -396,8 +397,8 @@ pub static RECIPES: [Process;145] = [
         name:"Hog Protein",
         time:3,
         building:Constructor {
-            input:(HogProtein {amount:1},),
-            output:(AlienProtein {amount:1},)
+            input:(HogProtein (1),),
+            output:(AlienProtein (1),)
         },
         tier:MAM(Organisms(HogResearch))
     },
@@ -405,8 +406,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Plate",
         time:6,
         building:Constructor {
-            input:(FeIngot {amount:3},),
-            output:(FePlate {amount:2},)
+            input:(FeIngot (3),),
+            output:(FePlate (2),)
         },
         tier:MainProgression(Tier0(Onboarding))
     },
@@ -414,8 +415,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Rebar",
         time:4,
         building:Constructor {
-            input:(FeRod {amount:1},),
-            output:(BaseRebar {amount:1},)
+            input:(FeRod (1),),
+            output:(BaseRebar (1),)
         },
         tier:MAM(Organisms(RebarGun))
     },
@@ -423,8 +424,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Rod",
         time:4,
         building:Constructor {
-            input:(FeIngot {amount:1},),
-            output:(FeRod {amount:1},)
+            input:(FeIngot (1),),
+            output:(FeRod (1),)
         },
         tier:MainProgression(Tier0(Onboarding))
     },
@@ -432,8 +433,8 @@ pub static RECIPES: [Process;145] = [
         name:"Power Shard (1)",
         time:8,
         building:Constructor {
-            input:(PowerSlugBlue {amount:1},),
-            output:(PowerShard {amount:1},)
+            input:(PowerSlugBlue (1),),
+            output:(PowerShard (1),)
         },
         tier: MAM(PowerSlugs(BluePowerSlugs))
     },
@@ -441,8 +442,8 @@ pub static RECIPES: [Process;145] = [
         name:"Power Shard (2)",
         time:12,
         building:Constructor {
-            input:(PowerSlugYellow {amount:1},),
-            output:(PowerShard {amount:2},)
+            input:(PowerSlugYellow (1),),
+            output:(PowerShard (2),)
         },
         tier:MAM(PowerSlugs(YellowPowerShards))
     },
@@ -450,8 +451,8 @@ pub static RECIPES: [Process;145] = [
         name:"Power Shard (5)",
         time:24,
         building:Constructor {
-            input:(PowerSlugPurple {amount:1},),
-            output:(PowerShard {amount:5},)
+            input:(PowerSlugPurple (1),),
+            output:(PowerShard (5),)
         },
         tier:MAM(PowerSlugs(PurplePowerShards))
     },
@@ -459,8 +460,8 @@ pub static RECIPES: [Process;145] = [
         name:"Quartz Crystal",
         time:8,
         building:Constructor {
-            input:(RawQuartz {amount:5},),
-            output:(CrushedQuartz {amount:3},)
+            input:(RawQuartz (5),),
+            output:(CrushedQuartz (3),)
         },
         tier:MAM(Quartz(QuartzResearch))
     },
@@ -468,8 +469,8 @@ pub static RECIPES: [Process;145] = [
         name:"Quickwire",
         time:5,
         building:Constructor {
-            input:(CateriumIngot {amount:1},),
-            output:(Quickwire {amount:5},)
+            input:(CateriumIngot (1),),
+            output:(Quickwire (5),)
         },
         tier:MAM(Caterium(QuickwireResearch))
     },
@@ -477,8 +478,8 @@ pub static RECIPES: [Process;145] = [
         name:"Screw",
         time:6,
         building:Constructor {
-            input:(FeRod {amount:1},),
-            output:(Screws {amount:4},)
+            input:(FeRod (1),),
+            output:(Screws (4),)
         },
         tier:MainProgression(Tier0(HubUpgrade3))
     },
@@ -486,8 +487,8 @@ pub static RECIPES: [Process;145] = [
         name:"Silica",
         time:8,
         building:Constructor {
-            input:(RawQuartz {amount:3},),
-            output:(Silica {amount:5},)
+            input:(RawQuartz (3),),
+            output:(Silica (5),)
         },
         tier:MAM(Quartz(SilicaResearch))
     },
@@ -495,8 +496,8 @@ pub static RECIPES: [Process;145] = [
         name:"Silica",
         time:8,
         building:Constructor {
-            input:(RawQuartz {amount:3},),
-            output:(Silica {amount:5},)
+            input:(RawQuartz (3),),
+            output:(Silica (5),)
         },
         tier:MainProgression(Tier7(BauxiteRefinement))
     },
@@ -504,8 +505,8 @@ pub static RECIPES: [Process;145] = [
         name:"Snowball",
         time:12,
         building:Constructor {
-            input:(ActualSnow {amount:3},),
-            output:(Snowball {amount:1},)
+            input:(ActualSnow (3),),
+            output:(Snowball (1),)
         },
         tier:MAM(Ficsmas(Snowfight))
     },
@@ -513,8 +514,8 @@ pub static RECIPES: [Process;145] = [
         name:"Solid Biofuel",
         time:4,
         building:Constructor {
-            input:(Biomass {amount:8},),
-            output:(SolidBiofuel {amount:4},)
+            input:(Biomass (8),),
+            output:(SolidBiofuel (4),)
         },
         tier:MainProgression(Tier2(ObstacleClearing))
     },
@@ -522,8 +523,8 @@ pub static RECIPES: [Process;145] = [
         name:"Splitter Protein",
         time:3,
         building:Constructor {
-            input:(SpitterProtein {amount:1},),
-            output:(AlienProtein {amount:1},)
+            input:(SpitterProtein (1),),
+            output:(AlienProtein (1),)
         },
         tier:MAM(Organisms(SpitterResearch))
     },
@@ -531,8 +532,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Beam",
         time:4,
         building:Constructor {
-            input:(SteelIngot {amount:4},),
-            output:(SteelBeam {amount:1},)
+            input:(SteelIngot (4),),
+            output:(SteelBeam (1),)
         },
         tier:MainProgression(Tier3(BasicSteel))
     },
@@ -540,8 +541,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Pipe",
         time:6,
         building:Constructor {
-            input:(SteelIngot {amount:3},),
-            output:(SteelPipe {amount:2},)
+            input:(SteelIngot (3),),
+            output:(SteelPipe (2),)
         },
         tier:MainProgression(Tier3(BasicSteel))
     },
@@ -549,8 +550,8 @@ pub static RECIPES: [Process;145] = [
         name:"Stinger Protein",
         time:3,
         building:Constructor {
-            input:(StingerProtein {amount:1},),
-            output:(AlienProtein {amount:1},)
+            input:(StingerProtein (1),),
+            output:(AlienProtein (1),)
         },
         tier:MAM(Organisms(StingerResearch))
     },
@@ -558,8 +559,8 @@ pub static RECIPES: [Process;145] = [
         name:"Wire",
         time:4,
         building:Constructor {
-            input:(CuIngot {amount:1},),
-            output:(CuWire {amount:2},)
+            input:(CuIngot (1),),
+            output:(CuWire (2),)
         },
         tier:MainProgression(Tier0(HubUpgrade2))
     },
@@ -567,8 +568,8 @@ pub static RECIPES: [Process;145] = [
         name:"Biocoal",
         time:8,
         building:Constructor {
-            input:(Biomass {amount:5},),
-            output:(Coal {amount:6},)
+            input:(Biomass (5),),
+            output:(Coal (6),)
         },
         tier:HardDrive(MainUnlock(Tier3(CoalPower)))
     },
@@ -576,8 +577,8 @@ pub static RECIPES: [Process;145] = [
         name:"Biocoal",
         time:8,
         building:Constructor {
-            input:(Biomass {amount:5},),
-            output:(Coal {amount:6},)
+            input:(Biomass (5),),
+            output:(Coal (6),)
         },
         tier:HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
     },
@@ -585,8 +586,8 @@ pub static RECIPES: [Process;145] = [
         name:"Cast Screw",
         time:24,
         building:Constructor {
-            input:(FeIngot {amount:5},),
-            output:(Screws {amount:20},)
+            input:(FeIngot (5),),
+            output:(Screws (20),)
         },
         tier:HardDrive(MainUnlock(Tier0(Onboarding)))
     },
@@ -594,8 +595,8 @@ pub static RECIPES: [Process;145] = [
         name:"Caterium Wire",
         time:4,
         building:Constructor {
-            input:(CateriumIngot {amount:1},),
-            output:(CuWire {amount:8},)
+            input:(CateriumIngot (1),),
+            output:(CuWire (8),)
         },
         tier:HardDrive(MAMUnlock(Caterium(CateriumResearch)))
     },
@@ -603,8 +604,8 @@ pub static RECIPES: [Process;145] = [
         name:"Charcoal",
         time:4,
         building:Constructor {
-            input:(Wood {amount:1},),
-            output:(Coal {amount:10},)
+            input:(Wood (1),),
+            output:(Coal (10),)
         },
         tier:HardDrive(MainUnlock(Tier3(CoalPower)))
     },
@@ -612,8 +613,8 @@ pub static RECIPES: [Process;145] = [
         name:"Charcoal",
         time:4,
         building:Constructor {
-            input:(Wood {amount:1},),
-            output:(Coal {amount:10},)
+            input:(Wood (1),),
+            output:(Coal (10),)
         },
         tier:HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
     },
@@ -621,8 +622,8 @@ pub static RECIPES: [Process;145] = [
         name:"Iron Wire",
         time:24,
         building:Constructor {
-            input:(FeIngot {amount:5},),
-            output:(CuWire {amount:9},)
+            input:(FeIngot (5),),
+            output:(CuWire (9),)
         },
         tier:HardDrive(MainUnlock(Tier0(Onboarding)))
     },
@@ -630,8 +631,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Canister",
         time:3,
         building:Constructor {
-            input:(SteelIngot {amount:3},),
-            output:(EmptyCanister {amount:2},)
+            input:(SteelIngot (3),),
+            output:(EmptyCanister (2),)
         },
         tier:HardDrive(MainUnlock(Tier5(AlternativeFuelTransport)))
     },
@@ -639,8 +640,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Rod",
         time:5,
         building:Constructor {
-            input:(SteelIngot {amount:1},),
-            output:(FeRod {amount:4},)
+            input:(SteelIngot (1),),
+            output:(FeRod (4),)
         },
         tier:HardDrive(MainUnlock(Tier3(BasicSteel)))
     },
@@ -648,8 +649,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Screw",
         time:12,
         building:Constructor {
-            input:(SteelBeam {amount:1},),
-            output:(Screws {amount:52},)
+            input:(SteelBeam (1),),
+            output:(Screws (52),)
         },
         tier:HardDrive(MainUnlock(Tier3(BasicSteel)))
     },
@@ -657,8 +658,8 @@ pub static RECIPES: [Process;145] = [
         name:"AI Limiter",
         time:12,
         building:Assembler {
-            input:(CuSheet {amount:5},Some(Quickwire {amount:20})),
-            output:(AILimiter {amount:5},)
+            input:(CuSheet (5),Quickwire (20)),
+            output:(AILimiter (5),)
         },
         tier:MAM(Caterium(AILimiterResearch))
     },
@@ -666,8 +667,8 @@ pub static RECIPES: [Process;145] = [
         name:"AI Limiter",
         time:12,
         building:Assembler {
-            input:(CuSheet {amount:5},Some(Quickwire {amount:20})),
-            output:(AILimiter {amount:5},)
+            input:(CuSheet (5),Quickwire (20)),
+            output:(AILimiter (5),)
         },
         tier:MainProgression(Tier7(AeronauticalEngineering))
     },
@@ -675,8 +676,8 @@ pub static RECIPES: [Process;145] = [
         name:"Alclad Aluminum Sheet",
         time:6,
         building:Assembler {
-            input:(AlIngot {amount:3},Some(CuIngot {amount:1})),
-            output:(AlcladSheet {amount:3},)
+            input:(AlIngot (3),CuIngot (1)),
+            output:(AlcladSheet (3),)
         },
         tier:MainProgression(Tier7(BauxiteRefinement))
     },
@@ -684,8 +685,8 @@ pub static RECIPES: [Process;145] = [
         name:"Assembly Director System",
         time:80,
         building:Assembler {
-            input:(AdaptiveControlUnit {amount:2},Some(SuperComputer {amount:1})),
-            output:(AssemblyDirectorSystem {amount:1},)
+            input:(AdaptiveControlUnit (2),SuperComputer (1)),
+            output:(AssemblyDirectorSystem (1),)
         },
         tier:MainProgression(Tier7(AeronauticalEngineering))
     },
@@ -693,8 +694,8 @@ pub static RECIPES: [Process;145] = [
         name:"Automated Wiring",
         time:24,
         building:Assembler {
-            input:(Stator {amount:1},Some(Cable {amount:20})),
-            output:(AutomatedWiring {amount:1},)
+            input:(Stator (1),Cable (20)),
+            output:(AutomatedWiring (1),)
         },
         tier:MainProgression(Tier4(AdvancedSteel))
     },
@@ -702,8 +703,8 @@ pub static RECIPES: [Process;145] = [
         name:"Black Powder",
         time:4,
         building:Assembler {
-            input:(Coal {amount:1},Some(Sulfur {amount:1})),
-            output:(BlackPowder {amount:2},)
+            input:(Coal (1),Sulfur (1)),
+            output:(BlackPowder (2),)
         },
         tier:MAM(SulfurTier(BlackPowderResearch))
     },
@@ -711,8 +712,8 @@ pub static RECIPES: [Process;145] = [
         name:"Circuit Board",
         time:8,
         building:Assembler {
-            input:(CuSheet {amount:2},Some(Plastic {amount:4})),
-            output:(CircuitBoard {amount:1},)
+            input:(CuSheet (2),Plastic (4)),
+            output:(CircuitBoard (1),)
         },
         tier:MainProgression(Tier5(OilProcessing))
     },
@@ -720,8 +721,8 @@ pub static RECIPES: [Process;145] = [
         name:"Cluster Nobelisk",
         time:24,
         building:Assembler {
-            input:(Nobelisk {amount:3},Some(SmokelessPowder {amount:4})),
-            output:(ClusterNobelisk {amount:1},)
+            input:(Nobelisk (3),SmokelessPowder (4)),
+            output:(ClusterNobelisk (1),)
         },
         tier:MAM(SulfurTier(ClusterNobeliskResearch))
     },
@@ -729,8 +730,8 @@ pub static RECIPES: [Process;145] = [
         name:"Electromagnetic Control Rod",
         time:30,
         building:Assembler {
-            input:(Stator {amount:3},Some(AILimiter {amount:2})),
-            output:(EMControlRod {amount:2},)
+            input:(Stator (3),AILimiter (2)),
+            output:(EMControlRod (2),)
         },
         tier:MainProgression(Tier8(NuclearPower))
     },
@@ -738,8 +739,8 @@ pub static RECIPES: [Process;145] = [
         name:"Encased Industrial Beam",
         time:10,
         building:Assembler {
-            input:(SteelBeam {amount:4},Some(Concrete {amount:5})),
-            output:(IndustrialBeam {amount:1},)
+            input:(SteelBeam (4),Concrete (5)),
+            output:(IndustrialBeam (1),)
         },
         tier:MainProgression(Tier4(AdvancedSteel))
     },
@@ -747,8 +748,8 @@ pub static RECIPES: [Process;145] = [
         name:"Encased Plutonium Cell",
         time:12,
         building:Assembler {
-            input:(PuPellet {amount:2},Some(Concrete {amount:4})),
-            output:(EncasedPuCell {amount:1},)
+            input:(PuPellet (2),Concrete (4)),
+            output:(EncasedPuCell (1),)
         },
         tier:MainProgression(Tier8(ParticleEnrichment))
     },
@@ -756,8 +757,8 @@ pub static RECIPES: [Process;145] = [
         name:"Ficsmas Decoration",
         time:60,
         building:Assembler {
-            input:(FicsmasBranch {amount:15},Some(OrnamentBundle {amount:6})),
-            output:(FicsmasDecoration {amount:2},)
+            input:(FicsmasBranch (15),OrnamentBundle (6)),
+            output:(FicsmasDecoration (2),)
         },
         tier:MAM(Ficsmas(ItsSnowing))
     },
@@ -765,8 +766,8 @@ pub static RECIPES: [Process;145] = [
         name:"Ficsmas Wonder Star",
         time:60,
         building:Assembler {
-            input:(FicsmasDecoration {amount:5},Some(CandyCane {amount:20})),
-            output:(FicsmasStar {amount:1},)
+            input:(FicsmasDecoration (5),CandyCane (20)),
+            output:(FicsmasStar (1),)
         },
         tier:MAM(Ficsmas(Wreath))
     },
@@ -774,8 +775,8 @@ pub static RECIPES: [Process;145] = [
         name:"Ficsmas Ornament Bundle",
         time:12,
         building:Assembler {
-            input:(CuOrnament {amount:1},Some(FeOrnament {amount:1})),
-            output:(OrnamentBundle {amount:1},)
+            input:(CuOrnament (1),FeOrnament (1)),
+            output:(OrnamentBundle (1),)
         },
         tier:MAM(Ficsmas(Lights))
     },
@@ -783,8 +784,8 @@ pub static RECIPES: [Process;145] = [
         name:"Fabric",
         time:4,
         building:Assembler {
-            input:(Mycelia {amount:1},Some(Biomass {amount:5})),
-            output:(Fabric {amount:1},)
+            input:(Mycelia (1),Biomass (5)),
+            output:(Fabric (1),)
         },
         tier:MAM(Fungi(FabricResearch))
     },
@@ -792,8 +793,8 @@ pub static RECIPES: [Process;145] = [
         name:"Fancy Fireworks",
         time:24,
         building:Assembler {
-            input:(FicsmasBranch {amount:4},Some(FicsmasBow {amount:3})),
-            output:(FancyFireworks {amount:1},)
+            input:(FicsmasBranch (4),FicsmasBow (3)),
+            output:(FancyFireworks (1),)
         },
         tier:MAM(Ficsmas(Fireworks))
     },
@@ -801,8 +802,8 @@ pub static RECIPES: [Process;145] = [
         name:"Gas Nobelisk",
         time:12,
         building:Assembler {
-            input:(Nobelisk {amount:1},Some(Biomass {amount:10})),
-            output:(GasNobelisk {amount:1},)
+            input:(Nobelisk (1),Biomass (10)),
+            output:(GasNobelisk (1),)
         },
         tier:MAM(Fungi(ToxicCellularModification))
     },
@@ -810,8 +811,8 @@ pub static RECIPES: [Process;145] = [
         name:"Heat Sink",
         time:8,
         building:Assembler {
-            input:(AlcladSheet {amount:5},Some(CuSheet {amount:3})),
-            output:(Heatsink {amount:1},)
+            input:(AlcladSheet (5),CuSheet (3)),
+            output:(Heatsink (1),)
         },
         tier:MainProgression(Tier8(AdvancedAluminumProduction))
     },
@@ -819,8 +820,8 @@ pub static RECIPES: [Process;145] = [
         name:"Homing Rifle Ammo",
         time:24,
         building:Assembler {
-            input:(RifleAmmo {amount:20},Some(HighSpeedConnector {amount:1})),
-            output:(HomingRifleAmmo {amount:10},)
+            input:(RifleAmmo (20),HighSpeedConnector (1)),
+            output:(HomingRifleAmmo (10),)
         },
         tier:MAM(Caterium(BulletGuidanceSystem))
     },
@@ -828,8 +829,8 @@ pub static RECIPES: [Process;145] = [
         name:"Modular Frame",
         time:60,
         building:Assembler {
-            input:(ReinforcedIronPlate {amount:3},Some(FeRod {amount:12})),
-            output:(ModularFrame {amount:2},)
+            input:(ReinforcedIronPlate (3),FeRod (12)),
+            output:(ModularFrame (2),)
         },
         tier:MainProgression(Tier2(PartAssembly))
     },
@@ -837,8 +838,8 @@ pub static RECIPES: [Process;145] = [
         name:"Motor",
         time:12,
         building:Assembler {
-            input:(Rotor {amount:2},Some(Stator {amount:2})),
-            output:(Motor {amount:1},)
+            input:(Rotor (2),Stator (2)),
+            output:(Motor (1),)
         },
         tier: MainProgression(Tier4(AdvancedSteel))
     },
@@ -846,8 +847,8 @@ pub static RECIPES: [Process;145] = [
         name:"Nobelisk",
         time:6,
         building:Assembler {
-            input:(BlackPowder {amount:2},Some(SteelPipe {amount:2})),
-            output:(Nobelisk {amount:1},)
+            input:(BlackPowder (2),SteelPipe (2)),
+            output:(Nobelisk (1),)
         },
         tier:MAM(SulfurTier(NobeliskDetonator))
     },
@@ -855,8 +856,8 @@ pub static RECIPES: [Process;145] = [
         name:"Pressure Conversion Cube",
         time:60,
         building:Assembler {
-            input:(FusedModularFrame {amount:1},Some(RadioControlUnit {amount:2})),
-            output:(PressureConversionCube {amount:1},)
+            input:(FusedModularFrame (1),RadioControlUnit (2)),
+            output:(PressureConversionCube (1),)
         },
         tier:MainProgression(Tier8(ParticleEnrichment))
     },
@@ -864,8 +865,8 @@ pub static RECIPES: [Process;145] = [
         name: "Pulse Nobelisk",
         time: 60,
         building: Assembler {
-            input: (Nobelisk { amount: 5 }, Some(CrystalOscillator { amount: 1 })),
-            output: (PulseNobelisk { amount: 5 },)
+            input: (Nobelisk(5),CrystalOscillator(1)),
+            output: (PulseNobelisk(5 ),)
         },
         tier:MAM(Quartz(ExplosiveResonanceApplication))
     },
@@ -873,8 +874,8 @@ pub static RECIPES: [Process;145] = [
         name:"Reinforced Iron Plate",
         time:12,
         building:Assembler {
-            input:(FePlate {amount:6},Some(Screws {amount:12})),
-            output:(ReinforcedIronPlate {amount:1},)
+            input:(FePlate (6),Screws (12)),
+            output:(ReinforcedIronPlate (1),)
         },
         tier:MainProgression(Tier0(HubUpgrade3))
     },
@@ -882,8 +883,8 @@ pub static RECIPES: [Process;145] = [
         name:"Rifle Ammo",
         time:12,
         building:Assembler {
-            input:(CuSheet {amount:3},Some(SmokelessPowder {amount:2})),
-            output:(RifleAmmo {amount:15},)
+            input:(CuSheet (3),SmokelessPowder (2)),
+            output:(RifleAmmo (15),)
         },
         tier:MAM(SulfurTier(Rifle))
     },
@@ -891,8 +892,8 @@ pub static RECIPES: [Process;145] = [
         name:"Rotor",
         time:15,
         building:Assembler {
-            input:(FeRod {amount:5},Some(Screws {amount:25})),
-            output:(Rotor {amount:1},)
+            input:(FeRod (5),Screws (25)),
+            output:(Rotor (1),)
         },
         tier:MainProgression(Tier2(PartAssembly))
     },
@@ -900,8 +901,8 @@ pub static RECIPES: [Process;145] = [
         name:"Shatter Rebar",
         time:12,
         building:Assembler {
-            input:(BaseRebar {amount:2},Some(CrushedQuartz {amount:3})),
-            output:(ShatterRebar {amount:1},)
+            input:(BaseRebar (2),CrushedQuartz (3)),
+            output:(ShatterRebar (1),)
         },
         tier:MAM(Quartz(ShatterRebarResearch))
     },
@@ -909,8 +910,8 @@ pub static RECIPES: [Process;145] = [
         name:"Smart Plating",
         time:30,
         building:Assembler {
-            input:(ReinforcedIronPlate {amount:1},Some(Rotor {amount:1})),
-            output:(SmartPlating {amount:1},)
+            input:(ReinforcedIronPlate (1),Rotor (1)),
+            output:(SmartPlating (1),)
         },
         tier:MainProgression(Tier2(PartAssembly))
     },
@@ -918,8 +919,8 @@ pub static RECIPES: [Process;145] = [
         name:"Sparkly Fireworks",
         time:24,
         building:Assembler {
-            input:(FicsmasBranch {amount:3},Some(ActualSnow {amount:2})),
-            output:(SparklyFireworks {amount:1},)
+            input:(FicsmasBranch (3),ActualSnow (2)),
+            output:(SparklyFireworks (1),)
         },
         tier:MAM(Ficsmas(Fireworks))
     },
@@ -927,8 +928,8 @@ pub static RECIPES: [Process;145] = [
         name:"Stator",
         time:12,
         building:Assembler {
-            input:(SteelPipe {amount:3},Some(CuWire {amount:8})),
-            output:(Stator {amount:1},)
+            input:(SteelPipe (3),CuWire (8)),
+            output:(Stator (1),)
         },
         tier:MainProgression(Tier4(AdvancedSteel))
     },
@@ -936,8 +937,8 @@ pub static RECIPES: [Process;145] = [
         name:"Stun Rebar",
         time:6,
         building:Assembler {
-            input:(BaseRebar {amount:1},Some(Quickwire {amount:5})),
-            output:(PulseRebar {amount:1},)
+            input:(BaseRebar (1),Quickwire (5)),
+            output:(PulseRebar (1),)
         },
         tier:MAM(Caterium(StunRebarResearch))
     },
@@ -945,8 +946,8 @@ pub static RECIPES: [Process;145] = [
         name:"Sweet Fireworks",
         time:24,
         building:Assembler {
-            input:(FicsmasBranch {amount:6},Some(CandyCane {amount:3})),
-            output:(SweetFireworks {amount:1},)
+            input:(FicsmasBranch (6),CandyCane (3)),
+            output:(SweetFireworks (1),)
         },
         tier:MAM(Ficsmas(Fireworks))
     },
@@ -954,8 +955,8 @@ pub static RECIPES: [Process;145] = [
         name:"Versatile Framework",
         time:24,
         building:Assembler {
-            input:(ModularFrame {amount:1},Some(SteelBeam {amount:12})),
-            output:(VersatileFramework {amount:2},)
+            input:(ModularFrame (1),SteelBeam (12)),
+            output:(VersatileFramework (2),)
         },
         tier:MainProgression(Tier3(BasicSteel))
     },
@@ -963,8 +964,8 @@ pub static RECIPES: [Process;145] = [
         name:"Adhered Iron Plate",
         time:16,
         building:Assembler {
-            input:(FePlate {amount:3},Some(Rubber {amount:1})),
-            output:(ReinforcedIronPlate {amount:1},)
+            input:(FePlate (3),Rubber (1)),
+            output:(ReinforcedIronPlate (1),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -972,8 +973,8 @@ pub static RECIPES: [Process;145] = [
         name:"Alclad Casing",
         time:8,
         building:Assembler {
-            input:(AlIngot {amount:20},Some(CuIngot {amount:10})),
-            output:(AlCasing {amount:15},)
+            input:(AlIngot (20),CuIngot (10)),
+            output:(AlCasing (15),)
         },
         tier:HardDrive(MainUnlock(Tier7(BauxiteRefinement)))
     },
@@ -981,8 +982,8 @@ pub static RECIPES: [Process;145] = [
         name:"Bolted Frame",
         time:24,
         building:Assembler {
-            input:(ReinforcedIronPlate {amount:3},Some(Screws {amount:56})),
-            output:(ModularFrame {amount:2},)
+            input:(ReinforcedIronPlate (3),Screws (56)),
+            output:(ModularFrame (2),)
         },
         tier:HardDrive(MainUnlock(Tier2(PartAssembly)))
     },
@@ -990,8 +991,8 @@ pub static RECIPES: [Process;145] = [
         name:"Bolted Iron Plate",
         time:12,
         building:Assembler {
-            input:(FePlate {amount:18},Some(Screws {amount:50})),
-            output:(ReinforcedIronPlate {amount:3},)
+            input:(FePlate (18),Screws (50)),
+            output:(ReinforcedIronPlate (3),)
         },
         tier:HardDrive(MainUnlock(Tier0(Onboarding)))
     },
@@ -999,8 +1000,8 @@ pub static RECIPES: [Process;145] = [
         name:"Caterium Circuit Board",
         time:48,
         building:Assembler {
-            input:(Plastic {amount:10},Some(Quickwire {amount:30})),
-            output:(CircuitBoard {amount:7},)
+            input:(Plastic (10),Quickwire (30)),
+            output:(CircuitBoard (7),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1008,8 +1009,8 @@ pub static RECIPES: [Process;145] = [
         name:"Caterium Circuit Board",
         time:48,
         building:Assembler {
-            input:(Plastic {amount:10},Some(Quickwire {amount:30})),
-            output:(CircuitBoard {amount:7},)
+            input:(Plastic (10),Quickwire (30)),
+            output:(CircuitBoard (7),)
         },
         tier:HardDrive(MAMUnlock(Caterium(CateriumIngotResearch)))
     },
@@ -1017,8 +1018,8 @@ pub static RECIPES: [Process;145] = [
         name:"Cheap Silica",
         time:16,
         building:Assembler {
-            input:(RawQuartz {amount:3},Some(Limestone {amount:5})),
-            output:(Silica {amount:7},)
+            input:(RawQuartz (3),Limestone (5)),
+            output:(Silica (7),)
         },
         tier:HardDrive(MAMUnlock(Quartz(SilicaResearch)))
     },
@@ -1026,8 +1027,8 @@ pub static RECIPES: [Process;145] = [
         name:"Coated Iron Canister",
         time:4,
         building:Assembler {
-            input:(FePlate {amount:2},Some(CuSheet {amount:1})),
-            output:(EmptyCanister {amount:4},)
+            input:(FePlate (2),CuSheet (1)),
+            output:(EmptyCanister (4),)
         },
         tier:HardDrive(MainUnlock(Tier5(AlternativeFuelTransport)))
     },
@@ -1035,8 +1036,8 @@ pub static RECIPES: [Process;145] = [
         name:"Coated Iron Plate",
         time:12,
         building:Assembler {
-            input:(FeIngot {amount:10},Some(Plastic {amount:2})),
-            output:(FePlate {amount:15},)
+            input:(FeIngot (10),Plastic (2)),
+            output:(FePlate (15),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1044,8 +1045,8 @@ pub static RECIPES: [Process;145] = [
         name:"Compacted Coal",
         time:12,
         building:Assembler {
-            input:(Coal {amount:5},Some(Sulfur {amount:5})),
-            output:(CompactedCoal {amount:5},)
+            input:(Coal (5),Sulfur (5)),
+            output:(CompactedCoal (5),)
         },
         tier:HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
     },
@@ -1053,8 +1054,8 @@ pub static RECIPES: [Process;145] = [
         name:"Copper Rotor",
         time:16,
         building:Assembler {
-            input:(CuSheet {amount:6},Some(Screws {amount:52})),
-            output:(Rotor{amount:3},)
+            input:(CuSheet (6),Screws (52)),
+            output:(Rotor(3),)
         },
         tier:HardDrive(MainUnlock(Tier2(PartAssembly)))
     },
@@ -1062,8 +1063,8 @@ pub static RECIPES: [Process;145] = [
         name:"Crystal Computer",
         time:64,
         building:Assembler {
-            input:(CircuitBoard {amount:8},Some(CrystalOscillator {amount:3})),
-            output:(Computer {amount:3},)
+            input:(CircuitBoard (8),CrystalOscillator (3)),
+            output:(Computer (3),)
         },
         tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
     },
@@ -1071,8 +1072,8 @@ pub static RECIPES: [Process;145] = [
         name:"Crystal Computer",
         time:64,
         building:Assembler {
-            input:(CircuitBoard {amount:8},Some(CrystalOscillator {amount:3})),
-            output:(Computer {amount:3},)
+            input:(CircuitBoard (8),CrystalOscillator (3)),
+            output:(Computer (3),)
         },
         tier:HardDrive(MAMUnlock(Quartz(QuartzResearch)))
     },
@@ -1080,8 +1081,8 @@ pub static RECIPES: [Process;145] = [
         name:"Electric Motor",
         time:16,
         building:Assembler {
-            input:(EMControlRod {amount:1},Some(Rotor {amount:2})),
-            output:(Motor {amount:2},)
+            input:(EMControlRod (1),Rotor (2)),
+            output:(Motor (2),)
         },
         tier:HardDrive(MainUnlock(Tier7(AeronauticalEngineering)))
     },
@@ -1089,8 +1090,8 @@ pub static RECIPES: [Process;145] = [
         name:"Electrode Circuit Board",
         time:12,
         building:Assembler {
-            input:(Rubber {amount:6},Some(PetroleumCoke {amount:9})),
-            output:(CircuitBoard {amount:1},)
+            input:(Rubber (6),PetroleumCoke (9)),
+            output:(CircuitBoard (1),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1098,8 +1099,8 @@ pub static RECIPES: [Process;145] = [
         name:"Electromagnetic Connection Rod",
         time:15,
         building:Assembler {
-            input:(Stator {amount:2},Some(HighSpeedConnector {amount:1})),
-            output:(EMControlRod {amount:2},)
+            input:(Stator (2),HighSpeedConnector (1)),
+            output:(EMControlRod (2),)
         },
         tier:HardDrive(MainUnlock(Tier8(NuclearPower)))
     },
@@ -1107,8 +1108,8 @@ pub static RECIPES: [Process;145] = [
         name:"Electromagnetic Connection Rod",
         time:15,
         building:Assembler {
-            input:(Stator {amount:2},Some(HighSpeedConnector {amount:1})),
-            output:(EMControlRod {amount:2},)
+            input:(Stator (2),HighSpeedConnector (1)),
+            output:(EMControlRod (2),)
         },
         tier:HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
     },
@@ -1116,8 +1117,8 @@ pub static RECIPES: [Process;145] = [
         name:"Encased Industrial Pipe",
         time:15,
         building:Assembler {
-            input:(SteelPipe {amount:7},Some(Concrete {amount:5})),
-            output:(IndustrialBeam {amount:1},)
+            input:(SteelPipe (7),Concrete (5)),
+            output:(IndustrialBeam (1),)
         },
         tier:HardDrive(MainUnlock(Tier4(AdvancedSteel)))
     },
@@ -1125,8 +1126,8 @@ pub static RECIPES: [Process;145] = [
         name:"Fine Black Powder",
         time:16,
         building:Assembler {
-            input:(Sulfur {amount:2},Some(CompactedCoal {amount:1})),
-            output:(BlackPowder {amount:4},)
+            input:(Sulfur (2),CompactedCoal (1)),
+            output:(BlackPowder (4),)
         },
         tier:HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
     },
@@ -1134,8 +1135,8 @@ pub static RECIPES: [Process;145] = [
         name:"Fine Concrete",
         time:24,
         building:Assembler {
-            input:(Silica {amount:3},Some(Limestone {amount:12})),
-            output:(Concrete {amount:10},)
+            input:(Silica (3),Limestone (12)),
+            output:(Concrete (10),)
         },
         tier:HardDrive(MAMUnlock(Quartz(QuartzResearch)))
     },
@@ -1143,8 +1144,8 @@ pub static RECIPES: [Process;145] = [
         name:"Fused Quickwire",
         time:8,
         building:Assembler {
-            input:(CateriumIngot {amount:1},Some(CuIngot {amount:5})),
-            output:(Quickwire {amount:12},)
+            input:(CateriumIngot (1),CuIngot (5)),
+            output:(Quickwire (12),)
         },
         tier:HardDrive(MAMUnlock(Caterium(CateriumIngotResearch)))
     },
@@ -1152,8 +1153,8 @@ pub static RECIPES: [Process;145] = [
         name:"Fused Wire",
         time:20,
         building:Assembler {
-            input:(CuIngot {amount:4},Some(CateriumIngot {amount:1})),
-            output:(CuWire {amount:30},)
+            input:(CuIngot (4),CateriumIngot (1)),
+            output:(CuWire (30),)
         },
         tier:HardDrive(MAMUnlock(Caterium(CateriumResearch)))
     },
@@ -1161,8 +1162,8 @@ pub static RECIPES: [Process;145] = [
         name:"Heat Exchanger",
         time:6,
         building:Assembler {
-            input:(AlCasing {amount:3},Some(Rubber {amount:3})),
-            output:(Heatsink {amount:1},)
+            input:(AlCasing (3),Rubber (3)),
+            output:(Heatsink (1),)
         },
         tier:HardDrive(MainUnlock(Tier8(AdvancedAluminumProduction)))
     },
@@ -1170,8 +1171,8 @@ pub static RECIPES: [Process;145] = [
         name:"Insulated Cable",
         time:12,
         building:Assembler {
-            input:(CuWire {amount:9},Some(Rubber {amount:6})),
-            output:(Cable {amount:20},)
+            input:(CuWire (9),Rubber (6)),
+            output:(Cable (20),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1179,8 +1180,8 @@ pub static RECIPES: [Process;145] = [
         name:"OC Supercomputer",
         time:20,
         building:Assembler {
-            input:(RadioControlUnit {amount:3},Some(CoolingSystem {amount:3})),
-            output:(SuperComputer {amount:1},)
+            input:(RadioControlUnit (3),CoolingSystem (3)),
+            output:(SuperComputer (1),)
         },
         tier:HardDrive(MainUnlock(Tier7(AeronauticalEngineering)))
     },
@@ -1188,8 +1189,8 @@ pub static RECIPES: [Process;145] = [
         name:"OC Supercomputer",
         time:20,
         building:Assembler {
-            input:(RadioControlUnit {amount:3},Some(CoolingSystem {amount:3})),
-            output:(SuperComputer {amount:1},)
+            input:(RadioControlUnit (3),CoolingSystem (3)),
+            output:(SuperComputer (1),)
         },
         tier:HardDrive(MainUnlock(Tier8(AdvancedAluminumProduction)))
     },
@@ -1197,8 +1198,8 @@ pub static RECIPES: [Process;145] = [
         name:"Plutonium Fuel Unit",
         time:120,
         building:Assembler {
-            input:(EncasedPuCell {amount:20},Some(PressureConversionCube {amount:1})),
-            output:(PuRod {amount:1},)
+            input:(EncasedPuCell (20),PressureConversionCube (1)),
+            output:(PuRod (1),)
         },
         tier:HardDrive(MainUnlock(Tier8(ParticleEnrichment)))
     },
@@ -1206,8 +1207,8 @@ pub static RECIPES: [Process;145] = [
         name:"Quickwire Cable",
         time:24,
         building:Assembler {
-            input:(Quickwire {amount:3},Some(Rubber{amount:2})),
-            output:(Cable {amount:11},)
+            input:(Quickwire (3),Rubber(2)),
+            output:(Cable (11),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1215,8 +1216,8 @@ pub static RECIPES: [Process;145] = [
         name:"Quickwire Cable",
         time:24,
         building:Assembler {
-            input:(Quickwire {amount:3},Some(Rubber{amount:2})),
-            output:(Cable {amount:11},)
+            input:(Quickwire (3),Rubber(2)),
+            output:(Cable (11),)
         },
         tier:HardDrive(MAMUnlock(Caterium(CateriumIngotResearch)))
     },
@@ -1224,8 +1225,8 @@ pub static RECIPES: [Process;145] = [
         name:"Quickwire Stator",
         time:15,
         building:Assembler {
-            input:(SteelPipe {amount:4},Some(Quickwire {amount:15})),
-            output:(Stator{amount:2},)
+            input:(SteelPipe (4),Quickwire (15)),
+            output:(Stator(2),)
         },
         tier:HardDrive(MainUnlock(Tier4(AdvancedSteel)))
     },
@@ -1233,8 +1234,8 @@ pub static RECIPES: [Process;145] = [
         name:"Quickwire Stator",
         time:15,
         building:Assembler {
-            input:(SteelPipe {amount:4},Some(Quickwire {amount:15})),
-            output:(Stator{amount:2},)
+            input:(SteelPipe (4),Quickwire (15)),
+            output:(Stator(2),)
         },
         tier:HardDrive(MAMUnlock(Caterium(CateriumIngotResearch)))
     },
@@ -1242,8 +1243,8 @@ pub static RECIPES: [Process;145] = [
         name:"Rubber Concrete",
         time:12,
         building:Assembler {
-            input:(Limestone {amount:10},Some(Rubber {amount:2})),
-            output:(Concrete {amount:9},)
+            input:(Limestone (10),Rubber (2)),
+            output:(Concrete (9),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1251,8 +1252,8 @@ pub static RECIPES: [Process;145] = [
         name:"Silicon Circuit Board",
         time:24,
         building:Assembler {
-            input:(CuSheet {amount:11},Some(Silica {amount:11})),
-            output:(CircuitBoard {amount:5},)
+            input:(CuSheet (11),Silica (11)),
+            output:(CircuitBoard (5),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1260,8 +1261,8 @@ pub static RECIPES: [Process;145] = [
         name:"Silicon Circuit Board",
         time:24,
         building:Assembler {
-            input:(CuSheet {amount:11},Some(Silica {amount:11})),
-            output:(CircuitBoard {amount:5},)
+            input:(CuSheet (11),Silica (11)),
+            output:(CircuitBoard (5),)
         },
         tier:HardDrive(MAMUnlock(Quartz(QuartzResearch)))
     },
@@ -1269,8 +1270,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Coated Plate",
         time:24,
         building:Assembler {
-            input:(SteelIngot {amount:2},Some(Plastic{amount:2})),
-            output:(FePlate {amount:18},)
+            input:(SteelIngot (2),Plastic(2)),
+            output:(FePlate (18),)
         },
         tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
     },
@@ -1278,8 +1279,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steel Rotor",
         time:12,
         building:Assembler {
-            input:(SteelPipe {amount:2},Some(CuWire {amount:6})),
-            output:(Rotor{amount:1},)
+            input:(SteelPipe (2),CuWire (6)),
+            output:(Rotor(1),)
         },
         tier: HardDrive(MainUnlock(Tier3(BasicSteel)))
     },
@@ -1287,8 +1288,8 @@ pub static RECIPES: [Process;145] = [
         name:"Steeled Frame",
         time:60,
         building:Assembler {
-            input:(ReinforcedIronPlate {amount:2},Some(SteelPipe {amount:10})),
-            output:(ModularFrame {amount:3},)
+            input:(ReinforcedIronPlate (2),SteelPipe (10)),
+            output:(ModularFrame (3),)
         },
         tier:HardDrive(MainUnlock(Tier3(BasicSteel)))
     },
@@ -1296,8 +1297,8 @@ pub static RECIPES: [Process;145] = [
         name:"Stitched Iron Plate",
         time:32,
         building:Assembler {
-            input:(FePlate {amount:10},Some(CuWire {amount:20})),
-            output:(ReinforcedIronPlate {amount:3},)
+            input:(FePlate (10),CuWire (20)),
+            output:(ReinforcedIronPlate (3),)
         },
         tier:HardDrive(MainUnlock(Tier0(Onboarding)))
     },
@@ -1305,8 +1306,8 @@ pub static RECIPES: [Process;145] = [
         name:"Adaptive Control Unit",
         time:120,
         building:Manufacturer {
-            input:(AutomatedWiring {amount:15}, Some(CircuitBoard {amount:10}), Some(HeavyModularFrame {amount:2}), Some(Computer {amount:2})),
-            output:(AdaptiveControlUnit {amount:2},)
+            input:(AutomatedWiring (15),CircuitBoard (10), HeavyModularFrame (2), Some(Computer (2))),
+            output:(AdaptiveControlUnit(2),)
         },
         tier:MainProgression(Tier5(IndustrialManufacturing))
     },
