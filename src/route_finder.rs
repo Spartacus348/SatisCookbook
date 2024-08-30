@@ -1,7 +1,7 @@
 // contains the tools to solve production chains to given parts
 
 use std::collections::HashMap;
-use crate::{objects::{Part,Building},
+use crate::{objects::{Part,Building,Amount},
             recipebook};
 
 type Multiverse<T> = Vec<T>;
@@ -14,26 +14,24 @@ pub(crate) struct ProductionNode {
     pub(crate)sources: BookOfPaths
 }
 
-pub(crate) fn build_tree(starting_part: Part) -> Multiverse<ProductionNode> {
-    match starting_part {
-        Part::Pump(..) | Part::Mine(..) => Vec::<ProductionNode>::new(),
-        part =>{
-            recipebook::RECIPES.iter()
-                .filter(|recipe| {
-                    recipe.building
-                        .get_output().iter()
-                        .any(|&ingredient| ingredient == part)})
-                .map(|recipe| {
-                    ProductionNode{
-                        amount: 0.0,
-                        building: recipe.building,
-                        sources: recipe.building
-                            .get_input().iter()
-                            .map(|&part| (part, build_tree(part)))
-                            .collect::<BookOfPaths>(),
-                    }
-                })
-                .collect::<Vec<ProductionNode>>()
-        }
-    }
+pub(crate) fn build_tree(edge: Amount<T>) -> Multiverse<ProductionNode> {
+    println!("Called for {:?}",edge);
+    recipebook::RECIPES.iter()
+        .filter(|recipe| {
+            recipe.building
+                .get_output().iter()
+                .any(|&ingredient| {
+                    ingredient == edge.kind
+                })})
+        .map(|recipe| {
+            ProductionNode{
+                amount: 0,
+                building: recipe.building,
+                sources: recipe.building
+                    .get_input().iter()
+                    .map(|&part| (part, build_tree(part.0))
+                    .collect::<BookOfPaths>(),
+            }
+        })
+        .collect::<Vec<ProductionNode>>()
 }
