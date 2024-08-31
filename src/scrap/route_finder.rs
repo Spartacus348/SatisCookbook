@@ -7,5 +7,14 @@ use crate::{objects, recipebook};
 struct ProductionNode {
     amount:f32,
     building:objects::Building,
-    sources: Option<Vec<ProductionNode>>
+    sources: Option<HashMap<
+        objects::Parts,
+        Vec<ProductionNode>>>
+}
+
+impl ProductionNode {
+
+    fn new(amount: f32, building: objects::Building) -> Self{
+
+    }
 }
