@@ -1,11 +1,13 @@
 // contains the tools to solve production chains to given parts
 
 use std::collections::HashMap;
-use crate::{objects::{Part,Building},
+use crate::{objects::{Part,
+                      Building,
+                      Amount},
             recipebook};
 
-type Multiverse<T> = Vec<T>;
-type BookOfPaths = HashMap<Part, Multiverse<ProductionNode>>;
+type Multiverse = Vec<ProductionNode>;
+type BookOfPaths = HashMap<Part, Multiverse>;
 
 #[derive(Debug)]
 pub(crate) struct ProductionNode {
@@ -14,7 +16,44 @@ pub(crate) struct ProductionNode {
     pub(crate)sources: BookOfPaths
 }
 
-pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multiverse<ProductionNode> {
+enum ReportMode{
+    Consolidate,
+    Disparate
+}
+
+enum OptimizationMode{
+    MinimizePower,
+    MinimizeResources,
+    MinimizeBuildings,
+    ExploitNodes(NodeSet),
+    WhatWeHave(Vec<Amount<Part>>)
+}
+
+#[derive(Default)]
+struct NodesAvailable{
+    poor:usize,
+    mid: usize,
+    perf:usize
+}
+
+#[derive(Default)]
+struct NodeSet{
+    iron_nodes: NodesAvailable,
+    copper_nodes: NodesAvailable,
+    limestone_nodes: NodesAvailable,
+    coal_nodes: NodesAvailable,
+    sulfur_nodes: NodesAvailable,
+    quartz_nodes: NodesAvailable,
+    caterium_nodes: NodesAvailable,
+    oil_nodes: NodesAvailable,
+    water_nodes: NodesAvailable,
+    nitrogen_nodes: NodesAvailable,
+    bauxite_nodes: NodesAvailable,
+    uranium_nodes: NodesAvailable
+}
+
+
+pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multiverse {
     println!("Called for {} of {:?}",amount, ingredient);
     recipebook::RECIPES.iter()
         .filter(|recipe| {
@@ -37,3 +76,8 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
         })
         .collect::<Vec<ProductionNode>>()
 }
+
+pub(crate) fn walk_one_path(options: Multiverse){
+    todo!()
+}
+
