@@ -139,7 +139,7 @@ pub(crate) enum SulfurTier{
     TurbofuelResearch,ExpandedToolbelt,
     NobeliskDetonator,SmokelessPowderResearch,
     NuclearDeterrent,ClusterNobeliskResearch,
-    ExplosiveRebar,Rifle,TurboRife,InflatedPocket
+    ExplosiveRebarResearch,Rifle,TurboRife,InflatedPocket
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

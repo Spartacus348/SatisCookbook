@@ -1,7 +1,7 @@
 // contains the tools to solve production chains to given parts
 
 use std::collections::HashMap;
-use crate::{objects::{Part,Building,Amount},
+use crate::{objects::{Part,Building},
             recipebook};
 
 type Multiverse<T> = Vec<T>;
@@ -14,23 +14,25 @@ pub(crate) struct ProductionNode {
     pub(crate)sources: BookOfPaths
 }
 
-pub(crate) fn build_tree(edge: Amount<T>) -> Multiverse<ProductionNode> {
-    println!("Called for {:?}",edge);
+pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multiverse<ProductionNode> {
+    println!("Called for {} of {:?}",amount, ingredient);
     recipebook::RECIPES.iter()
         .filter(|recipe| {
             recipe.building
                 .get_output().iter()
-                .any(|&ingredient| {
-                    ingredient == edge.kind
+                .any(|&output| {
+                    output.0 == ingredient
                 })})
         .map(|recipe| {
             ProductionNode{
-                amount: 0,
+                amount: ((amount as f32) / (recipe.building
+                    .get_output().iter()
+                    .find(|(part, ..)| *part == ingredient).unwrap().1) as f32),
                 building: recipe.building,
                 sources: recipe.building
                     .get_input().iter()
-                    .map(|&part| (part, build_tree(part.0))
-                    .collect::<BookOfPaths>(),
+                    .map(|&(part, volume)| (part, generate_possibilities(part, volume)))
+                    .collect::<BookOfPaths>()
             }
         })
         .collect::<Vec<ProductionNode>>()
