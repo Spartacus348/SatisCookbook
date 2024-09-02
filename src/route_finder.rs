@@ -52,8 +52,8 @@ struct NodeSet{
     uranium_nodes: NodesAvailable
 }
 
-
 pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multiverse {
+    // generates a tree of all possible production lines
     println!("Called for {} of {:?}",amount, ingredient);
     recipebook::RECIPES.iter()
         .filter(|recipe| {
@@ -77,7 +77,39 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
         .collect::<Vec<ProductionNode>>()
 }
 
-pub(crate) fn walk_one_path(options: Multiverse){
+struct OnePath{
+    pub(crate) amount: f32,
+    pub(crate) building: Building,
+    pub(crate) inputs: HashMap<Part, ProductionNode>
+}
+
+pub(crate) fn walk_one_path(options: Multiverse, algo: OptimizationMode) -> OnePath{
+    // finds the optimal path from a tree of paths, depending on which optimization is entered
+    match algo{
+        OptimizationMode::MinimizeResources => least_resources(options),
+        OptimizationMode::MinimizePower => least_power(options),
+        OptimizationMode::MinimizeBuildings => fewest_buildings(options),
+        OptimizationMode::ExploitNodes(nodes)    => best_from_nodes(options, nodes),
+        OptimizationMode::WhatWeHave(starting_parts) => from_parts(options, starting_parts)
+    }
+}
+
+fn from_parts(p0: Multiverse, p1: Vec<Amount<Part>>)  -> OnePath{
     todo!()
 }
 
+fn best_from_nodes(p0: Multiverse, p1: NodeSet)  -> OnePath{
+    todo!()
+}
+
+fn fewest_buildings(p0: Multiverse)  -> OnePath{
+    todo!()
+}
+
+fn least_power(p0: Multiverse)  -> OnePath{
+    todo!()
+}
+
+fn least_resources(p0: Multiverse)  -> OnePath{
+    todo!()
+}
