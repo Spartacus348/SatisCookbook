@@ -35,7 +35,7 @@ pub(crate) enum Tier0{
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(crate) enum Tier1{
-
+    FieldResearch
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

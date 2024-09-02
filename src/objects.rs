@@ -129,62 +129,62 @@ pub(crate) enum Part{
 
 #[derive(Eq, Clone, Copy, Debug, PartialEq, Hash)]
 pub(crate) enum Conveyable{
-    FeOre ,     CuOre,  Limestone,
-    Coal,       Sulfur, RawQuartz,
-    CateriumOre,UOre,   Bauxite,
+    FeOre ,         CuOre,                  Limestone,
+    Coal,           Sulfur,                 RawQuartz,
+    CateriumOre,    UOre,                   Bauxite,
     SAM,//raw ores
-    PkgdWater,   PkgdOil,  PkgdN,
-    PkgdHOil,    PkgdFuel, PkgdTurbofuel,
-    PkgdLBiofuel,PkgdNAcid,PkgdAlSol,
+    PkgdWater,      PkgdOil,                PkgdN,
+    PkgdHOil,       PkgdFuel,               PkgdTurbofuel,
+    PkgdLBiofuel,   PkgdNAcid,              PkgdAlSol,
     PkgdSAcid,//packaged pipes
-    Leaves,      Wood,     Mycelia,
-    HatcherProtein,HogProtein,SpitterProtein,
+    Leaves,         Wood,                   Mycelia,
+    HatcherProtein, HogProtein,             SpitterProtein,
     StingerProtein,//raw biomass
-    AlienProtein,AlienDNA, Biomass,
-    SolidBiofuel,Fabric,   CompactedCoal,//processed biomatter
-    FlowerPetals,ColorCartridge,//color stuff
-    FicsmasGift, ActualSnow,CandyCane,
-    FicsmasBow,  FicsmasTree,Snowball,//constructor fiscmas
-    FancyFireworks,SparklyFireworks,SweetFireworks,//ficsmas fireworks
-    FeOrnament ,CuOrnament ,RedOrnament,
-    BlueOrnament,FicsmasBranch,OrnamentBundle,
+    AlienProtein,   AlienDNA,               Biomass,
+    SolidBiofuel,   Fabric,                 CompactedCoal,//processed biomatter
+    FlowerPetals,   ColorCartridge,//color stuff
+    FicsmasGift,    ActualSnow,             CandyCane,
+    FicsmasBow,     FicsmasTree,            Snowball,//constructor fiscmas
+    FancyFireworks, SparklyFireworks,       SweetFireworks,//ficsmas fireworks
+    FeOrnament ,    CuOrnament,             RedOrnament,
+    BlueOrnament,   FicsmasBranch,          OrnamentBundle,
     FicsmasDecoration,FicsmasStar,//assembler fixmas
-    FeIngot ,   FeRod ,    FePlate ,
+    FeIngot ,       FeRod ,                 FePlate ,
     Screws,//constructor iron
-    CuIngot , CuWire ,  Cable,
-    CuSheet , CuPowder ,//constructor copper
+    CuIngot ,       CuWire ,                Cable,
+    CuSheet ,       CuPowder ,//constructor copper
     Concrete,//constructor limestone
-    CrushedQuartz,Silica,    CrystalOscillator,//constructor quartz
-    CateriumIngot,Quickwire,//constructor caterium
-    Plastic,    Rubber,      PolymerResin,
-    EmptyCanister,PetroleumCoke,//constructor plastic
-    PowerSlugBlue,PowerSlugYellow,PowerSlugPurple,
+    CrushedQuartz,  Silica,                 CrystalOscillator,//constructor quartz
+    CateriumIngot,  Quickwire,//constructor caterium
+    Plastic,        Rubber,                 PolymerResin,
+    EmptyCanister,  PetroleumCoke,//constructor plastic
+    PowerSlugBlue,  PowerSlugYellow,        PowerSlugPurple,
     PowerShard,//power slugs
-    SteelIngot, SteelBeam,   SteelPipe,
+    SteelIngot,     SteelBeam,              SteelPipe,
     IndustrialBeam,//constructor steel
-    ReinforcedIronPlate,ModularFrame,HeavyModularFrame,
+    ReinforcedIronPlate,ModularFrame,       HeavyModularFrame,
     FusedModularFrame,//assembler iron
-    Rotor,      Stator,      Motor,//assembler motors
-    CircuitBoard,HighSpeedConnector,Computer,
-    AILimiter,  RadioControlUnit,SuperComputer,//assembler computer
-    AlIngot,    AlcladSheet,AlCasing,    Heatsink,
-    Battery,    CoolingSystem,AlScrap,
+    Rotor,          Stator,                 Motor,//assembler motors
+    CircuitBoard,   HighSpeedConnector,     Computer,
+    AILimiter,      RadioControlUnit,       SuperComputer,//assembler computer
+    AlIngot,        AlcladSheet,AlCasing,   Heatsink,
+    Battery,        CoolingSystem,          AlScrap,
     EmptyFluidTank ,//assembler aluminum
-    BaseRebar,  ShatterRebar, PulseRebar,
+    BaseRebar,      ShatterRebar,           PulseRebar,
     ExplosiveRebar,//rebar ammo
-    BlackPowder,SmokelessPowder,RifleAmmo,
+    BlackPowder,    SmokelessPowder,        RifleAmmo,
     HomingRifleAmmo,TurboRifleAmmo,//assembler rifle
-    Nobelisk,   GasNobelisk,ClusterNobelisk,
-    PulseNobelisk,NuclearNobelisk,//assembler nobelisk
-    SmartPlating,VersatileFramework,AutomatedWiring,
-    ModularEngine,AdaptiveControlUnit,AssemblyDirectorSystem,//assembler elevator
-    EMControlRod,PressureConversionCube,//assembler pre-nuclear
-    EncasedUCell,URod,UWaste,
+    Nobelisk,       GasNobelisk,            ClusterNobelisk,
+    PulseNobelisk,  NuclearNobelisk,//assembler nobelisk
+    SmartPlating,   VersatileFramework,     AutomatedWiring,
+    ModularEngine,  AdaptiveControlUnit,    AssemblyDirectorSystem,//assembler elevator
+    EMControlRod,   PressureConversionCube,//assembler pre-nuclear
+    EncasedUCell,   URod,                   UWaste,
     NonFissileU,//uranium
-    PuPellet,    PuRod,                 EncasedPuCell,
-    NuclearPasta,PWaste,//assembler nuclear
-    TurboMotor,  MagneticFieldGenerator,ThermalPropulsionRocket,
-    Beacon,      PortableMiner,         GasFilter,
+    PuPellet,       PuRod,                  EncasedPuCell,
+    NuclearPasta,   PWaste,//assembler nuclear
+    TurboMotor,     MagneticFieldGenerator, ThermalPropulsionRocket,
+    Beacon,         PortableMiner,          GasFilter,
     IodineFilter,//holdable
 }
 
