@@ -95,21 +95,34 @@ pub(crate) fn walk_one_path(options: Multiverse, algo: OptimizationMode) -> OneP
 }
 
 fn from_parts(p0: Multiverse, p1: Vec<Amount<Part>>)  -> OnePath{
+    // find the recipe that produces the most of the target using the parts given
+    // stretch goal: allow for non-given parts, but minimize the amount used
     todo!()
 }
 
 fn best_from_nodes(p0: Multiverse, p1: NodeSet)  -> OnePath{
+    // given a set of nodes, return the overall path that produces the most parts
+    // recursion doesn't work here since there isn't a way to know which nodes get
+    // assigned were
+    // as a starting move, find any resources we have 0 of and remove the possibilities that
+    // utilize them
     todo!()
 }
 
 fn fewest_buildings(p0: Multiverse)  -> OnePath{
+    // for each part choose the possibility that contains the fewest number of buildings
+    // recursively descend the tree, returning the most compact choice for each input
     todo!()
 }
 
 fn least_power(p0: Multiverse)  -> OnePath{
+    // for each part choose the possibility that consumes the least total power
+    // recursively descend the tree, returning the cheapest choice for each input
     todo!()
 }
 
 fn least_resources(p0: Multiverse)  -> OnePath{
+    // for each part, choose the possibility that consumes the least raw resources
+    //recursively descend the tree, returning the cheapest choice for each input
     todo!()
 }
