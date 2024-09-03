@@ -1,10 +1,9 @@
 // contains the tools to solve production chains to given parts
 
 use std::collections::HashMap;
-use crate::{objects::{Part,
-                      Building,
-                      Amount},
-            recipebook};
+use crate::{objects::{Part, Building, Amount},
+            recipebook
+};
 
 type Multiverse = Vec<ProductionNode>;
 type BookOfPaths = HashMap<Part, Multiverse>;
@@ -80,7 +79,7 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
 struct OnePath{
     pub(crate) amount: f32,
     pub(crate) building: Building,
-    pub(crate) inputs: HashMap<Part, ProductionNode>
+    pub(crate) inputs: HashMap<Part, OnePath>
 }
 
 pub(crate) fn walk_one_path(options: Multiverse, algo: OptimizationMode) -> OnePath{
@@ -124,5 +123,17 @@ fn least_power(p0: Multiverse)  -> OnePath{
 fn least_resources(p0: Multiverse)  -> OnePath{
     // for each part, choose the possibility that consumes the least raw resources
     //recursively descend the tree, returning the cheapest choice for each input
+    p0.iter().map(|path: ProductionNode| {match path {
+        ProductionNode{amount: a, building:b, ..} if b.get_input().iter()
+                                                        .any(|part, _| match part{
+                                                                Part::Mine(x) | Part::Pump(x)   => true,
+                                                                _                               => false
+                                                        })      => { a*(b.get_input().iter()
+                                                                    .map(|_, amount: usize| amount)
+                                                                    .sum())},
+        ProductionNode{sources: s, amount:a, ..}      => {
+            a*(s.iter().map(|_: Part, multiverse| part))
+        }
+    }}).sum();
     todo!()
 }
