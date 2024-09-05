@@ -53,7 +53,6 @@ struct NodeSet{
 
 pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multiverse {
     // generates a tree of all possible production lines
-    println!("Called for {} of {:?}",amount, ingredient);
     recipebook::RECIPES.iter()
         .filter(|recipe| {
             recipe.building
@@ -123,7 +122,7 @@ fn least_power(p0: Multiverse)  -> OnePath{
 fn least_resources(p0: Multiverse)  -> OnePath{
     // for each part, choose the possibility that consumes the least raw resources
     //recursively descend the tree, returning the cheapest choice for each input
-    p0.iter().map(|path: ProductionNode| {match path {
+    /*p0.iter().map(|path: ProductionNode| {match path {
         ProductionNode{amount: a, building:b, ..} if b.get_input().iter()
                                                         .any(|part, _| match part{
                                                                 Part::Mine(x) | Part::Pump(x)   => true,
@@ -134,6 +133,6 @@ fn least_resources(p0: Multiverse)  -> OnePath{
         ProductionNode{sources: s, amount:a, ..}      => {
             a*(s.iter().map(|_: Part, multiverse| part))
         }
-    }}).sum();
+    }}).sum();*/
     todo!()
 }
