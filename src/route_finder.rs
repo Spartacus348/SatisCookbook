@@ -128,11 +128,11 @@ fn least_resources(p0: Multiverse)  -> OnePath{
                                                         .any(|part, _| match part{
                                                                 Part::Mine(x) | Part::Pump(x)   => true,
                                                                 _                               => false
-                                                        })      => { a*(b.get_input().iter()
+                                                            }) => { a*(b.get_input().iter()
                                                                     .map(|_, amount: usize| amount)
                                                                     .sum())},
         ProductionNode{sources: s, amount:a, ..}      => {
-            a*(s.iter().map(|_: Part, multiverse| part))
+            a*(s.iter().map(|_: Part, multiverse| multiverse))
         }
     }}).sum();
     todo!()
