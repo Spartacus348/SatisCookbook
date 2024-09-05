@@ -1,3 +1,4 @@
+use std::fmt::{Debug, Display, Formatter, Pointer};
 use crate::tiers::*;
 
 #[derive(Clone,Copy,PartialEq,Debug)]
@@ -114,6 +115,42 @@ impl Building {
             Building::OilExtractor  {output:(a,             ), .. } => Vec::from([(Part::Pipe(a.kind),a.count)])
         }
     }
+
+    fn get_name(self: &Self) -> String {
+        String::from(match self {
+            Building::Smelter { .. } => {"smelter"},
+            Building::Foundry { .. } => {"foundry"},
+            Building::Constructor { .. } => {"constructor"},
+            Building::Assembler { .. } => {"assembler"},
+            Building::Manufacturer { .. } => {"manufacturer"},
+            Building::Refinery { .. } => {"refinery"},
+            Building::Blender { .. } => {"blender"},
+            Building::Packager { .. } => {"packager"},
+            Building::BioPlant { .. } => {"bio_plant"},
+            Building::CoalPlant { .. } => {"coal_plan"},
+            Building::OilPlant { .. } => {"oil_plan"},
+            Building::NuclearPlant { .. } => {"nul_plan"},
+            Building::Miner1 { .. } => {"miner"},
+            Building::Miner2 { .. } => {"miner"},
+            Building::Miner3 { .. } => {"miner"},
+            Building::WaterExtractor { .. } => {"water_extractor"},
+            Building::OilExtractor { .. } => {"oil_extractor"},
+        })
+    }
+}
+
+impl Display for Building{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let pt1 = self.get_input().iter()
+            .map(|a| a.0.to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+        let pt2 = self.get_output().iter()
+            .map(|a| a.0.to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+        write!(f, "{}({}->{})", self.get_name(), pt1, pt2)
+    }
 }
 
 
@@ -127,6 +164,17 @@ pub(crate) enum Part{
     Pump(Pumpable)
 }
 
+impl Display for Part {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Part::Conveyor(x) => {x.fmt(f)},
+            Part::Pipe(x) => {x.fmt(f)},
+            Part::Mine(x) => {x.fmt(f)},
+            Part::Pump(x) => {x.fmt(f)},
+        }
+    }
+}
+
 #[derive(Eq, Clone, Copy, Debug, PartialEq, Hash)]
 pub(crate) enum Conveyable{
     FeOre ,         CuOre,                  Limestone,
@@ -137,9 +185,7 @@ pub(crate) enum Conveyable{
     PkgdHOil,       PkgdFuel,               PkgdTurbofuel,
     PkgdLBiofuel,   PkgdNAcid,              PkgdAlSol,
     PkgdSAcid,//packaged pipes
-    Leaves,         Wood,                   Mycelia,
-    HatcherProtein, HogProtein,             SpitterProtein,
-    StingerProtein,//raw biomass
+    WoodOrLeaves,   Mycelia,//raw biomass
     AlienProtein,   AlienDNA,               Biomass,
     SolidBiofuel,   Fabric,                 CompactedCoal,//processed biomatter
     FlowerPetals,   ColorCartridge,//color stuff

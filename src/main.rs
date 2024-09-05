@@ -1,3 +1,4 @@
+use std::any::Any;
 use crate::route_finder::ProductionNode;
 
 mod objects;
@@ -19,25 +20,24 @@ fn main() {
     let results = route_finder::generate_possibilities(target, 1);
 
     match setting {
-        Settings::DisplayAll => {delve(results, 0);},
+        Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);},
         Settings::DisplaySize => {report_size(&results,true);}
     }
 
 }
 
-fn delve(layer: Vec<ProductionNode>, depth: usize) {
-    let prefix = String::from("\t".repeat(depth));
+fn delve(layer: &Vec<ProductionNode>, depth: usize) {
+    let delimiter = "#";
+    let prefix = String::from(delimiter.repeat(depth));
     if layer.len() > 0 {
-        println!("{}Begin sources:", prefix);
         for timeline in layer {
             println!("{}Amount: {}", prefix, timeline.amount);
-            println!("{}Building: {:?}", prefix, timeline.building);
-            println!("{}Possible sources:", prefix);
-            for (part, options) in timeline.sources {
-                println!("{}\t{:?}", prefix, part);
-                delve(options, depth + 1);
+            println!("{}{}", prefix, timeline.building);
+            //println!("{}Possible sources:", prefix);
+            for (part, options) in &timeline.sources {
+                println!("{}{}", prefix, part);
+                delve(&options, depth + 1);
             }
-            println!();
         }
     }
 }
@@ -64,7 +64,7 @@ impl SizeReport {
 
 impl Default for SizeReport {
     fn default()->Self{
-        Self{breadth: 1, depth: 1}
+        Self{breadth: 1, depth: 0}
     }
 }
 
@@ -80,7 +80,9 @@ fn report_size(results: &Vec<ProductionNode>, express: bool) ->SizeReport {
                     }
                 )
                 .collect::<Vec<SizeReport>>();
-            SizeReport::new(results)
+            let mut s = SizeReport::new(results);
+            s.depth -= 1;
+            s
         })
         .collect::<Vec<SizeReport>>());
     if express {

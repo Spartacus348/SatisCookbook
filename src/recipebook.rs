@@ -7,7 +7,7 @@ use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*
                    Tier4::*, Tier5::*, Tier7::*, Tier8::*};
 
 
-pub static RECIPES: [Process;147] = [
+pub static RECIPES: [Process;142] = [
     Process {
         name: "Mine Iron",
         time: 1,
@@ -261,15 +261,6 @@ pub static RECIPES: [Process;147] = [
         tier: MAM(Organisms(BioOrganicProperties))
     },
     Process {
-        name: "Biomass (Leaves)",
-        time: 5,
-        building: Constructor {
-            input: (Amount::<Conveyable>::new(10, Leaves),),
-            output: (Amount::<Conveyable>::new(5, Biomass),)
-        },
-        tier: MainProgression(Tier0(HubUpgrade6))
-    },
-    Process {
         name: "Biomass (Mycelia)",
         time: 4,
         building: Constructor {
@@ -282,7 +273,7 @@ pub static RECIPES: [Process;147] = [
         name: "Biomass (Wood)",
         time: 4,
         building: Constructor {
-            input: (Amount::<Conveyable>::new(4, Wood),),
+            input: (Amount::<Conveyable>::new(4, WoodOrLeaves),),
             output: (Amount::<Conveyable>::new(20, Biomass),)
         },
         tier: MainProgression(Tier0(HubUpgrade6))
@@ -385,24 +376,6 @@ pub static RECIPES: [Process;147] = [
             output: (Amount::<Conveyable>::new(1, FicsmasBranch),)
         },
         tier: MAM(Ficsmas(TreeUpgrade0))
-    },
-    Process {
-        name: "Hatcher Protein",
-        time: 3,
-        building: Constructor {
-            input: (Amount::<Conveyable>::new(1, HatcherProtein),),
-            output: (Amount::<Conveyable>::new(1, AlienProtein),)
-        },
-        tier: MAM(Organisms(HatcherResearch))
-    },
-    Process {
-        name: "Hog Protein",
-        time: 3,
-        building: Constructor {
-            input: (Amount::<Conveyable>::new(1, HogProtein),),
-            output: (Amount::<Conveyable>::new(1, AlienProtein),)
-        },
-        tier: MAM(Organisms(HogResearch))
     },
     Process {
         name: "Iron Plate",
@@ -522,15 +495,6 @@ pub static RECIPES: [Process;147] = [
         tier: MainProgression(Tier2(ObstacleClearing))
     },
     Process {
-        name: "Splitter Protein",
-        time: 3,
-        building: Constructor {
-            input: (Amount::<Conveyable>::new(1, SpitterProtein),),
-            output: (Amount::<Conveyable>::new(1, AlienProtein),)
-        },
-        tier: MAM(Organisms(SpitterResearch))
-    },
-    Process {
         name: "Steel Beam",
         time: 4,
         building: Constructor {
@@ -547,15 +511,6 @@ pub static RECIPES: [Process;147] = [
             output: (Amount::<Conveyable>::new(2, SteelPipe),)
         },
         tier: MainProgression(Tier3(BasicSteel))
-    },
-    Process {
-        name: "Stinger Protein",
-        time: 3,
-        building: Constructor {
-            input: (Amount::<Conveyable>::new(1, StingerProtein),),
-            output: (Amount::<Conveyable>::new(1, AlienProtein),)
-        },
-        tier: MAM(Organisms(StingerResearch))
     },
     Process {
         name: "Wire",
@@ -606,7 +561,7 @@ pub static RECIPES: [Process;147] = [
         name: "Charcoal",
         time: 4,
         building: Constructor {
-            input: (Amount::<Conveyable>::new(1, Wood),),
+            input: (Amount::<Conveyable>::new(1, WoodOrLeaves),),
             output: (Amount::<Conveyable>::new(10, Coal),)
         },
         tier: HardDrive(MainUnlock(Tier3(CoalPower)))
@@ -615,7 +570,7 @@ pub static RECIPES: [Process;147] = [
         name: "Charcoal",
         time: 4,
         building: Constructor {
-            input: (Amount::<Conveyable>::new(1, Wood),),
+            input: (Amount::<Conveyable>::new(1, WoodOrLeaves),),
             output: (Amount::<Conveyable>::new(10, Coal),)
         },
         tier: HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
