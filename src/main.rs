@@ -9,13 +9,14 @@ mod route_finder;
 enum Settings{
     DisplayAll,
     DisplaySize,
-    MinPower
+    MinPower,
+    MinRaw
 }
 
 fn main() {
-    let setting = Settings::MinPower;
+    let setting = Settings::MinRaw;
     let target = objects::Part::Conveyor(
-        objects::Conveyable::ReinforcedIronPlate
+        objects::Conveyable::Motor
     );
 
     let results = route_finder::generate_possibilities(target, 1);
@@ -24,9 +25,25 @@ fn main() {
         Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);},
         Settings::DisplaySize => {report_size(&results,true);},
         Settings::MinPower => {
-            let path = route_finder::walk_one_path(results, route_finder::OptimizationMode::MinimizePower);
+            let path = route_finder::walk_one_path(
+                results,
+                route_finder::OptimizationMode::MinimizePower)
+                .expect("Error: No Paths found at all");
             println!("{:?}",path);
-            println!("Total Power: {}", path.get_power() );},
+            let power = path.get_power();
+            let resources = path.get_raw_resources();
+            println!("Total Power: {}", power );
+            println!("Total Resources: {:?}", resources);
+        },
+        Settings::MinRaw => {
+            let path = route_finder::walk_one_path(
+                results,
+                route_finder::OptimizationMode::MinimizeResources)
+                .expect("Error: No Paths found at all");
+            println!("{:?}",path);
+            println!("Total Power: {}", path.get_power() );
+            println!("Total Resources: {:?}", path.get_raw_resources());
+        },
     }
 
 }
