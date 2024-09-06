@@ -62,9 +62,9 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
                 })})
         .map(|recipe| {
             ProductionNode{
-                amount: ((amount as f32) / (recipe.building
+                amount: (amount as f32) / recipe.building
                     .get_output().iter()
-                    .find(|(part, ..)| *part == ingredient).unwrap().1) as f32),
+                    .find(|(part, ..)| *part == ingredient).unwrap().1 as f32,
                 building: recipe.building,
                 sources: recipe.building
                     .get_input().iter()
@@ -164,7 +164,7 @@ fn least_power(p0: &Multiverse)  -> Option<OnePath>{
                 .collect()
         };
         path
-    }).reduce(|p0,p1| if p1.get_power() < p0.get_power() {p0} else {p1})
+    }).reduce(|p0,p1| if p1.get_power() < p0.get_power() {p1} else {p0})
 }
 
 fn least_resources(p0: &Multiverse) -> Option<OnePath> {
@@ -182,6 +182,6 @@ fn least_resources(p0: &Multiverse) -> Option<OnePath> {
                 ).collect()
         };
         path
-    }).reduce(|p0, p1| if p1.get_raw_resources().values().sum::<f32>() < p0.get_raw_resources().values().sum::<f32>() {p0} else {p1})
+    }).reduce(|p0, p1| if p1.get_raw_resources().values().sum::<f32>() < p0.get_raw_resources().values().sum::<f32>() {p1} else {p0})
 }
 

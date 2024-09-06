@@ -12,8 +12,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Iron",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(1, FeNode),),
-            output: (Amount::<Conveyable>::new(1, FeOre),)
+            input: (Amount::<Mineable>::new(60, FeNode),),
+            output: (Amount::<Conveyable>::new(60, FeOre),)
         },
         tier: MainProgression(Tier0(HubUpgrade2))
     },
@@ -21,8 +21,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Copper",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(1, CuNode),),
-            output: (Amount::<Conveyable>::new(1, CuOre),),
+            input: (Amount::<Mineable>::new(60, CuNode),),
+            output: (Amount::<Conveyable>::new(60, CuOre),),
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -30,8 +30,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Caterium",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(1, CateriumNode),),
-            output: (Amount::<Conveyable>::new(1, CateriumOre),)
+            input: (Amount::<Mineable>::new(60, CateriumNode),),
+            output: (Amount::<Conveyable>::new(60, CateriumOre),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -39,8 +39,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Coal",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(1, CoalNode),),
-            output: (Amount::<Conveyable>::new(1, Coal),)
+            input: (Amount::<Mineable>::new(60, CoalNode),),
+            output: (Amount::<Conveyable>::new(60, Coal),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -48,8 +48,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Sulfur",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(1, SulfurNode),),
-            output: (Amount::<Conveyable>::new(1, Sulfur),)
+            input: (Amount::<Mineable>::new(60, SulfurNode),),
+            output: (Amount::<Conveyable>::new(60, Sulfur),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -57,8 +57,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Raw Quartz",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(1, QuartzNode),),
-            output: (Amount::<Conveyable>::new(1, RawQuartz),)
+            input: (Amount::<Mineable>::new(60, QuartzNode),),
+            output: (Amount::<Conveyable>::new(60, RawQuartz),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },

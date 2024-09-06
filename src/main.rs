@@ -14,38 +14,30 @@ enum Settings{
 }
 
 fn main() {
-    let setting = Settings::MinRaw;
+    let setting = Settings::MinPower;
     let target = objects::Part::Conveyor(
         objects::Conveyable::Motor
     );
 
     let results = route_finder::generate_possibilities(target, 1);
 
-    match setting {
-        Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);},
-        Settings::DisplaySize => {report_size(&results,true);},
-        Settings::MinPower => {
-            let path = route_finder::walk_one_path(
-                results,
-                route_finder::OptimizationMode::MinimizePower)
-                .expect("Error: No Paths found at all");
-            println!("{:?}",path);
-            let power = path.get_power();
-            let resources = path.get_raw_resources();
-            println!("Total Power: {}", power );
-            println!("Total Resources: {:?}", resources);
-        },
-        Settings::MinRaw => {
-            let path = route_finder::walk_one_path(
-                results,
-                route_finder::OptimizationMode::MinimizeResources)
-                .expect("Error: No Paths found at all");
-            println!("{:?}",path);
-            println!("Total Power: {}", path.get_power() );
-            println!("Total Resources: {:?}", path.get_raw_resources());
-        },
+    let path = match setting {
+        Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);None},
+        Settings::DisplaySize =>{report_size(&results,true); None},
+        Settings::MinPower =>   {route_finder::walk_one_path(
+                                        results,
+                                        route_finder::OptimizationMode::MinimizePower)},
+        Settings::MinRaw =>     {route_finder::walk_one_path(
+                                        results,
+                                        route_finder::OptimizationMode::MinimizeResources)},
+    };
+    if let Some(path) = path {
+        println!("{:?}", path);
+        let power = path.get_power();
+        let resources = path.get_raw_resources();
+        println!("Total Power: {}", power);
+        println!("Total Resources: {:?}", resources);
     }
-
 }
 
 fn delve(layer: &Vec<ProductionNode>, depth: usize) {
