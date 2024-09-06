@@ -17,7 +17,7 @@ enum Settings{
 fn main() {
     let setting = Settings::MinBuild;
     let target = objects::Part::Conveyor(
-        objects::Conveyable::Motor
+        objects::Conveyable::FePlate
     );
 
     let results = route_finder::generate_possibilities(target, 1, &Vec::<Process>::new());

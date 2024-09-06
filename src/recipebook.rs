@@ -7,13 +7,13 @@ use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*
                    Tier4::*, Tier5::*, Tier7::*, Tier8::*};
 
 
-pub static RECIPES: [Process;142] = [
+pub static RECIPES: [Process; 144] = [
     Process {
         name: "Mine Iron",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(60, FeNode),),
-            output: (Amount::<Conveyable>::new(60, FeOre),)
+            input: (Amount::<Mineable>::new(1, FeNode),),
+            output: (Amount::<Conveyable>::new(1, FeOre),)
         },
         tier: MainProgression(Tier0(HubUpgrade2))
     },
@@ -21,8 +21,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Copper",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(60, CuNode),),
-            output: (Amount::<Conveyable>::new(60, CuOre),),
+            input: (Amount::<Mineable>::new(1, CuNode),),
+            output: (Amount::<Conveyable>::new(1, CuOre),),
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -30,8 +30,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Caterium",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(60, CateriumNode),),
-            output: (Amount::<Conveyable>::new(60, CateriumOre),)
+            input: (Amount::<Mineable>::new(1, CateriumNode),),
+            output: (Amount::<Conveyable>::new(1, CateriumOre),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -39,8 +39,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Coal",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(60, CoalNode),),
-            output: (Amount::<Conveyable>::new(60, Coal),)
+            input: (Amount::<Mineable>::new(1, CoalNode),),
+            output: (Amount::<Conveyable>::new(1, Coal),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -48,8 +48,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Sulfur",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(60, SulfurNode),),
-            output: (Amount::<Conveyable>::new(60, Sulfur),)
+            input: (Amount::<Mineable>::new(1, SulfurNode),),
+            output: (Amount::<Conveyable>::new(1, Sulfur),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -57,8 +57,8 @@ pub static RECIPES: [Process;142] = [
         name: "Mine Raw Quartz",
         time: 1,
         building: Miner1 {
-            input: (Amount::<Mineable>::new(60, QuartzNode),),
-            output: (Amount::<Conveyable>::new(60, RawQuartz),)
+            input: (Amount::<Mineable>::new(1, QuartzNode),),
+            output: (Amount::<Conveyable>::new(1, RawQuartz),)
         },
         tier: MainProgression(Tier0(Onboarding))
     },
@@ -1282,27 +1282,51 @@ pub static RECIPES: [Process;142] = [
         tier: MainProgression(Tier5(IndustrialManufacturing))
     },
     Process {
-        name:"Beacon",
-        time:8,
+        name: "Beacon",
+        time: 8,
         building: Manufacturer {
-            input: (Amount::<Conveyable>::new(3,FePlate),
-                Amount::<Conveyable>::new(1,FeRod),
-                Amount::<Conveyable>::new(15, CuWire),
-                Some(Amount::<Conveyable>::new(2,Cable))),
-            output: (Amount::<Conveyable>::new(1,Beacon),)
+            input: (Amount::<Conveyable>::new(3, FePlate),
+                    Amount::<Conveyable>::new(1, FeRod),
+                    Amount::<Conveyable>::new(15, CuWire),
+                    Some(Amount::<Conveyable>::new(2, Cable))),
+            output: (Amount::<Conveyable>::new(1, Beacon),)
         },
-        tier:MainProgression(Tier1(FieldResearch))
+        tier: MainProgression(Tier1(FieldResearch))
     },
     Process {
-        name:"Computer",
-        time:24,
+        name: "Computer",
+        time: 24,
         building: Manufacturer {
-            input: (Amount::<Conveyable>::new(10,CircuitBoard),
-                    Amount::<Conveyable>::new(9,Cable,),
-                    Amount::<Conveyable>::new(18, Plastic,),
-                    Some(Amount::<Conveyable>::new(52, Screws,))),
-            output: (Amount::<Conveyable>::new(1, Computer,),)
+            input: (Amount::<Conveyable>::new(10, CircuitBoard),
+                    Amount::<Conveyable>::new(9, Cable, ),
+                    Amount::<Conveyable>::new(18, Plastic, ),
+                    Some(Amount::<Conveyable>::new(52, Screws, ))),
+            output: (Amount::<Conveyable>::new(1, Computer, ),)
         },
-        tier:MainProgression(Tier5(IndustrialManufacturing))
+        tier: MainProgression(Tier5(IndustrialManufacturing))
+    },
+    Process {
+        name: "Crystal Oscillator",
+        time: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(36, CrushedQuartz),
+                    Amount::<Conveyable>::new(28, Cable, ),
+                    Amount::<Conveyable>::new(5, ReinforcedIronPlate, ),
+                    None),
+            output: (Amount::<Conveyable>::new(2, CrystalOscillator, ),)
+        },
+        tier: MAM(Quartz(CrystalOscillatorResearch))
+    },
+    Process {
+        name: "Crystal Oscillator",
+        time: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(36, CrushedQuartz),
+                    Amount::<Conveyable>::new(28, Cable, ),
+                    Amount::<Conveyable>::new(5, ReinforcedIronPlate, ),
+                    None),
+            output: (Amount::<Conveyable>::new(2, CrystalOscillator, ),)
+        },
+        tier: MainProgression(Tier7(BauxiteRefinement))
     },
 ];

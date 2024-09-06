@@ -67,10 +67,12 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize, upline: &V
         .map(|recipe| {
             let mut new_upline = upline.clone();
             new_upline.push(recipe.clone());
+            let tgt_output = recipe.building
+                .get_output().iter()
+                .find(|(recipe_part, ..)| *recipe_part == ingredient)
+                .unwrap();
             ProductionNode{
-                amount: (amount as f32) / recipe.building
-                    .get_output().iter()
-                    .find(|(part, ..)| *part == ingredient).unwrap().1 as f32,
+                amount: (amount as f32) / tgt_output.1 as f32,
                 building: recipe.building,
                 sources: recipe.building
                     .get_input().iter()
