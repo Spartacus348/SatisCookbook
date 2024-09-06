@@ -20,7 +20,7 @@ enum ReportMode{
     Disparate
 }
 
-enum OptimizationMode{
+pub(crate) enum OptimizationMode{
     MinimizePower,
     MinimizeResources,
     MinimizeBuildings,
@@ -75,30 +75,40 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
         .collect::<Vec<ProductionNode>>()
 }
 
-struct OnePath{
+#[derive(Debug)]
+pub(crate) struct OnePath{
     pub(crate) amount: f32,
     pub(crate) building: Building,
     pub(crate) inputs: HashMap<Part, OnePath>
 }
 
-pub(crate) fn walk_one_path(options: Multiverse, algo: OptimizationMode) -> OnePath{
-    // finds the optimal path from a tree of paths, depending on which optimization is entered
-    match algo{
-        OptimizationMode::MinimizeResources => least_resources(options),
-        OptimizationMode::MinimizePower => least_power(options),
-        OptimizationMode::MinimizeBuildings => fewest_buildings(options),
-        OptimizationMode::ExploitNodes(nodes)    => best_from_nodes(options, nodes),
-        OptimizationMode::WhatWeHave(starting_parts) => from_parts(options, starting_parts)
+impl OnePath{
+    pub(crate) fn get_power(self: &Self) -> f32 {
+        self.amount * (self.building.get_power() as f32 + self.inputs.iter()
+            .map(|(_, path)| path.get_power())
+            .sum::<f32>())
     }
 }
 
-fn from_parts(p0: Multiverse, p1: Vec<Amount<Part>>)  -> OnePath{
+
+pub(crate) fn walk_one_path(options: Multiverse, algo: OptimizationMode) -> OnePath{
+    // finds the optimal path from a tree of paths, depending on which optimization is entered
+    match algo{
+        OptimizationMode::MinimizeResources => least_resources(&options),
+        OptimizationMode::MinimizePower => least_power(&options).unwrap(),
+        OptimizationMode::MinimizeBuildings => fewest_buildings(&options),
+        OptimizationMode::ExploitNodes(nodes)    => best_from_nodes(&options, nodes),
+        OptimizationMode::WhatWeHave(starting_parts) => from_parts(&options, starting_parts)
+    }
+}
+
+fn from_parts(p0: &Multiverse, p1: Vec<Amount<Part>>)  -> OnePath{
     // find the recipe that produces the most of the target using the parts given
     // stretch goal: allow for non-given parts, but minimize the amount used
     todo!()
 }
 
-fn best_from_nodes(p0: Multiverse, p1: NodeSet)  -> OnePath{
+fn best_from_nodes(p0: &Multiverse, p1: NodeSet)  -> OnePath{
     // given a set of nodes, return the overall path that produces the most parts
     // recursion doesn't work here since there isn't a way to know which nodes get
     // assigned were
@@ -107,32 +117,40 @@ fn best_from_nodes(p0: Multiverse, p1: NodeSet)  -> OnePath{
     todo!()
 }
 
-fn fewest_buildings(p0: Multiverse)  -> OnePath{
+fn fewest_buildings(p0: &Multiverse)  -> OnePath{
     // for each part choose the possibility that contains the fewest number of buildings
     // recursively descend the tree, returning the most compact choice for each input
     todo!()
 }
 
-fn least_power(p0: Multiverse)  -> OnePath{
+fn least_power(p0: &Multiverse)  -> Option<OnePath>{
     // for each part choose the possibility that consumes the least total power
     // recursively descend the tree, returning the cheapest choice for each input
+    p0.iter().map(|node| {
+        let path = OnePath{
+            amount: node.amount,
+            building: node.building,
+            inputs: node.sources.iter()
+                .filter_map(|(&part, multiverse)|
+                    if let Some(path) = least_power(multiverse){
+                        Some((part, path))
+                    } else {None}
+                )
+                .collect()
+        };
+        path
+    }).reduce(|p0,p1| if p1.get_power() < p0.get_power() {p0} else {p1})
+}
+
+fn least_resources(p0: &Multiverse)  -> OnePath{
+    // for each part, choose the possibility that consumes the least raw resources
+    //recursively descend the tree, returning the cheapest choice for each input
     todo!()
 }
 
-fn least_resources(p0: Multiverse)  -> OnePath{
-    // for each part, choose the possibility that consumes the least raw resources
-    //recursively descend the tree, returning the cheapest choice for each input
-    /*p0.iter().map(|path: ProductionNode| {match path {
-        ProductionNode{amount: a, building:b, ..} if b.get_input().iter()
-                                                        .any(|part, _| match part{
-                                                                Part::Mine(x) | Part::Pump(x)   => true,
-                                                                _                               => false
-                                                            }) => { a*(b.get_input().iter()
-                                                                    .map(|_, amount: usize| amount)
-                                                                    .sum())},
-        ProductionNode{sources: s, amount:a, ..}      => {
-            a*(s.iter().map(|_: Part, multiverse| multiverse))
-        }
-    }}).sum();*/
+fn tree_to_list(production_node: ProductionNode) -> Vec<OnePath> {
+    let mut ret: Vec<OnePath> = Vec::new();
+
+
     todo!()
 }

@@ -8,20 +8,25 @@ mod route_finder;
 
 enum Settings{
     DisplayAll,
-    DisplaySize
+    DisplaySize,
+    MinPower
 }
 
 fn main() {
-    let setting = Settings::DisplayAll;
+    let setting = Settings::MinPower;
     let target = objects::Part::Conveyor(
-        objects::Conveyable::FePlate
+        objects::Conveyable::ReinforcedIronPlate
     );
 
     let results = route_finder::generate_possibilities(target, 1);
 
     match setting {
         Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);},
-        Settings::DisplaySize => {report_size(&results,true);}
+        Settings::DisplaySize => {report_size(&results,true);},
+        Settings::MinPower => {
+            let path = route_finder::walk_one_path(results, route_finder::OptimizationMode::MinimizePower);
+            println!("{:?}",path);
+            println!("Total Power: {}", path.get_power() );},
     }
 
 }
