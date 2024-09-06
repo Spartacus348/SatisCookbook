@@ -1,4 +1,4 @@
-use std::any::Any;
+use crate::objects::Process;
 use crate::route_finder::ProductionNode;
 
 mod objects;
@@ -10,16 +10,17 @@ enum Settings{
     DisplayAll,
     DisplaySize,
     MinPower,
-    MinRaw
+    MinRaw,
+    MinBuild
 }
 
 fn main() {
-    let setting = Settings::MinPower;
+    let setting = Settings::MinBuild;
     let target = objects::Part::Conveyor(
         objects::Conveyable::Motor
     );
 
-    let results = route_finder::generate_possibilities(target, 1);
+    let results = route_finder::generate_possibilities(target, 1, &Vec::<Process>::new());
 
     let path = match setting {
         Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);None},
@@ -30,6 +31,9 @@ fn main() {
         Settings::MinRaw =>     {route_finder::walk_one_path(
                                         results,
                                         route_finder::OptimizationMode::MinimizeResources)},
+        Settings::MinBuild =>   {route_finder::walk_one_path(
+                                        results,
+                                        route_finder::OptimizationMode::MinimizeBuildings)},
     };
     if let Some(path) = path {
         println!("{:?}", path);

@@ -4,6 +4,7 @@ use std::collections::HashMap;
 use crate::{objects::{Part, Building, Amount},
             recipebook
 };
+use crate::objects::Process;
 
 type Multiverse = Vec<ProductionNode>;
 type BookOfPaths = HashMap<Part, Multiverse>;
@@ -36,7 +37,7 @@ struct NodesAvailable{
 }
 
 #[derive(Default)]
-struct NodeSet{
+pub(crate) struct NodeSet{
     iron_nodes: NodesAvailable,
     copper_nodes: NodesAvailable,
     limestone_nodes: NodesAvailable,
@@ -51,7 +52,7 @@ struct NodeSet{
     uranium_nodes: NodesAvailable
 }
 
-pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multiverse {
+pub(crate) fn generate_possibilities(ingredient: Part, amount: usize, upline: &Vec<Process>) -> Multiverse {
     // generates a tree of all possible production lines
     recipebook::RECIPES.iter()
         .filter(|recipe| {
@@ -59,8 +60,13 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
                 .get_output().iter()
                 .any(|&output| {
                     output.0 == ingredient
-                })})
+                }) && upline.iter().all(|&output|{
+                    output != **recipe
+                })
+        })
         .map(|recipe| {
+            let mut new_upline = upline.clone();
+            new_upline.push(recipe.clone());
             ProductionNode{
                 amount: (amount as f32) / recipe.building
                     .get_output().iter()
@@ -68,7 +74,7 @@ pub(crate) fn generate_possibilities(ingredient: Part, amount: usize) -> Multive
                 building: recipe.building,
                 sources: recipe.building
                     .get_input().iter()
-                    .map(|&(part, volume)| (part, generate_possibilities(part, volume)))
+                    .map(|&(part, volume)| (part, generate_possibilities(part, volume, &new_upline)))
                     .collect::<BookOfPaths>()
             }
         })
@@ -99,6 +105,12 @@ impl OnePath{
             scale_map(&mut cost, self.amount);
             update_counter(&mut ret, cost)});
         ret
+    }
+
+    pub(crate) fn count_buildings(self: &Self) -> usize {
+        self.amount as usize * self.inputs.iter()
+            .map(|(_,path)| path.count_buildings())
+            .sum::<usize>()
     }
 }
 
@@ -145,7 +157,20 @@ fn best_from_nodes(p0: &Multiverse, p1: NodeSet)  -> Option<OnePath>{
 fn fewest_buildings(p0: &Multiverse)  -> Option<OnePath>{
     // for each part choose the possibility that contains the fewest number of buildings
     // recursively descend the tree, returning the most compact choice for each input
-    todo!()
+    p0.iter().map(|node| {
+        let path = OnePath{
+            amount: node.amount,
+            building: node.building,
+            inputs: node.sources.iter()
+                .filter_map(|(&part, multiverse)|
+                    if let Some(path) = fewest_buildings(multiverse){
+                        Some((part, path))
+                    } else {None}
+                )
+                .collect()
+        };
+        path
+    }).reduce(|p0,p1| if p1.count_buildings() < p0.count_buildings() {p1} else {p0})
 }
 
 fn least_power(p0: &Multiverse)  -> Option<OnePath>{

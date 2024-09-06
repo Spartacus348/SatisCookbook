@@ -1,4 +1,4 @@
-use std::fmt::{Debug, Display, Formatter, Pointer};
+use std::fmt::{Debug, Display, Formatter};
 use crate::tiers::*;
 
 #[derive(Clone,Copy,PartialEq,Debug)]
@@ -262,10 +262,6 @@ pub(crate) struct Amount<T>{
 
 impl<T> Amount<T> {
     pub(crate) const fn new(count:usize, kind:T) -> Self{
-        Self{count,kind}
-    }
-
-    pub(crate) fn new_rev(kind:T, count:usize) -> Self{
         Self{count,kind}
     }
 }
