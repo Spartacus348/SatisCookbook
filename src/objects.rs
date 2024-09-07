@@ -9,6 +9,22 @@ pub(crate) struct Process<'a>{
     pub(crate)tier: Tier,
 }
 
+impl Process<'_>{
+    pub(crate) fn get_input_rate(self: &Self, search_part: Part) -> Option<f32>{
+        self.building.get_input().iter()
+            .find_map(|&(find_part, amt)|
+                if find_part==search_part {Some(amt as f32 / self.time as f32)}
+                else {None})
+    }
+
+    pub(crate) fn get_output_rate(self: &Self, search_part: Part) -> Option<f32>{
+        self.building.get_output().iter()
+            .find_map(|&(find_part, amt)|
+                if find_part==search_part {Some(amt as f32/self.time as f32)}
+                else {None})
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(crate) enum Building{
     Smelter       {input:(Amount<Conveyable>,), output:(Amount<Conveyable>,)},
