@@ -10,7 +10,7 @@ use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*
 pub static RECIPES: [Process; 144] = [
     Process {
         name: "Mine Iron",
-        time: 1,
+        time_s: 1,
         building: Miner1 {
             input: (Amount::<Mineable>::new(1, FeNode),),
             output: (Amount::<Conveyable>::new(1, FeOre),)
@@ -19,7 +19,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Mine Copper",
-        time: 1,
+        time_s: 1,
         building: Miner1 {
             input: (Amount::<Mineable>::new(1, CuNode),),
             output: (Amount::<Conveyable>::new(1, CuOre),),
@@ -28,7 +28,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Mine Caterium",
-        time: 1,
+        time_s: 1,
         building: Miner1 {
             input: (Amount::<Mineable>::new(1, CateriumNode),),
             output: (Amount::<Conveyable>::new(1, CateriumOre),)
@@ -37,7 +37,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Mine Coal",
-        time: 1,
+        time_s: 1,
         building: Miner1 {
             input: (Amount::<Mineable>::new(1, CoalNode),),
             output: (Amount::<Conveyable>::new(1, Coal),)
@@ -46,7 +46,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Mine Sulfur",
-        time: 1,
+        time_s: 1,
         building: Miner1 {
             input: (Amount::<Mineable>::new(1, SulfurNode),),
             output: (Amount::<Conveyable>::new(1, Sulfur),)
@@ -55,7 +55,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Mine Raw Quartz",
-        time: 1,
+        time_s: 1,
         building: Miner1 {
             input: (Amount::<Mineable>::new(1, QuartzNode),),
             output: (Amount::<Conveyable>::new(1, RawQuartz),)
@@ -64,7 +64,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Blue Ficsmas Ornament",
-        time: 12,
+        time_s: 12,
         building: Smelter {
             input: (Amount::<Conveyable>::new(1, FicsmasGift),),
             output: (Amount::<Conveyable>::new(2, BlueOrnament),)
@@ -73,7 +73,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Caterium Ingot",
-        time: 4,
+        time_s: 4,
         building: Smelter {
             input: (Amount::<Conveyable>::new(3, CateriumOre),),
             output: (Amount::<Conveyable>::new(1, CateriumIngot),)
@@ -82,7 +82,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Copper Ingot",
-        time: 2,
+        time_s: 2,
         building: Smelter {
             input: (Amount::<Conveyable>::new(1, CuOre),),
             output: (Amount::<Conveyable>::new(1, CuIngot),)
@@ -91,7 +91,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Ingot",
-        time: 2,
+        time_s: 2,
         building: Smelter {
             input: (Amount::<Conveyable>::new(1, FeOre),),
             output: (Amount::<Conveyable>::new(1, FeIngot),),
@@ -100,7 +100,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Red Ficsmas Ornament",
-        time: 12,
+        time_s: 12,
         building: Smelter {
             input: (Amount::<Conveyable>::new(1, FicsmasGift),),
             output: (Amount::<Conveyable>::new(1, RedOrnament),)
@@ -109,7 +109,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Pure Aluminum Ingot",
-        time: 2,
+        time_s: 2,
         building: Smelter {
             input: (Amount::<Conveyable>::new(2, AlScrap),),
             output: (Amount::<Conveyable>::new(1, AlIngot),)
@@ -118,7 +118,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Extract Water",
-        time: 1,
+        time_s: 1,
         building: WaterExtractor {
             input: (Amount::<Pumpable>::new(1, WaterSource),),
             output: (Amount::<Pipeable>::new(120, Water),)
@@ -127,7 +127,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Extract Oil",
-        time: 1,
+        time_s: 1,
         building: OilExtractor {
             input: (Amount::<Pumpable>::new(1, OilSource),),
             output: (Amount::<Pipeable>::new(1, CrudeOil),)
@@ -136,7 +136,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Aluminum Ingot",
-        time: 4,
+        time_s: 4,
         building: Foundry {
             input: (Amount::<Conveyable>::new(6, AlScrap), Amount::<Conveyable>::new(5, Silica)),
             output: (Amount::<Conveyable>::new(4, AlIngot),)
@@ -145,7 +145,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Copper Ficsmas Ornament",
-        time: 12,
+        time_s: 12,
         building: Foundry {
             input: (Amount::<Conveyable>::new(2, RedOrnament), Amount::<Conveyable>::new(2, CuIngot)),
             output: (Amount::<Conveyable>::new(1, CuOrnament),)
@@ -154,7 +154,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Ficsmas Ornament",
-        time: 12,
+        time_s: 12,
         building: Foundry {
             input: (Amount::<Conveyable>::new(3, BlueOrnament), Amount::<Conveyable>::new(3, FeIngot)),
             output: (Amount::<Conveyable>::new(1, FeOrnament),)
@@ -163,7 +163,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Ingot",
-        time: 4,
+        time_s: 4,
         building: Foundry {
             input: (Amount::<Conveyable>::new(3, FeOre), Amount::<Conveyable>::new(3, Coal)),
             output: (Amount::<Conveyable>::new(3, SteelIngot),)
@@ -172,7 +172,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Coke Steel Ingot",
-        time: 12,
+        time_s: 12,
         building: Foundry {
             input: (Amount::<Conveyable>::new(15, FeOre), Amount::<Conveyable>::new(15, PetroleumCoke)),
             output: (Amount::<Conveyable>::new(20, SteelIngot),)
@@ -181,7 +181,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Compacted Steel Ingot",
-        time: 16,
+        time_s: 16,
         building: Foundry {
             input: (Amount::<Conveyable>::new(15, FeOre), Amount::<Conveyable>::new(3, CompactedCoal)),
             output: (Amount::<Conveyable>::new(10, SteelIngot),)
@@ -190,7 +190,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Compacted Steel Ingot",
-        time: 16,
+        time_s: 16,
         building: Foundry {
             input: (Amount::<Conveyable>::new(15, FeOre), Amount::<Conveyable>::new(3, CompactedCoal)),
             output: (Amount::<Conveyable>::new(10, SteelIngot),)
@@ -199,7 +199,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Copper Alloy Ingot",
-        time: 12,
+        time_s: 12,
         building: Foundry {
             input: (Amount::<Conveyable>::new(10, CuOre), Amount::<Conveyable>::new(5, FeOre)),
             output: (Amount::<Conveyable>::new(20, CuIngot),)
@@ -208,7 +208,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Alloy Ingot",
-        time: 6,
+        time_s: 6,
         building: Foundry {
             input: (Amount::<Conveyable>::new(2, FeOre), Amount::<Conveyable>::new(2, CuOre)),
             output: (Amount::<Conveyable>::new(5, FeIngot),)
@@ -217,7 +217,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Solid Steel Ingot",
-        time: 3,
+        time_s: 3,
         building: Foundry {
             input: (Amount::<Conveyable>::new(2, FeIngot), Amount::<Conveyable>::new(2, Coal)),
             output: (Amount::<Conveyable>::new(3, SteelIngot),)
@@ -226,7 +226,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Actual Snow",
-        time: 12,
+        time_s: 12,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, FicsmasGift),),
             output: (Amount::<Conveyable>::new(2, ActualSnow),)
@@ -235,7 +235,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Alien DNA Capsule",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, AlienProtein),),
             output: (Amount::<Conveyable>::new(1, AlienDNA),)
@@ -244,7 +244,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Aluminum Casing",
-        time: 2,
+        time_s: 2,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, AlIngot),),
             output: (Amount::<Conveyable>::new(2, AlCasing),)
@@ -253,7 +253,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Biomass (Alien Protein)",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, AlienProtein),),
             output: (Amount::<Conveyable>::new(100, Biomass),)
@@ -262,7 +262,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Biomass (Mycelia)",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, Mycelia),),
             output: (Amount::<Conveyable>::new(10, Biomass),)
@@ -271,7 +271,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Biomass (Wood)",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(4, WoodOrLeaves),),
             output: (Amount::<Conveyable>::new(20, Biomass),)
@@ -280,7 +280,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Cable",
-        time: 2,
+        time_s: 2,
         building: Constructor {
             input: (Amount::<Conveyable>::new(2, CuWire),),
             output: (Amount::<Conveyable>::new(1, Cable),)
@@ -289,7 +289,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Candy Cane",
-        time: 12,
+        time_s: 12,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, FicsmasGift),),
             output: (Amount::<Conveyable>::new(5, CandyCane),)
@@ -298,7 +298,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Color Cartridge",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, FlowerPetals),),
             output: (Amount::<Conveyable>::new(10, ColorCartridge),)
@@ -307,7 +307,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Color Cartridge",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, FlowerPetals),),
             output: (Amount::<Conveyable>::new(10, ColorCartridge),)
@@ -316,7 +316,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Concrete",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, Limestone),),
             output: (Amount::<Conveyable>::new(1, Concrete),)
@@ -325,7 +325,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Copper Powder",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(30, CuIngot),),
             output: (Amount::<Conveyable>::new(5, CuPowder),)
@@ -334,7 +334,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Copper Sheet",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(2, CuIngot),),
             output: (Amount::<Conveyable>::new(1, CuSheet),)
@@ -343,7 +343,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Empty Canister",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(2, Plastic),),
             output: (Amount::<Conveyable>::new(4, EmptyCanister),)
@@ -352,7 +352,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Empty Fluid Tank",
-        time: 1,
+        time_s: 1,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, AlIngot),),
             output: (Amount::<Conveyable>::new(1, EmptyFluidTank),)
@@ -361,7 +361,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Ficsmas Bow",
-        time: 12,
+        time_s: 12,
         building: Constructor {
             input: (Amount::<Conveyable>::new(2, FicsmasGift),),
             output: (Amount::<Conveyable>::new(1, FicsmasBow),)
@@ -370,7 +370,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Ficsmas Tree Branch",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, FicsmasGift),),
             output: (Amount::<Conveyable>::new(1, FicsmasBranch),)
@@ -379,7 +379,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Plate",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, FeIngot),),
             output: (Amount::<Conveyable>::new(2, FePlate),)
@@ -388,7 +388,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Rebar",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, FeRod),),
             output: (Amount::<Conveyable>::new(1, BaseRebar),)
@@ -397,7 +397,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Rod",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, FeIngot),),
             output: (Amount::<Conveyable>::new(1, FeRod),)
@@ -406,7 +406,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Power Shard (1)",
-        time: 8,
+        time_s: 8,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, PowerSlugBlue),),
             output: (Amount::<Conveyable>::new(1, PowerShard),)
@@ -415,7 +415,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Power Shard (2)",
-        time: 12,
+        time_s: 12,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, PowerSlugYellow),),
             output: (Amount::<Conveyable>::new(2, PowerShard),)
@@ -424,7 +424,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Power Shard (5)",
-        time: 24,
+        time_s: 24,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, PowerSlugPurple),),
             output: (Amount::<Conveyable>::new(5, PowerShard),)
@@ -433,7 +433,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Quartz Crystal",
-        time: 8,
+        time_s: 8,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, RawQuartz),),
             output: (Amount::<Conveyable>::new(3, CrushedQuartz),)
@@ -442,7 +442,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Quickwire",
-        time: 5,
+        time_s: 5,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, CateriumIngot),),
             output: (Amount::<Conveyable>::new(5, Quickwire),)
@@ -451,7 +451,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Screw",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, FeRod),),
             output: (Amount::<Conveyable>::new(4, Screws),)
@@ -460,7 +460,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Silica",
-        time: 8,
+        time_s: 8,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, RawQuartz),),
             output: (Amount::<Conveyable>::new(5, Silica),)
@@ -469,7 +469,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Silica",
-        time: 8,
+        time_s: 8,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, RawQuartz),),
             output: (Amount::<Conveyable>::new(5, Silica),)
@@ -478,7 +478,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Snowball",
-        time: 12,
+        time_s: 12,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, ActualSnow),),
             output: (Amount::<Conveyable>::new(1, Snowball),)
@@ -487,7 +487,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Solid Biofuel",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(8, Biomass),),
             output: (Amount::<Conveyable>::new(4, SolidBiofuel),)
@@ -496,7 +496,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Beam",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(4, SteelIngot),),
             output: (Amount::<Conveyable>::new(1, SteelBeam),)
@@ -505,7 +505,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Pipe",
-        time: 6,
+        time_s: 6,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, SteelIngot),),
             output: (Amount::<Conveyable>::new(2, SteelPipe),)
@@ -514,7 +514,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Wire",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, CuIngot),),
             output: (Amount::<Conveyable>::new(2, CuWire),)
@@ -523,7 +523,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Biocoal",
-        time: 8,
+        time_s: 8,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, Biomass),),
             output: (Amount::<Conveyable>::new(6, Coal),)
@@ -532,7 +532,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Biocoal",
-        time: 8,
+        time_s: 8,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, Biomass),),
             output: (Amount::<Conveyable>::new(6, Coal),)
@@ -541,7 +541,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Cast Screw",
-        time: 24,
+        time_s: 24,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, FeIngot),),
             output: (Amount::<Conveyable>::new(20, Screws),)
@@ -550,7 +550,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Caterium Wire",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, CateriumIngot),),
             output: (Amount::<Conveyable>::new(8, CuWire),)
@@ -559,7 +559,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Charcoal",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, WoodOrLeaves),),
             output: (Amount::<Conveyable>::new(10, Coal),)
@@ -568,7 +568,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Charcoal",
-        time: 4,
+        time_s: 4,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, WoodOrLeaves),),
             output: (Amount::<Conveyable>::new(10, Coal),)
@@ -577,7 +577,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Iron Wire",
-        time: 24,
+        time_s: 24,
         building: Constructor {
             input: (Amount::<Conveyable>::new(5, FeIngot),),
             output: (Amount::<Conveyable>::new(9, CuWire),)
@@ -586,7 +586,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Canister",
-        time: 3,
+        time_s: 3,
         building: Constructor {
             input: (Amount::<Conveyable>::new(3, SteelIngot),),
             output: (Amount::<Conveyable>::new(2, EmptyCanister),)
@@ -595,7 +595,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Rod",
-        time: 5,
+        time_s: 5,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, SteelIngot),),
             output: (Amount::<Conveyable>::new(4, FeRod),)
@@ -604,7 +604,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Screw",
-        time: 12,
+        time_s: 12,
         building: Constructor {
             input: (Amount::<Conveyable>::new(1, SteelBeam),),
             output: (Amount::<Conveyable>::new(52, Screws),)
@@ -613,7 +613,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "AI Limiter",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, CuSheet), Amount::<Conveyable>::new(20, Quickwire)),
             output: (Amount::<Conveyable>::new(5, AILimiter),)
@@ -622,7 +622,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "AI Limiter",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, CuSheet), Amount::<Conveyable>::new(20, Quickwire)),
             output: (Amount::<Conveyable>::new(5, AILimiter),)
@@ -631,7 +631,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Alclad Aluminum Sheet",
-        time: 6,
+        time_s: 6,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, AlIngot), Amount::<Conveyable>::new(1, CuIngot)),
             output: (Amount::<Conveyable>::new(3, AlcladSheet),)
@@ -640,7 +640,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Assembly Director System",
-        time: 80,
+        time_s: 80,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, AdaptiveControlUnit), Amount::<Conveyable>::new(1, SuperComputer)),
             output: (Amount::<Conveyable>::new(1, AssemblyDirectorSystem),)
@@ -649,7 +649,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Automated Wiring",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, Stator), Amount::<Conveyable>::new(20, Cable)),
             output: (Amount::<Conveyable>::new(1, AutomatedWiring),)
@@ -658,7 +658,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Black Powder",
-        time: 4,
+        time_s: 4,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, Coal), Amount::<Conveyable>::new(1, Sulfur)),
             output: (Amount::<Conveyable>::new(2, BlackPowder),)
@@ -667,7 +667,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Circuit Board",
-        time: 8,
+        time_s: 8,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, CuSheet), Amount::<Conveyable>::new(4, Plastic)),
             output: (Amount::<Conveyable>::new(1, CircuitBoard),)
@@ -676,7 +676,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Cluster Nobelisk",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, Nobelisk), Amount::<Conveyable>::new(4, SmokelessPowder)),
             output: (Amount::<Conveyable>::new(1, ClusterNobelisk),)
@@ -685,7 +685,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Electromagnetic Control Rod",
-        time: 30,
+        time_s: 30,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, Stator), Amount::<Conveyable>::new(2, AILimiter)),
             output: (Amount::<Conveyable>::new(2, EMControlRod),)
@@ -694,7 +694,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Encased Industrial Beam",
-        time: 10,
+        time_s: 10,
         building: Assembler {
             input: (Amount::<Conveyable>::new(4, SteelBeam), Amount::<Conveyable>::new(5, Concrete)),
             output: (Amount::<Conveyable>::new(1, IndustrialBeam),)
@@ -703,7 +703,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Encased Plutonium Cell",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, PuPellet), Amount::<Conveyable>::new(4, Concrete)),
             output: (Amount::<Conveyable>::new(1, EncasedPuCell),)
@@ -712,7 +712,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Ficsmas Decoration",
-        time: 60,
+        time_s: 60,
         building: Assembler {
             input: (Amount::<Conveyable>::new(15, FicsmasBranch), Amount::<Conveyable>::new(6, OrnamentBundle)),
             output: (Amount::<Conveyable>::new(2, FicsmasDecoration),)
@@ -721,7 +721,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Ficsmas Wonder Star",
-        time: 60,
+        time_s: 60,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, FicsmasDecoration), Amount::<Conveyable>::new(20, CandyCane)),
             output: (Amount::<Conveyable>::new(1, FicsmasStar),)
@@ -730,7 +730,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Ficsmas Ornament Bundle",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, CuOrnament), Amount::<Conveyable>::new(1, FeOrnament)),
             output: (Amount::<Conveyable>::new(1, OrnamentBundle),)
@@ -739,7 +739,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Fabric",
-        time: 4,
+        time_s: 4,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, Mycelia), Amount::<Conveyable>::new(5, Biomass)),
             output: (Amount::<Conveyable>::new(1, Fabric),)
@@ -748,7 +748,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Fancy Fireworks",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(4, FicsmasBranch), Amount::<Conveyable>::new(3, FicsmasBow)),
             output: (Amount::<Conveyable>::new(1, FancyFireworks),)
@@ -757,7 +757,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Gas Nobelisk",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, Nobelisk), Amount::<Conveyable>::new(10, Biomass)),
             output: (Amount::<Conveyable>::new(1, GasNobelisk),)
@@ -766,7 +766,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Heat Sink",
-        time: 8,
+        time_s: 8,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, AlcladSheet), Amount::<Conveyable>::new(3, CuSheet)),
             output: (Amount::<Conveyable>::new(1, Heatsink),)
@@ -775,7 +775,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Homing Rifle Ammo",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(20, RifleAmmo), Amount::<Conveyable>::new(1, HighSpeedConnector)),
             output: (Amount::<Conveyable>::new(10, HomingRifleAmmo),)
@@ -784,7 +784,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Modular Frame",
-        time: 60,
+        time_s: 60,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, ReinforcedIronPlate), Amount::<Conveyable>::new(12, FeRod)),
             output: (Amount::<Conveyable>::new(2, ModularFrame),)
@@ -793,7 +793,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Motor",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, Rotor), Amount::<Conveyable>::new(2, Stator)),
             output: (Amount::<Conveyable>::new(1, Motor),)
@@ -802,7 +802,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Nobelisk",
-        time: 6,
+        time_s: 6,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, BlackPowder), Amount::<Conveyable>::new(2, SteelPipe)),
             output: (Amount::<Conveyable>::new(1, Nobelisk),)
@@ -811,7 +811,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Pressure Conversion Cube",
-        time: 60,
+        time_s: 60,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, FusedModularFrame), Amount::<Conveyable>::new(2, RadioControlUnit)),
             output: (Amount::<Conveyable>::new(1, PressureConversionCube),)
@@ -820,7 +820,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Pulse Nobelisk",
-        time: 60,
+        time_s: 60,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, Nobelisk), Amount::<Conveyable>::new(1, CrystalOscillator)),
             output: (Amount::<Conveyable>::new(5, PulseNobelisk),)
@@ -829,7 +829,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Reinforced Iron Plate",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(6, FePlate), Amount::<Conveyable>::new(12, Screws)),
             output: (Amount::<Conveyable>::new(1, ReinforcedIronPlate),)
@@ -838,7 +838,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Rifle Ammo",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, CuSheet), Amount::<Conveyable>::new(2, SmokelessPowder)),
             output: (Amount::<Conveyable>::new(15, RifleAmmo),)
@@ -847,7 +847,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Rotor",
-        time: 15,
+        time_s: 15,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, FeRod), Amount::<Conveyable>::new(25, Screws)),
             output: (Amount::<Conveyable>::new(1, Rotor),)
@@ -856,7 +856,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Shatter Rebar",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, BaseRebar), Amount::<Conveyable>::new(3, CrushedQuartz)),
             output: (Amount::<Conveyable>::new(1, ShatterRebar),)
@@ -865,7 +865,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Smart Plating",
-        time: 30,
+        time_s: 30,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, ReinforcedIronPlate), Amount::<Conveyable>::new(1, Rotor)),
             output: (Amount::<Conveyable>::new(1, SmartPlating),)
@@ -874,7 +874,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Sparkly Fireworks",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, FicsmasBranch), Amount::<Conveyable>::new(2, ActualSnow)),
             output: (Amount::<Conveyable>::new(1, SparklyFireworks),)
@@ -883,7 +883,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Stator",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, SteelPipe), Amount::<Conveyable>::new(8, CuWire)),
             output: (Amount::<Conveyable>::new(1, Stator),)
@@ -892,7 +892,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Stun Rebar",
-        time: 6,
+        time_s: 6,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, BaseRebar), Amount::<Conveyable>::new(5, Quickwire)),
             output: (Amount::<Conveyable>::new(1, PulseRebar),)
@@ -901,7 +901,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Sweet Fireworks",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(6, FicsmasBranch), Amount::<Conveyable>::new(3, CandyCane)),
             output: (Amount::<Conveyable>::new(1, SweetFireworks),)
@@ -910,7 +910,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Versatile Framework",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, ModularFrame), Amount::<Conveyable>::new(12, SteelBeam)),
             output: (Amount::<Conveyable>::new(2, VersatileFramework),)
@@ -919,7 +919,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Adhered Iron Plate",
-        time: 16,
+        time_s: 16,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, FePlate), Amount::<Conveyable>::new(1, Rubber)),
             output: (Amount::<Conveyable>::new(1, ReinforcedIronPlate),)
@@ -928,7 +928,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Alclad Casing",
-        time: 8,
+        time_s: 8,
         building: Assembler {
             input: (Amount::<Conveyable>::new(20, AlIngot), Amount::<Conveyable>::new(10, CuIngot)),
             output: (Amount::<Conveyable>::new(15, AlCasing),)
@@ -937,7 +937,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Bolted Frame",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, ReinforcedIronPlate), Amount::<Conveyable>::new(56, Screws)),
             output: (Amount::<Conveyable>::new(2, ModularFrame),)
@@ -946,7 +946,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Bolted Iron Plate",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(18, FePlate), Amount::<Conveyable>::new(50, Screws)),
             output: (Amount::<Conveyable>::new(3, ReinforcedIronPlate),)
@@ -955,7 +955,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Caterium Circuit Board",
-        time: 48,
+        time_s: 48,
         building: Assembler {
             input: (Amount::<Conveyable>::new(10, Plastic), Amount::<Conveyable>::new(30, Quickwire)),
             output: (Amount::<Conveyable>::new(7, CircuitBoard),)
@@ -964,7 +964,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Caterium Circuit Board",
-        time: 48,
+        time_s: 48,
         building: Assembler {
             input: (Amount::<Conveyable>::new(10, Plastic), Amount::<Conveyable>::new(30, Quickwire)),
             output: (Amount::<Conveyable>::new(7, CircuitBoard),)
@@ -973,7 +973,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Cheap Silica",
-        time: 16,
+        time_s: 16,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, RawQuartz), Amount::<Conveyable>::new(5, Limestone)),
             output: (Amount::<Conveyable>::new(7, Silica),)
@@ -982,7 +982,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Coated Iron Canister",
-        time: 4,
+        time_s: 4,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, FePlate), Amount::<Conveyable>::new(1, CuSheet)),
             output: (Amount::<Conveyable>::new(4, EmptyCanister),)
@@ -991,7 +991,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Coated Iron Plate",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(10, FeIngot), Amount::<Conveyable>::new(2, Plastic)),
             output: (Amount::<Conveyable>::new(15, FePlate),)
@@ -1000,7 +1000,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Compacted Coal",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(5, Coal), Amount::<Conveyable>::new(5, Sulfur)),
             output: (Amount::<Conveyable>::new(5, CompactedCoal),)
@@ -1009,7 +1009,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Copper Rotor",
-        time: 16,
+        time_s: 16,
         building: Assembler {
             input: (Amount::<Conveyable>::new(6, CuSheet), Amount::<Conveyable>::new(52, Screws)),
             output: (Amount::<Conveyable>::new(3, Rotor),)
@@ -1018,7 +1018,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Crystal Computer",
-        time: 64,
+        time_s: 64,
         building: Assembler {
             input: (Amount::<Conveyable>::new(8, CircuitBoard), Amount::<Conveyable>::new(3, CrystalOscillator)),
             output: (Amount::<Conveyable>::new(3, Computer),)
@@ -1027,7 +1027,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Crystal Computer",
-        time: 64,
+        time_s: 64,
         building: Assembler {
             input: (Amount::<Conveyable>::new(8, CircuitBoard), Amount::<Conveyable>::new(3, CrystalOscillator)),
             output: (Amount::<Conveyable>::new(3, Computer),)
@@ -1036,7 +1036,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Electric Motor",
-        time: 16,
+        time_s: 16,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, EMControlRod), Amount::<Conveyable>::new(2, Rotor)),
             output: (Amount::<Conveyable>::new(2, Motor),)
@@ -1045,7 +1045,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Electrode Circuit Board",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(6, Rubber), Amount::<Conveyable>::new(9, PetroleumCoke)),
             output: (Amount::<Conveyable>::new(1, CircuitBoard),)
@@ -1054,7 +1054,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Electromagnetic Connection Rod",
-        time: 15,
+        time_s: 15,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, Stator), Amount::<Conveyable>::new(1, HighSpeedConnector)),
             output: (Amount::<Conveyable>::new(2, EMControlRod),)
@@ -1063,7 +1063,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Electromagnetic Connection Rod",
-        time: 15,
+        time_s: 15,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, Stator), Amount::<Conveyable>::new(1, HighSpeedConnector)),
             output: (Amount::<Conveyable>::new(2, EMControlRod),)
@@ -1072,7 +1072,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Encased Industrial Pipe",
-        time: 15,
+        time_s: 15,
         building: Assembler {
             input: (Amount::<Conveyable>::new(7, SteelPipe), Amount::<Conveyable>::new(5, Concrete)),
             output: (Amount::<Conveyable>::new(1, IndustrialBeam),)
@@ -1081,7 +1081,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Fine Black Powder",
-        time: 16,
+        time_s: 16,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, Sulfur), Amount::<Conveyable>::new(1, CompactedCoal)),
             output: (Amount::<Conveyable>::new(4, BlackPowder),)
@@ -1090,7 +1090,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Fine Concrete",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, Silica), Amount::<Conveyable>::new(12, Limestone)),
             output: (Amount::<Conveyable>::new(10, Concrete),)
@@ -1099,7 +1099,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Fused Quickwire",
-        time: 8,
+        time_s: 8,
         building: Assembler {
             input: (Amount::<Conveyable>::new(1, CateriumIngot), Amount::<Conveyable>::new(5, CuIngot)),
             output: (Amount::<Conveyable>::new(12, Quickwire),)
@@ -1108,7 +1108,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Fused Wire",
-        time: 20,
+        time_s: 20,
         building: Assembler {
             input: (Amount::<Conveyable>::new(4, CuIngot), Amount::<Conveyable>::new(1, CateriumIngot)),
             output: (Amount::<Conveyable>::new(30, CuWire),)
@@ -1117,7 +1117,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Heat Exchanger",
-        time: 6,
+        time_s: 6,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, AlCasing), Amount::<Conveyable>::new(3, Rubber)),
             output: (Amount::<Conveyable>::new(1, Heatsink),)
@@ -1126,7 +1126,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Insulated Cable",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(9, CuWire), Amount::<Conveyable>::new(6, Rubber)),
             output: (Amount::<Conveyable>::new(20, Cable),)
@@ -1135,7 +1135,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "OC Supercomputer",
-        time: 20,
+        time_s: 20,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, RadioControlUnit), Amount::<Conveyable>::new(3, CoolingSystem)),
             output: (Amount::<Conveyable>::new(1, SuperComputer),)
@@ -1144,7 +1144,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "OC Supercomputer",
-        time: 20,
+        time_s: 20,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, RadioControlUnit), Amount::<Conveyable>::new(3, CoolingSystem)),
             output: (Amount::<Conveyable>::new(1, SuperComputer),)
@@ -1153,7 +1153,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Plutonium Fuel Unit",
-        time: 120,
+        time_s: 120,
         building: Assembler {
             input: (Amount::<Conveyable>::new(20, EncasedPuCell), Amount::<Conveyable>::new(1, PressureConversionCube)),
             output: (Amount::<Conveyable>::new(1, PuRod),)
@@ -1162,7 +1162,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Quickwire Cable",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, Quickwire),
                     Amount::<Conveyable>::new(2, Rubber)),
@@ -1172,7 +1172,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Quickwire Cable",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(3, Quickwire),
                     Amount::<Conveyable>::new(2, Rubber)),
@@ -1182,7 +1182,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Quickwire Stator",
-        time: 15,
+        time_s: 15,
         building: Assembler {
             input: (Amount::<Conveyable>::new(4, SteelPipe),
                     Amount::<Conveyable>::new(15, Quickwire)),
@@ -1192,7 +1192,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Quickwire Stator",
-        time: 15,
+        time_s: 15,
         building: Assembler {
             input: (Amount::<Conveyable>::new(4, SteelPipe),
                     Amount::<Conveyable>::new(15, Quickwire)),
@@ -1202,7 +1202,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Rubber Concrete",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(10, Limestone),
                     Amount::<Conveyable>::new(2, Rubber)),
@@ -1212,7 +1212,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Silicon Circuit Board",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(11, CuSheet),
                     Amount::<Conveyable>::new(11, Silica)),
@@ -1222,7 +1222,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Silicon Circuit Board",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(11, CuSheet),
                     Amount::<Conveyable>::new(11, Silica)),
@@ -1232,7 +1232,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Coated Plate",
-        time: 24,
+        time_s: 24,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, SteelIngot),
                     Amount::<Conveyable>::new(2, Plastic)),
@@ -1242,7 +1242,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steel Rotor",
-        time: 12,
+        time_s: 12,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, SteelPipe),
                     Amount::<Conveyable>::new(6, CuWire)),
@@ -1252,7 +1252,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Steeled Frame",
-        time: 60,
+        time_s: 60,
         building: Assembler {
             input: (Amount::<Conveyable>::new(2, ReinforcedIronPlate),
                     Amount::<Conveyable>::new(10, SteelPipe)),
@@ -1262,7 +1262,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Stitched Iron Plate",
-        time: 32,
+        time_s: 32,
         building: Assembler {
             input: (Amount::<Conveyable>::new(10, FePlate), Amount::<Conveyable>::new(20, CuWire)),
             output: (Amount::<Conveyable>::new(3, ReinforcedIronPlate),)
@@ -1271,7 +1271,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Adaptive Control Unit",
-        time: 120,
+        time_s: 120,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(15, AutomatedWiring),
                     Amount::<Conveyable>::new(10, CircuitBoard),
@@ -1283,7 +1283,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Beacon",
-        time: 8,
+        time_s: 8,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(3, FePlate),
                     Amount::<Conveyable>::new(1, FeRod),
@@ -1295,7 +1295,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Computer",
-        time: 24,
+        time_s: 24,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(10, CircuitBoard),
                     Amount::<Conveyable>::new(9, Cable, ),
@@ -1307,7 +1307,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Crystal Oscillator",
-        time: 120,
+        time_s: 120,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(36, CrushedQuartz),
                     Amount::<Conveyable>::new(28, Cable, ),
@@ -1319,7 +1319,7 @@ pub static RECIPES: [Process; 144] = [
     },
     Process {
         name: "Crystal Oscillator",
-        time: 120,
+        time_s: 120,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(36, CrushedQuartz),
                     Amount::<Conveyable>::new(28, Cable, ),

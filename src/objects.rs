@@ -3,25 +3,31 @@ use crate::tiers::*;
 
 #[derive(Clone,Copy,PartialEq,Debug)]
 pub(crate) struct Process<'a>{
-    pub(crate)name: &'a str,
-    pub(crate)time: usize,
-    pub(crate)building: Building,
-    pub(crate)tier: Tier,
+    pub(crate) name: &'a str,
+    pub(crate) time_s: usize,
+    pub(crate) building: Building,
+    pub(crate) tier: Tier,
 }
 
 impl Process<'_>{
-    pub(crate) fn get_input_rate(self: &Self, search_part: Part) -> Option<f32>{
+    pub(crate) fn get_input_rate_per_min(self: &Self, search_part: &Part) -> Option<f32>{
         self.building.get_input().iter()
-            .find_map(|&(find_part, amt)|
-                if find_part==search_part {Some(amt as f32 / self.time as f32)}
-                else {None})
+            .find_map(|(find_part, amt)|
+                if find_part==search_part {
+                    Some(60. * *amt as f32 / (self.time_s as f32))
+                } else {
+                    None
+                })
     }
 
-    pub(crate) fn get_output_rate(self: &Self, search_part: Part) -> Option<f32>{
+    pub(crate) fn get_output_rate_per_min(self: &Self, search_part: &Part) -> Option<f32>{
         self.building.get_output().iter()
-            .find_map(|&(find_part, amt)|
-                if find_part==search_part {Some(amt as f32/self.time as f32)}
-                else {None})
+            .find_map(|(find_part, amt)|
+                if find_part==search_part {
+                    Some(60. * *amt as f32/(self.time_s as f32))
+                } else {
+                    None
+                })
     }
 }
 
@@ -71,64 +77,64 @@ impl Building {
 
     pub(crate) fn get_input(self: &Self) -> Vec<(Part,usize)> {
         match self{
-            Building::Smelter       {input:(x,                          ), .. } => Vec::from([(Part::Conveyor(x.kind),x.count)]),
-            Building::Foundry       {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Conveyor(b.kind),b.count)]),
-            Building::Constructor   {input:(a,                          ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Assembler     {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Conveyor(b.kind),b.count)]),
-            Building::Manufacturer  {input:(a,      b,      c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Conveyor(b.kind),b.count),(Part::Conveyor(c.kind),c.count),(Part::Conveyor(d.kind),d.count)]),
-            Building::Manufacturer  {input:(a,      b,      c,None      ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Conveyor(b.kind),b.count),(Part::Conveyor(c.kind),c.count)]),
+            Building::Smelter       {input:(x,                          ), .. } => Vec::from([(Part::Conveyor(x.kind),x.rate_per_period)]),
+            Building::Foundry       {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Conveyor(b.kind), b.rate_per_period)]),
+            Building::Constructor   {input:(a,                          ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Assembler     {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Conveyor(b.kind), b.rate_per_period)]),
+            Building::Manufacturer  {input:(a,      b,      c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Conveyor(b.kind), b.rate_per_period),(Part::Conveyor(c.kind), c.rate_per_period),(Part::Conveyor(d.kind), d.rate_per_period)]),
+            Building::Manufacturer  {input:(a,      b,      c,None      ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Conveyor(b.kind), b.rate_per_period),(Part::Conveyor(c.kind), c.rate_per_period)]),
             Building::Refinery      {input:(None,   None                ), .. } => Vec::<(Part,usize)>::new(),
-            Building::Refinery      {input:(Some(a),Some(b)             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
-            Building::Refinery      {input:(Some(a),None                ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Refinery      {input:(None,   Some(b)             ), .. } => Vec::from([(Part::Pipe(b.kind),b.count)]),
-            Building::Blender       {input:(Some(a),Some(b),c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Conveyor(b.kind),b.count),(Part::Pipe(c.kind),c.count),(Part::Pipe(d.kind),d.count)]),
-            Building::Blender       {input:(Some(a),Some(b),c,None      ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Conveyor(b.kind),b.count),(Part::Pipe(c.kind),c.count)]),
-            Building::Blender       {input:(Some(a),None,   c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(c.kind),c.count),    (Part::Pipe(d.kind),d.count)]),
-            Building::Blender       {input:(Some(a),None,   c,None      ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(c.kind),c.count)]),
-            Building::Blender       {input:(None,   Some(b),c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(b.kind),b.count),(Part::Pipe(c.kind),c.count),    (Part::Pipe(d.kind),d.count)]),
-            Building::Blender       {input:(None,   Some(b),c,None      ), .. } => Vec::from([(Part::Conveyor(b.kind),b.count),(Part::Pipe(c.kind),c.count)]),
-            Building::Blender       {input:(None,   None,   c,Some(d)   ), .. } => Vec::from([(Part::Pipe(c.kind),c.count),    (Part::Pipe(d.kind),d.count)]),
-            Building::Blender       {input:(None,   None,   c,None      ), .. } => Vec::from([(Part::Pipe(c.kind),c.count)]),
-            Building::Packager      {input:(a,      None                ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Packager      {input:(a,      Some(b)             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
+            Building::Refinery      {input:(Some(a),Some(b)             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
+            Building::Refinery      {input:(Some(a),None                ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Refinery      {input:(None,   Some(b)             ), .. } => Vec::from([(Part::Pipe(b.kind),b.rate_per_period)]),
+            Building::Blender       {input:(Some(a),Some(b),c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Conveyor(b.kind), b.rate_per_period),(Part::Pipe(c.kind), c.rate_per_period),(Part::Pipe(d.kind), d.rate_per_period)]),
+            Building::Blender       {input:(Some(a),Some(b),c,None      ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Conveyor(b.kind), b.rate_per_period),(Part::Pipe(c.kind), c.rate_per_period)]),
+            Building::Blender       {input:(Some(a),None,   c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(c.kind), c.rate_per_period),    (Part::Pipe(d.kind), d.rate_per_period)]),
+            Building::Blender       {input:(Some(a),None,   c,None      ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(c.kind), c.rate_per_period)]),
+            Building::Blender       {input:(None,   Some(b),c,Some(d)   ), .. } => Vec::from([(Part::Conveyor(b.kind),b.rate_per_period),(Part::Pipe(c.kind), c.rate_per_period),    (Part::Pipe(d.kind), d.rate_per_period)]),
+            Building::Blender       {input:(None,   Some(b),c,None      ), .. } => Vec::from([(Part::Conveyor(b.kind),b.rate_per_period),(Part::Pipe(c.kind), c.rate_per_period)]),
+            Building::Blender       {input:(None,   None,   c,Some(d)   ), .. } => Vec::from([(Part::Pipe(c.kind),c.rate_per_period),    (Part::Pipe(d.kind), d.rate_per_period)]),
+            Building::Blender       {input:(None,   None,   c,None      ), .. } => Vec::from([(Part::Pipe(c.kind),c.rate_per_period)]),
+            Building::Packager      {input:(a,      None                ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Packager      {input:(a,      Some(b)             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
             Building::BioPlant      {input:(a,                          ), .. } => Vec::<(Part,usize)>::from([(a.kind,1)]),
-            Building::CoalPlant     {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
-            Building::OilPlant      {input:(a,                          ), .. } => Vec::from([(Part::Pipe(a.kind),a.count)]),
-            Building::NuclearPlant  {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
-            Building::Miner1        {input:(a,                          ), .. } => Vec::from([(Part::Mine(a.kind),a.count)]),
-            Building::Miner2        {input:(a,                          ), .. } => Vec::from([(Part::Mine(a.kind),a.count)]),
-            Building::Miner3        {input:(a,                          ), .. } => Vec::from([(Part::Mine(a.kind),a.count)]),
-            Building::WaterExtractor{input:(a,                          ), .. } => Vec::from([(Part::Pump(a.kind),a.count)]),
-            Building::OilExtractor  {input:(a,                          ), .. } => Vec::from([(Part::Pump(a.kind),a.count)])
+            Building::CoalPlant     {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
+            Building::OilPlant      {input:(a,                          ), .. } => Vec::from([(Part::Pipe(a.kind),a.rate_per_period)]),
+            Building::NuclearPlant  {input:(a,      b                   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
+            Building::Miner1        {input:(a,                          ), .. } => Vec::from([(Part::Mine(a.kind),a.rate_per_period)]),
+            Building::Miner2        {input:(a,                          ), .. } => Vec::from([(Part::Mine(a.kind),a.rate_per_period)]),
+            Building::Miner3        {input:(a,                          ), .. } => Vec::from([(Part::Mine(a.kind),a.rate_per_period)]),
+            Building::WaterExtractor{input:(a,                          ), .. } => Vec::from([(Part::Pump(a.kind),a.rate_per_period)]),
+            Building::OilExtractor  {input:(a,                          ), .. } => Vec::from([(Part::Pump(a.kind),a.rate_per_period)])
         }
     }
 
     pub(crate) fn get_output(self: &Self) -> Vec<(Part,usize)>{
         match self {
-            Building::Smelter       {output:(x,             ), .. } => Vec::from([(Part::Conveyor(x.kind),x.count)]),
-            Building::Foundry       {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Constructor   {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Assembler     {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Manufacturer  {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
+            Building::Smelter       {output:(x,             ), .. } => Vec::from([(Part::Conveyor(x.kind),x.rate_per_period)]),
+            Building::Foundry       {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Constructor   {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Assembler     {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Manufacturer  {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
             Building::Refinery      {output:(None,   None   ), .. } => Vec::<(Part,usize)>::new(),
-            Building::Refinery      {output:(Some(a),Some(b)), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
-            Building::Refinery      {output:(Some(a),None   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Refinery      {output:(None,   Some(b)), .. } => Vec::from([(Part::Pipe(b.kind),b.count)]),
-            Building::Blender       {output:(Some(a),Some(b)), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
-            Building::Blender       {output:(Some(a),None   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Blender       {output:(None,   Some(b)), .. } => Vec::from([(Part::Pipe(b.kind),b.count),]),
+            Building::Refinery      {output:(Some(a),Some(b)), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
+            Building::Refinery      {output:(Some(a),None   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Refinery      {output:(None,   Some(b)), .. } => Vec::from([(Part::Pipe(b.kind),b.rate_per_period)]),
+            Building::Blender       {output:(Some(a),Some(b)), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
+            Building::Blender       {output:(Some(a),None   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Blender       {output:(None,   Some(b)), .. } => Vec::from([(Part::Pipe(b.kind),b.rate_per_period),]),
             Building::Blender       {output:(None,   None   ), .. } => Vec::<(Part,usize)>::new(),
-            Building::Packager      {output:(a,      None   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Packager      {output:(a,      Some(b)), .. } => Vec::from([(Part::Conveyor(a.kind),a.count),(Part::Pipe(b.kind),b.count)]),
+            Building::Packager      {output:(a,      None   ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Packager      {output:(a,      Some(b)), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period),(Part::Pipe(b.kind), b.rate_per_period)]),
             Building::BioPlant      {                          .. } => Vec::<(Part,usize)>::new(),
             Building::CoalPlant     {                          .. } => Vec::<(Part,usize)>::new(),
             Building::OilPlant      {                          .. } => Vec::<(Part,usize)>::new(),
-            Building::NuclearPlant  {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Miner1        {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Miner2        {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::Miner3        {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.count)]),
-            Building::WaterExtractor{output:(a,             ), .. } => Vec::from([(Part::Pipe(a.kind),a.count)]),
-            Building::OilExtractor  {output:(a,             ), .. } => Vec::from([(Part::Pipe(a.kind),a.count)])
+            Building::NuclearPlant  {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Miner1        {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Miner2        {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::Miner3        {output:(a,             ), .. } => Vec::from([(Part::Conveyor(a.kind),a.rate_per_period)]),
+            Building::WaterExtractor{output:(a,             ), .. } => Vec::from([(Part::Pipe(a.kind),a.rate_per_period)]),
+            Building::OilExtractor  {output:(a,             ), .. } => Vec::from([(Part::Pipe(a.kind),a.rate_per_period)])
         }
     }
 
@@ -272,12 +278,12 @@ pub(crate) enum Pumpable{
 
 #[derive(Clone,Copy,Debug, PartialEq)]
 pub(crate) struct Amount<T>{
-    pub(crate) count: usize,
+    pub(crate) rate_per_period: usize,
     pub(crate) kind: T
 }
 
 impl<T> Amount<T> {
     pub(crate) const fn new(count:usize, kind:T) -> Self{
-        Self{count,kind}
+        Self{ rate_per_period: count, kind}
     }
 }

@@ -20,7 +20,7 @@ fn main() {
         objects::Conveyable::FePlate
     );
 
-    let results = route_finder::generate_possibilities(target, 1, &Vec::<Process>::new());
+    let results = route_finder::generate_possibilities(target, 60.0, &Vec::<Process>::new());
 
     let path = match setting {
         Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);None},
