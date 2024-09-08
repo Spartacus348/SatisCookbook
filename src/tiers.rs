@@ -60,7 +60,8 @@ pub(crate) enum Tier4{
 pub(crate) enum Tier5{
     OilProcessing,
     AlternativeFuelTransport,
-    IndustrialManufacturing
+    IndustrialManufacturing,
+    GasMask,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -71,7 +72,8 @@ pub(crate) enum Tier6{
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(crate) enum Tier7{
     BauxiteRefinement,
-    AeronauticalEngineering
+    AeronauticalEngineering,
+    HazmatSuit
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

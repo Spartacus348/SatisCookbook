@@ -7,7 +7,7 @@ use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*
                    Tier4::*, Tier5::*, Tier7::*, Tier8::*};
 
 
-pub static RECIPES: [Process; 144] = [
+pub static RECIPES: [Process] = *[
     Process {
         name: "Mine Iron",
         time_s: 1,
@@ -1328,5 +1328,173 @@ pub static RECIPES: [Process; 144] = [
             output: (Amount::<Conveyable>::new(2, CrystalOscillator, ),)
         },
         tier: MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name: "Explosive Rebar",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, BaseRebar),
+                    Amount::<Conveyable>::new(2, SmokelessPowder),
+                    Amount::<Conveyable>::new(2, SteelPipe),
+                    None),
+            output: (Amount::<Conveyable>::new( 1, ExplosiveRebar),)
+        },
+        tier:MAM(SulfurTier(ExplosiveRebarResearch))
+    },
+    Process {
+        name: "Gas Filter",
+        time_s: 8,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, Coal),
+                    Amount::<Conveyable>::new(2, Rubber),
+                    Amount::<Conveyable>::new(2, Fabric),
+                    None),
+            output: (Amount::<Conveyable>::new( 1, GasFilter),)
+        },
+        tier:MainProgression(Tier5(GasMask))
+    },
+    Process {
+        name: "Heavy Modular Frame",
+        time_s: 30,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, ModularFrame),
+                    Amount::<Conveyable>::new(15, SteelPipe),
+                    Amount::<Conveyable>::new(5, IndustrialBeam),
+                    Some(Amount::<Conveyable>::new(100, Screws))),
+            output: (Amount::<Conveyable>::new(1, HeavyModularFrame),)
+        },
+        tier:MainProgression(Tier4(AdvancedSteel))
+    },
+    Process {
+        name: "High-Speed Connector",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(56, Quickwire),
+                    Amount::<Conveyable>::new(10, Cable),
+                    Amount::<Conveyable>::new(1, CircuitBoard),
+                    None),
+            output: (Amount::<Conveyable>::new(1, HighSpeedConnector ),)
+        },
+        tier:MainProgression(Tier7(AeronauticalEngineering))
+    },
+    Process {
+        name: "High-Speed Connector",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(56, Quickwire),
+                    Amount::<Conveyable>::new(10, Cable),
+                    Amount::<Conveyable>::new(1, CircuitBoard),
+                    None),
+            output: (Amount::<Conveyable>::new(1, HighSpeedConnector ),)
+        },
+        tier:MAM(Caterium(HighSpeedConnectorResearch))
+    },
+    Process {
+        name: "Iodine Infused Filter",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, GasFilter),
+                    Amount::<Conveyable>::new(8, Quickwire),
+                    Amount::<Conveyable>::new(1, AlCasing),
+                    None),
+            output: (Amount::<Conveyable>::new(1, IodineFilter ),)
+        },
+        tier:MainProgression(Tier7(HazmatSuit))
+    },
+    Process {
+        name: "Magnetic Field Generator",
+        time_s: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, VersatileFramework),
+                    Amount::<Conveyable>::new(2, EMControlRod),
+                    Amount::<Conveyable>::new(10, Battery),
+                    None),
+            output: (Amount::<Conveyable>::new(2, MagneticFieldGenerator ),)
+        },
+        tier:MainProgression(Tier8(NuclearPower))
+    },
+    Process {
+        name: "Modular Engine",
+        time_s: 60,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Motor),
+                    Amount::<Conveyable>::new(2, SmartPlating),
+                    Amount::<Conveyable>::new(15, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new(1, ModularEngine ),)
+        },
+        tier:MainProgression(Tier5(IndustrialManufacturing))
+    },
+    Process {
+        name: "Nuke Nobelisk",
+        time_s: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, Nobelisk),
+                    Amount::<Conveyable>::new(20, EncasedUCell),
+                    Amount::<Conveyable>::new(10, SmokelessPowder),
+                    Some(Amount::<Conveyable>::new(6, AILimiter))),
+            output: (Amount::<Conveyable>::new(1, NuclearNobelisk ),)
+        },
+        tier:MAM(SulfurTier(NuclearDeterrent))
+    },
+    Process {
+        name: "Plutonium Fuel Rod",
+        time_s: 240,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(30, EncasedPuCell),
+                    Amount::<Conveyable>::new(18, SteelBeam),
+                    Amount::<Conveyable>::new(6, EMControlRod),
+                    Some(Amount::<Conveyable>::new(10, Heatsink))),
+            output: (Amount::<Conveyable>::new(1, PuRod ),)
+        },
+        tier:MainProgression(Tier8(ParticleEnrichment))
+    },
+    Process {
+        name: "Radio Control Unit",
+        time_s: 48,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(32, AlCasing),
+                    Amount::<Conveyable>::new(1, CrystalOscillator),
+                    Amount::<Conveyable>::new(1, Computer),
+                    None),
+            output: (Amount::<Conveyable>::new(2, RadioControlUnit ),)
+        },
+        tier:MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name: "Supercomputer",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Computer),
+                    Amount::<Conveyable>::new(2, AILimiter),
+                    Amount::<Conveyable>::new(3, HighSpeedConnector),
+                    Some(Amount::<Conveyable>::new(28, Plastic))),
+            output: (Amount::<Conveyable>::new(1, SuperComputer),)
+        },
+        tier:MAM(Caterium(SupercomputerResearch))
+    },
+    Process {
+        name: "Supercomputer",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Computer),
+                    Amount::<Conveyable>::new(2, AILimiter),
+                    Amount::<Conveyable>::new(3, HighSpeedConnector),
+                    Some(Amount::<Conveyable>::new(28, Plastic))),
+            output: (Amount::<Conveyable>::new(1, SuperComputer),)
+        },
+        tier:MainProgression(Tier7(AeronauticalEngineering))
+    },
+    Process {
+        name: ,
+        time_s: ,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(),
+                    Amount::<Conveyable>::new(),
+                    Amount::<Conveyable>::new(),
+                    None),
+            output: (Amount::<Conveyable>::new( ),)
+        },
+        tier:
     },
 ];
