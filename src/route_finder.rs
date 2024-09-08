@@ -7,15 +7,13 @@ use crate::{objects::{Part, Building, Amount},
 use crate::objects::Process;
 
 type Multiverse<'a> = Vec<ProductionNode<'a>>;
-type BookOfPaths<'a> = HashMap<&'a Part, &'a Multiverse<'a>>;
+type BookOfPaths<'a> = HashMap<Part, Multiverse<'a>>;
 
 #[derive(Debug)]
 pub(crate) struct ProductionNode<'a> {
-    pub(crate) name: &'a str,
-    pub(crate)amount:f32,
-    pub(crate) period_s: usize,
-    pub(crate)building:Building,
-    pub(crate)sources: BookOfPaths<'a>
+    pub(crate) source_recipe: &'a Process<'a>,
+    pub(crate) amount:f32,
+    pub(crate) sources: BookOfPaths<'a>
 }
 
 enum ReportMode{
@@ -54,7 +52,7 @@ pub(crate) struct NodeSet{
     uranium_nodes: NodesAvailable
 }
 
-pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, upline: &'a Vec<Process<'a>>) -> Multiverse<'a> {
+pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, upline: Vec<Process<'a>>) -> Multiverse<'a> {
     // generates a tree of all possible production lines
     recipebook::RECIPES.iter()
         .filter_map(|recipe| {
@@ -68,15 +66,13 @@ pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, u
 
             let scale_factor = rate_per_min/rate_produced;
             Some(ProductionNode{
-                name: recipe.name,
+                source_recipe: recipe,
                 amount: scale_factor,
-                period_s: recipe.time_s,
-                building: recipe.building,
                 sources: recipe.building
                     .get_input().iter()
-                    .map(|(part, part_per_period)| {
-                        let part_per_min:f32 = scale_factor * recipe.get_input_rate_per_min(part).unwrap();
-                        (part, generate_possibilities(part, part_per_min, &new_upline))
+                    .map(|&(part, _)| {
+                        let part_per_min:f32 = scale_factor * recipe.get_input_rate_per_min(&part).unwrap();
+                        (part, generate_possibilities(&part, part_per_min, new_upline.clone()))
                     })
                     .collect::<BookOfPaths>()
             })
@@ -86,22 +82,20 @@ pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, u
 
 #[derive(Debug)]
 pub(crate) struct OnePath<'a>{
-    pub(crate) recipe_name: &'a str,
+    pub(crate) source_recipe: &'a Process<'a>,
     pub(crate) amount: f32,
-    pub(crate) period_s: usize,
-    pub(crate) building: Building,
     pub(crate) inputs: HashMap<Part, OnePath<'a>>
 }
 
 impl OnePath<'_>{
     pub(crate) fn get_power(self: &Self) -> f32 {
-        self.building.get_power() as f32 * self.amount + self.inputs.iter()
+        self.source_recipe.building.get_power() as f32 * self.amount + self.inputs.iter()
             .map(|(_, path)| path.get_power())
             .sum::<f32>()
     }
 
     pub(crate) fn get_raw_resources(self: &Self) -> HashMap<Part, f32> {
-        let mut raw_resources: HashMap<Part, f32> = self.building
+        let mut raw_resources: HashMap<Part, f32> = self.source_recipe.building
             .get_input().iter()
             .filter_map(|&(part, size)| match part {
                 Part::Mine(_) | Part::Pump(_) => Some((part, size as f32*self.amount)),
@@ -160,10 +154,8 @@ fn fewest_buildings<'a>(p0: &'a Multiverse<'a>)  -> Option<OnePath<'a>>{
     // recursively descend the tree, returning the most compact choice for each input
     p0.iter().map(|node| {
         OnePath{
-            recipe_name: node.name,
+            source_recipe: node.source_recipe,
             amount: node.amount,
-            period_s: node.period_s,
-            building: node.building,
             inputs: node.sources.iter()
                 .filter_map(|(&part, multiverse)|
                     if let Some(path) = fewest_buildings(multiverse){
@@ -180,10 +172,8 @@ fn least_power<'a>(p0: &'a Multiverse<'a>)  -> Option<OnePath<'a>>{
     // recursively descend the tree, returning the cheapest choice for each input
     p0.iter().map(|node| {
         OnePath{
-            recipe_name: node.name,
+            source_recipe: node.source_recipe,
             amount: node.amount,
-            period_s: node.period_s,
-            building: node.building,
             inputs: node.sources.iter()
                 .filter_map(|(&part, multiverse)|
                     if let Some(path) = least_power(multiverse){
@@ -200,10 +190,8 @@ fn least_resources<'a>(p0: &'a Multiverse<'a>) -> Option<OnePath<'a>> {
     //recursively descend the tree, returning the cheapest choice for each input
     p0.iter().map(|node| {
         OnePath{
-            recipe_name: node.name,
+            source_recipe: node.source_recipe,
             amount: node.amount,
-            period_s: node.period_s,
-            building: node.building,
             inputs: node.sources.iter()
                 .filter_map(|(&part, multiverse)|
                     if let Some(path) = least_resources(multiverse){

@@ -15,24 +15,25 @@ enum Settings{
 }
 
 fn main() {
-    let setting = Settings::MinBuild;
+    let setting = Settings::MinRaw;
     let target = objects::Part::Conveyor(
-        objects::Conveyable::FePlate
+        objects::Conveyable::ReinforcedIronPlate
     );
 
-    let results = route_finder::generate_possibilities(target, 60.0, &Vec::<Process>::new());
+    let binding = Vec::<Process>::new();
+    let results = route_finder::generate_possibilities(&target, 60.0, binding);
 
     let path = match setting {
         Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);None},
         Settings::DisplaySize =>{report_size(&results,true); None},
         Settings::MinPower =>   {route_finder::walk_one_path(
-                                        results,
+                                        &results,
                                         route_finder::OptimizationMode::MinimizePower)},
         Settings::MinRaw =>     {route_finder::walk_one_path(
-                                        results,
+                                        &results,
                                         route_finder::OptimizationMode::MinimizeResources)},
         Settings::MinBuild =>   {route_finder::walk_one_path(
-                                        results,
+                                        &results,
                                         route_finder::OptimizationMode::MinimizeBuildings)},
     };
     if let Some(path) = path {
@@ -50,7 +51,7 @@ fn delve(layer: &Vec<ProductionNode>, depth: usize) {
     if layer.len() > 0 {
         for timeline in layer {
             println!("{}Amount: {}", prefix, timeline.amount);
-            println!("{}{}", prefix, timeline.building);
+            println!("{}{}", prefix, timeline.source_recipe.building);
             //println!("{}Possible sources:", prefix);
             for (part, options) in &timeline.sources {
                 println!("{}{}", prefix, part);
