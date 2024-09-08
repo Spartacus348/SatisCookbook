@@ -52,33 +52,27 @@ pub(crate) struct NodeSet{
     uranium_nodes: NodesAvailable
 }
 
-pub(crate) fn generate_possibilities(ingredient: Part, amount: usize, upline: &Vec<Process>) -> Multiverse {
+pub(crate) fn generate_possibilities(ingredient: Part, rate: f32, upline: &Vec<Process>) -> Multiverse {
     // generates a tree of all possible production lines
     recipebook::RECIPES.iter()
-        .filter(|recipe| {
-            recipe.building
-                .get_output().iter()
-                .any(|&output| {
-                    output.0 == ingredient
-                }) && upline.iter().all(|&output|{
-                    output != **recipe
-                })
-        })
-        .map(|recipe| {
+        .filter_map(|recipe| {
+            if upline.iter().any(|output| output == recipe) {return None}
+            let rate_in = recipe.get_output_rate(ingredient)?;
+            println!("Recipe: {}", recipe.name);
+            println!("Rate produces parts: {}", rate_in);
+            println!("Rate required: {}", rate);
             let mut new_upline = upline.clone();
             new_upline.push(recipe.clone());
-            let tgt_output = recipe.building
-                .get_output().iter()
-                .find(|(recipe_part, ..)| *recipe_part == ingredient)
-                .unwrap();
-            ProductionNode{
-                amount: (amount as f32) / tgt_output.1 as f32,
+            let scale_factor = rate/rate_in;
+            println!("Number needed: {}", scale_factor);
+            Some(ProductionNode{
+                amount: scale_factor,
                 building: recipe.building,
                 sources: recipe.building
                     .get_input().iter()
-                    .map(|&(part, volume)| (part, generate_possibilities(part, volume, &new_upline)))
+                    .map(|&(part, volume)| (part, generate_possibilities(part, volume as f32 * scale_factor, &new_upline)))
                     .collect::<BookOfPaths>()
-            }
+            })
         })
         .collect::<Vec<ProductionNode>>()
 }
