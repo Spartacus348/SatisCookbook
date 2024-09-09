@@ -1486,10 +1486,22 @@ pub static RECIPES: [Process] = *[
         tier:MainProgression(Tier7(AeronauticalEngineering))
     },
     Process {
-        name: ,
-        time_s: ,
+        name: "Thermal Propulsion Rocket",
+        time_s: 120,
         building: Manufacturer {
-            input: (Amount::<Conveyable>::new(),
+            input: (Amount::<Conveyable>::new(5, ModularEngine),
+                    Amount::<Conveyable>::new(2, TurboMotor),
+                    Amount::<Conveyable>::new(6, CoolingSystem),
+                    Some(Amount::<Conveyable>::new(2, FusedModularFrame))),
+            output: (Amount::<Conveyable>::new(2, ThermalPropulsionRocket ),)
+        },
+        tier:MainProgression(Tier8(LeadingEdgePRoduction))
+    },
+    Process {
+        name: "Turbo Motor",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, CoolingSystem),
                     Amount::<Conveyable>::new(),
                     Amount::<Conveyable>::new(),
                     None),
