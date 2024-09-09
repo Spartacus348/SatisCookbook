@@ -1486,15 +1486,303 @@ pub static RECIPES: [Process] = *[
         tier:MainProgression(Tier7(AeronauticalEngineering))
     },
     Process {
-        name: ,
-        time_s: ,
+        name: "Thermal Propulsion Rocket",
+        time_s: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, ModularEngine),
+                    Amount::<Conveyable>::new(2, TurboMotor),
+                    Amount::<Conveyable>::new(6, CoolingSystem),
+                    Some(Amount::<Conveyable>::new(2, FusedModularFrame))),
+            output: (Amount::<Conveyable>::new(2, ThermalPropulsionRocket ),)
+        },
+        tier:MainProgression(Tier8(LeadingEdgeProduction))
+    },
+    Process {
+        name: "Turbo Motor",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, CoolingSystem),
+                    Amount::<Conveyable>::new(2, RadioControlUnit),
+                    Amount::<Conveyable>::new(4, Motor),
+                    Some(Amount::<Conveyable>::new(24, Rubber))),
+            output: (Amount::<Conveyable>::new(1, TurboMotor ),)
+        },
+        tier:MainProgression(Tier8(LeadingEdgeProduction))
+    },
+    Process {
+        name: "Turbo Rifle Ammo",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(25, RifleAmmo),
+                    Amount::<Conveyable>::new(3, AlCasing),
+                    Amount::<Conveyable>::new(3, PkgdTurbofuel),
+                    None),
+            output: (Amount::<Conveyable>::new(50, TurboRifleAmmo ),)
+        },
+        tier:MAM(SulfurTier(TurboRife))
+    },
+    Process {
+        name: "Uranium Fuel Rod",
+        time_s: 150,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(50, EncasedUCell),
+                    Amount::<Conveyable>::new(3,IndustrialBeam),
+                    Amount::<Conveyable>::new(5,EMControlRod),
+                    None),
+            output: (Amount::<Conveyable>::new(1, URod),)
+        },
+        tier:MainProgression(Tier8(NuclearPower))
+    },
+    Process {
+        name: "Automated Miner",
+        time_s: 60,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, Motor),
+                    Amount::<Conveyable>::new(4, SteelPipe),
+                    Amount::<Conveyable>::new(4, FeRod),
+                    Some(Amount::<Conveyable>::new(2, FePlate))),
+            output: (Amount::<Conveyable>::new(1 , PortableMiner),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Automated Speed Wiring",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Stator),
+                    Amount::<Conveyable>::new(40, CuWire),
+                    Amount::<Conveyable>::new(1, HighSpeedConnector),
+                    None),
+            output: (Amount::<Conveyable>::new(4, AutomatedWiring ),)
+        },
+        tier:HardDrive(MainUnlock(Tier4(AdvancedSteel)))
+    },
+    Process {
+        name: "Automated Speed Wiring",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Stator),
+                    Amount::<Conveyable>::new(40, CuWire),
+                    Amount::<Conveyable>::new(1, HighSpeedConnector),
+                    None),
+            output: (Amount::<Conveyable>::new(4, AutomatedWiring ),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
+    },
+    Process {
+        name: "Caterium Computer",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(7, CircuitBoard),
+                    Amount::<Conveyable>::new(28, Quickwire),
+                    Amount::<Conveyable>::new(12, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new(1, Computer),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Caterium Computer",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(7, CircuitBoard),
+                    Amount::<Conveyable>::new(28, Quickwire),
+                    Amount::<Conveyable>::new(12, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new(1, Computer),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
+    },
+    Process {
+        name: "Classic Battery",
+        time_s: 8,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(6, Sulfur),
+                    Amount::<Conveyable>::new(7, AlcladSheet),
+                    Amount::<Conveyable>::new(8, Plastic),
+                    Some(Amount::<Conveyable>::new(12, CuWire))),
+            output: (Amount::<Conveyable>::new(4, Battery ),)
+        },
+        tier:HardDrive(MainUnlock(Tier7(AeronauticalEngineering)))
+    },
+    Process {
+        name: "Flexible Framework",
+        time_s: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, ModularFrame),
+                    Amount::<Conveyable>::new(6, SteelBeam),
+                    Amount::<Conveyable>::new(8, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new( 2, VersatileFramework),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name: "Heavy Encased Frame",
+        time_s: 64,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(8, ModularFrame),
+                    Amount::<Conveyable>::new(10, IndustrialBeam),
+                    Amount::<Conveyable>::new(36, SteelPipe),
+                    Some(Amount::<Conveyable>::new(22, Concrete))),
+            output: (Amount::<Conveyable>::new(3, HeavyModularFrame ),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Heavy Flexible Frame",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, ModularFrame),
+                    Amount::<Conveyable>::new(3, IndustrialBeam),
+                    Amount::<Conveyable>::new(20, Rubber),
+                    Some(Amount::<Conveyable>::new(104, Screws))),
+            output: (Amount::<Conveyable>::new(1, HeavyModularFrame ),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MainUnlock(Tier8(NuclearPower)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(CateriumIngotResearch)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MAMUnlock(Quartz(QuartzResearch)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MAMUnlock(SulfurTier(SulfurResearch)))
+    },
+    Process {
+        name: "Insulated Crystal Oscillator",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(10, CrushedQuartz),
+                    Amount::<Conveyable>::new(7, Rubber),
+                    Amount::<Conveyable>::new(1, AILimiter),
+                    None),
+            output: (Amount::<Conveyable>::new(1, CrystalOscillator),)
+        },
+        tier:HardDrive(MAMUnlock(Quartz(CrystalOscillatorResearch)))
+    },
+    Process {
+        name: "Insulated Crystal Oscillator",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(10, CrushedQuartz),
+                    Amount::<Conveyable>::new(7, Rubber),
+                    Amount::<Conveyable>::new(1, AILimiter),
+                    None),
+            output: (Amount::<Conveyable>::new(1, CrystalOscillator),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(CateriumElectronics)))
+    },
+    Process {
+        name: "Insulated Crystal Oscillator",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(10, CrushedQuartz),
+                    Amount::<Conveyable>::new(7, Rubber),
+                    Amount::<Conveyable>::new(1, AILimiter),
+                    None),
+            output: (Amount::<Conveyable>::new(1, CrystalOscillator),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name: "Plastic Smart Plating",
+        time_s: 24,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, ReinforcedIronPlate),
+                    Amount::<Conveyable>::new(1, Rotor),
+                    Amount::<Conveyable>::new(3, Plastic),
+                    None),
+            output: (Amount::<Conveyable>::new(2, SmartPlating),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Radio Connection Unit",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, Heatsink),
+                    Amount::<Conveyable>::new(2, HighSpeedConnector),
+                    Amount::<Conveyable>::new(12, CrushedQuartz),
+                    None),
+            output: (Amount::<Conveyable>::new(1, RadioControlUnit),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(AdvancedAluminumProduction)))
+    },
+    Process {
+        name:"Radio Connection Unit",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, Heatsink),
+                    Amount::<Conveyable>::new(2, HighSpeedConnector),
+                    Amount::<Conveyable>::new(12, CrushedQuartz),
+                    None),
+            output: (Amount::<Conveyable>::new(1, RadioControlUnit),)
+        },
+        tier: HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
+    },
+    Process {
+        name:"Radio Control System",
+        time_s:40,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, CrystalOscillator),
+                    Amount::<Conveyable>::new(10, CircuitBoard),
+                    Amount::<Conveyable>::new(60, AlCasing),
+                    Some(Amount::<Conveyable>::new(30, Rubber))),
+            output: (Amount::<Conveyable>::new(3, RadioControlUnit),)
+        },
+        tier: HardDrive(MainUnlock(Tier7(BauxiteRefinement)))
+    },
+    Process {
+        name:,
+        time_s:,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(),
                     Amount::<Conveyable>::new(),
                     Amount::<Conveyable>::new(),
                     None),
-            output: (Amount::<Conveyable>::new( ),)
+            output: (Amount::<Conveyable>::new(),)
         },
-        tier:
+        tier: HardDrive()
     },
 ];

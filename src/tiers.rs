@@ -80,7 +80,8 @@ pub(crate) enum Tier7{
 pub(crate) enum Tier8{
     NuclearPower,
     ParticleEnrichment,
-    AdvancedAluminumProduction
+    AdvancedAluminumProduction,
+    LeadingEdgeProduction,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
