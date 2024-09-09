@@ -74,15 +74,13 @@ pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, u
                 })
                 .collect::<BookOfPaths>();
             // if any part needs a building and there are no possibilities, return None
-            for (part, possibilities) in &sources{
-                if possibilities.is_empty() && part.needs_building() {
-                    return None
-                }
+            if sources.iter().any(|(part, poss)| poss.is_empty() && part.needs_building()) {
+                return None
             }
             Some(ProductionNode{
                 source_recipe: recipe,
                 amount: scale_factor,
-                sources: sources
+                sources
             })
         })
         .collect::<Vec<ProductionNode>>()
