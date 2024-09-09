@@ -6,7 +6,7 @@ use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*
                    Tier5::*, Tier7::*, Tier8::*};
 
 
-pub static RECIPES: [Process] = *[
+pub static RECIPES: [Process;249] = [
     Process {
         name: "Mine Iron",
         time_s: 1,
@@ -2522,16 +2522,11 @@ pub static RECIPES: [Process] = *[
         tier:HardDrive(MAMUnlock(SulfurTier(TurbofuelResearch)))
     },
     Process {
-        name:,
-        time_s:,
-        building: Blender{
-            input: (Some(Amount::<Conveyable>::new()),
-                    Some(Amount::<Conveyable>::new()),
-                    Amount::<Pipeable>::new(),
-                    Some(Amount::<Pipeable>::new())),
-            output: (Some(Amount::<Conveyable>::new()),
-                     Some(Amount::<Pipeable>::new())),
-        },
-        tier:)
+        name:"Extract Oil",
+        time_s:60,
+        building: OilExtractor{
+            input: (Amount::<Pumpable>::new(1, OilSource),),
+            output: (Amount::<Pipeable>::new(60, CrudeOil),) },
+        tier:MainProgression(Tier5(OilProcessing))
     },
 ];

@@ -186,6 +186,15 @@ pub(crate) enum Part{
     Pump(Pumpable)
 }
 
+impl Part {
+    pub(crate) fn needs_building(&self) -> bool {
+        match self{
+            Part::Conveyor(_) | Part::Pipe(_) => true,
+            _ => false
+        }
+    }
+}
+
 impl Display for Part {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {

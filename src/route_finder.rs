@@ -52,29 +52,37 @@ pub(crate) struct NodeSet{
     uranium_nodes: NodesAvailable
 }
 
-pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, upline: Vec<Process<'a>>) -> Multiverse<'a> {
+pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, upline: Vec<Part>) -> Multiverse<'a> {
     // generates a tree of all possible production lines
     recipebook::RECIPES.iter()
         .filter_map(|recipe| {
             // escape if invalid recipe
-            if upline.iter().any(|output| output == recipe) {
+            if upline.iter().any(|output| recipe.building.get_input().iter().any(|(part, _)| part == output)) {
                 return None}
             let rate_produced = recipe.get_output_rate_per_min(ingredient)?;
 
             let mut new_upline = upline.clone();
-            new_upline.push(recipe.clone());
+            new_upline.push(ingredient.clone());
 
             let scale_factor = rate_per_min/rate_produced;
+            let sources = recipe.building
+                .get_input().iter()
+                .map(|&(part, _)| {
+                    let part_per_min: f32 = scale_factor * recipe.get_input_rate_per_min(&part).unwrap();
+                    let possibilities = generate_possibilities(&part, part_per_min, new_upline.clone());
+                    (part, possibilities)
+                })
+                .collect::<BookOfPaths>();
+            // if any part needs a building and there are no possibilities, return None
+            for (part, possibilities) in &sources{
+                if possibilities.is_empty() && part.needs_building() {
+                    return None
+                }
+            }
             Some(ProductionNode{
                 source_recipe: recipe,
                 amount: scale_factor,
-                sources: recipe.building
-                    .get_input().iter()
-                    .map(|&(part, _)| {
-                        let part_per_min:f32 = scale_factor * recipe.get_input_rate_per_min(&part).unwrap();
-                        (part, generate_possibilities(&part, part_per_min, new_upline.clone()))
-                    })
-                    .collect::<BookOfPaths>()
+                sources: sources
             })
         })
         .collect::<Vec<ProductionNode>>()
