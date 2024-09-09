@@ -89,7 +89,8 @@ pub(crate) struct OnePath<'a>{
 
 impl OnePath<'_>{
     pub(crate) fn get_power(self: &Self) -> f32 {
-        self.source_recipe.building.get_power() as f32 * self.amount + self.inputs.iter()
+        let power_scale: f32 = (self.amount/self.amount.ceil()).powf(1.321928);
+        self.source_recipe.building.get_power() as f32 * self.amount * power_scale + self.inputs.iter()
             .map(|(_, path)| path.get_power())
             .sum::<f32>()
     }

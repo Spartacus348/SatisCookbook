@@ -59,7 +59,7 @@ pub(crate) enum Tier4{
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(crate) enum Tier5{
     OilProcessing,
-    AlternativeFuelTransport,
+    AlternativeFluidTransport,
     IndustrialManufacturing,
     GasMask,
 }
