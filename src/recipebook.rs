@@ -6,7 +6,7 @@ use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*
                    Tier5::*, Tier7::*, Tier8::*};
 
 
-pub static RECIPES: [Process;249] = [
+pub static RECIPES: [Process;250] = [
     Process {
         name: "Mine Iron",
         time_s: 1,
@@ -60,6 +60,16 @@ pub static RECIPES: [Process;249] = [
             output: (Amount::<Conveyable>::new(1, RawQuartz),)
         },
         tier: MainProgression(Tier0(Onboarding))
+    },
+    Process{
+        name: "Mine Raw Limestone",
+        time_s: 1,
+        building: Miner1 {
+            input: (Amount::<Mineable>::new(1, LimestoneNode),),
+            output: (Amount::<Conveyable>::new(1, Limestone),)
+        },
+        tier: MainProgression(Tier0(Onboarding))
+
     },
     Process {
         name: "Blue Ficsmas Ornament",

@@ -1,10 +1,10 @@
-use crate::objects::Process;
-use crate::route_finder::ProductionNode;
+use crate::route_finder::{OnePath, ProductionNode};
 
 mod objects;
 mod recipebook;
 mod tiers;
 mod route_finder;
+mod front_end;
 
 enum Settings{
     DisplayAll,
@@ -15,7 +15,7 @@ enum Settings{
 }
 
 fn main() {
-    let setting = Settings::MinPower;
+    let setting = Settings::MinBuild;
     let target = objects::Part::Conveyor(
         objects::Conveyable::ReinforcedIronPlate
     );
@@ -37,7 +37,7 @@ fn main() {
                                         route_finder::OptimizationMode::MinimizeBuildings)},
     };
     if let Some(path) = path {
-        println!("{:?}", path);
+        display_onepath(&path,0);
         let power = path.get_power();
         let resources = path.get_raw_resources();
         println!("Total Power: {}", power);
@@ -60,6 +60,20 @@ fn delve(layer: &Vec<ProductionNode>, depth: usize) {
         }
     }
 }
+
+fn display_onepath(layer: &OnePath, depth: usize){
+    let delimiter = "#";
+    let prefix = String::from(delimiter.repeat(depth));
+    println!("{}{}",prefix, layer.source_recipe.name);
+    println!("{}Amount: {} {}", prefix, layer.amount, layer.source_recipe.building.get_name());
+    if !layer.inputs.is_empty(){
+        println!("{}Sources:", prefix);
+        for (part, path) in &layer.inputs {
+            println!("{}{}{}", prefix, delimiter, part);
+            display_onepath(path, depth+1);
+        }}
+}
+
 
 #[derive(Debug)]
 struct SizeReport {

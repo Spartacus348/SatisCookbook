@@ -138,7 +138,7 @@ impl Building {
         }
     }
 
-    fn get_name(self: &Self) -> String {
+    pub(crate) fn get_name(self: &Self) -> String {
         String::from(match self {
             Building::Smelter { .. } => {"smelter"},
             Building::Foundry { .. } => {"foundry"},

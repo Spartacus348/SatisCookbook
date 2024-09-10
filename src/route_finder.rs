@@ -1,10 +1,9 @@
 // contains the tools to solve production chains to given parts
 
 use std::collections::HashMap;
-use crate::{objects::{Part, Building, Amount},
+use crate::{objects::{Part, Amount, Process},
             recipebook
 };
-use crate::objects::Process;
 
 type Multiverse<'a> = Vec<ProductionNode<'a>>;
 type BookOfPaths<'a> = HashMap<Part, Multiverse<'a>>;
@@ -119,7 +118,6 @@ impl OnePath<'_>{
             .sum::<usize>()
     }
 }
-
 
 fn update_counter(map: &mut HashMap<Part, f32>, addition: HashMap<Part, f32>){
     // merges addition into map, but if there's a key that's already in map, the values get added
