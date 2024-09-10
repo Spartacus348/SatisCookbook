@@ -52,29 +52,35 @@ pub(crate) struct NodeSet{
     uranium_nodes: NodesAvailable
 }
 
-pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, upline: Vec<Process<'a>>) -> Multiverse<'a> {
+pub(crate) fn generate_possibilities<'a>(ingredient: &Part, rate_per_min: f32, upline: Vec<Part>) -> Multiverse<'a> {
     // generates a tree of all possible production lines
     recipebook::RECIPES.iter()
         .filter_map(|recipe| {
             // escape if invalid recipe
-            if upline.iter().any(|output| output == recipe) {
+            if upline.iter().any(|output| recipe.building.get_input().iter().any(|(part, _)| part == output)) {
                 return None}
             let rate_produced = recipe.get_output_rate_per_min(ingredient)?;
 
             let mut new_upline = upline.clone();
-            new_upline.push(recipe.clone());
+            new_upline.push(ingredient.clone());
 
             let scale_factor = rate_per_min/rate_produced;
+            let sources = recipe.building
+                .get_input().iter()
+                .map(|&(part, _)| {
+                    let part_per_min: f32 = scale_factor * recipe.get_input_rate_per_min(&part).unwrap();
+                    let possibilities = generate_possibilities(&part, part_per_min, new_upline.clone());
+                    (part, possibilities)
+                })
+                .collect::<BookOfPaths>();
+            // if any part needs a building and there are no possibilities, return None
+            if sources.iter().any(|(part, poss)| poss.is_empty() && part.needs_building()) {
+                return None
+            }
             Some(ProductionNode{
                 source_recipe: recipe,
                 amount: scale_factor,
-                sources: recipe.building
-                    .get_input().iter()
-                    .map(|&(part, _)| {
-                        let part_per_min:f32 = scale_factor * recipe.get_input_rate_per_min(&part).unwrap();
-                        (part, generate_possibilities(&part, part_per_min, new_upline.clone()))
-                    })
-                    .collect::<BookOfPaths>()
+                sources
             })
         })
         .collect::<Vec<ProductionNode>>()
@@ -89,7 +95,8 @@ pub(crate) struct OnePath<'a>{
 
 impl OnePath<'_>{
     pub(crate) fn get_power(self: &Self) -> f32 {
-        self.source_recipe.building.get_power() as f32 * self.amount + self.inputs.iter()
+        let power_scale: f32 = (self.amount/self.amount.ceil()).powf(1.321928);
+        self.source_recipe.building.get_power() as f32 * self.amount * power_scale + self.inputs.iter()
             .map(|(_, path)| path.get_power())
             .sum::<f32>()
     }

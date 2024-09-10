@@ -15,12 +15,12 @@ enum Settings{
 }
 
 fn main() {
-    let setting = Settings::MinRaw;
+    let setting = Settings::MinPower;
     let target = objects::Part::Conveyor(
         objects::Conveyable::ReinforcedIronPlate
     );
 
-    let binding = Vec::<Process>::new();
+    let binding = Vec::<objects::Part>::from([target]);
     let results = route_finder::generate_possibilities(&target, 60.0, binding);
 
     let path = match setting {

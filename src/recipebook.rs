@@ -1,13 +1,12 @@
-use crate::objects::{Amount, Building::*, Conveyable,
-                     Conveyable::*, Mineable, Mineable::*, Pipeable,
-                     Pipeable::*, Process, Pumpable, Pumpable::*};
-use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*,
-                   HardDriveTier::*, MamTrees::*, OrgoTier::*, ProgressTier::*, QuartzTier::*,
-                   SlugTier::*, SulfurTier::*, Tier::*, Tier0::*, Tier1::*, Tier2::*, Tier3::*,
-                   Tier4::*, Tier5::*, Tier7::*, Tier8::*};
+use crate::objects::{Amount, Building::*, Conveyable, Conveyable::*, Mineable, Mineable::*,
+                     Pipeable, Pipeable::*, Process, Pumpable, Pumpable::*};
+use crate::tiers::{CateriumTier::*, FicsmasTier::*, FlowerTier::*, FungusTier::*, HardDriveTier::*,
+                   MamTrees::*, OrgoTier::*, ProgressTier::*, QuartzTier::*, SlugTier::*,
+                   SulfurTier::*, Tier::*, Tier0::*, Tier1::*, Tier2::*, Tier3::*, Tier4::*,
+                   Tier5::*, Tier7::*, Tier8::*};
 
 
-pub static RECIPES: [Process] = *[
+pub static RECIPES: [Process;249] = [
     Process {
         name: "Mine Iron",
         time_s: 1,
@@ -348,7 +347,7 @@ pub static RECIPES: [Process] = *[
             input: (Amount::<Conveyable>::new(2, Plastic),),
             output: (Amount::<Conveyable>::new(4, EmptyCanister),)
         },
-        tier: MainProgression(Tier5(AlternativeFuelTransport))
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
     },
     Process {
         name: "Empty Fluid Tank",
@@ -591,7 +590,7 @@ pub static RECIPES: [Process] = *[
             input: (Amount::<Conveyable>::new(3, SteelIngot),),
             output: (Amount::<Conveyable>::new(2, EmptyCanister),)
         },
-        tier: HardDrive(MainUnlock(Tier5(AlternativeFuelTransport)))
+        tier: HardDrive(MainUnlock(Tier5(AlternativeFluidTransport)))
     },
     Process {
         name: "Steel Rod",
@@ -987,7 +986,7 @@ pub static RECIPES: [Process] = *[
             input: (Amount::<Conveyable>::new(2, FePlate), Amount::<Conveyable>::new(1, CuSheet)),
             output: (Amount::<Conveyable>::new(4, EmptyCanister),)
         },
-        tier: HardDrive(MainUnlock(Tier5(AlternativeFuelTransport)))
+        tier: HardDrive(MainUnlock(Tier5(AlternativeFluidTransport)))
     },
     Process {
         name: "Coated Iron Plate",
@@ -1495,18 +1494,1039 @@ pub static RECIPES: [Process] = *[
                     Some(Amount::<Conveyable>::new(2, FusedModularFrame))),
             output: (Amount::<Conveyable>::new(2, ThermalPropulsionRocket ),)
         },
-        tier:MainProgression(Tier8(LeadingEdgePRoduction))
+        tier:MainProgression(Tier8(LeadingEdgeProduction))
     },
     Process {
         name: "Turbo Motor",
         time_s: 32,
         building: Manufacturer {
             input: (Amount::<Conveyable>::new(4, CoolingSystem),
-                    Amount::<Conveyable>::new(),
-                    Amount::<Conveyable>::new(),
-                    None),
-            output: (Amount::<Conveyable>::new( ),)
+                    Amount::<Conveyable>::new(2, RadioControlUnit),
+                    Amount::<Conveyable>::new(4, Motor),
+                    Some(Amount::<Conveyable>::new(24, Rubber))),
+            output: (Amount::<Conveyable>::new(1, TurboMotor ),)
         },
-        tier:
+        tier:MainProgression(Tier8(LeadingEdgeProduction))
+    },
+    Process {
+        name: "Turbo Rifle Ammo",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(25, RifleAmmo),
+                    Amount::<Conveyable>::new(3, AlCasing),
+                    Amount::<Conveyable>::new(3, PkgdTurbofuel),
+                    None),
+            output: (Amount::<Conveyable>::new(50, TurboRifleAmmo ),)
+        },
+        tier:MAM(SulfurTier(TurboRife))
+    },
+    Process {
+        name: "Uranium Fuel Rod",
+        time_s: 150,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(50, EncasedUCell),
+                    Amount::<Conveyable>::new(3,IndustrialBeam),
+                    Amount::<Conveyable>::new(5,EMControlRod),
+                    None),
+            output: (Amount::<Conveyable>::new(1, URod),)
+        },
+        tier:MainProgression(Tier8(NuclearPower))
+    },
+    Process {
+        name: "Automated Miner",
+        time_s: 60,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, Motor),
+                    Amount::<Conveyable>::new(4, SteelPipe),
+                    Amount::<Conveyable>::new(4, FeRod),
+                    Some(Amount::<Conveyable>::new(2, FePlate))),
+            output: (Amount::<Conveyable>::new(1 , PortableMiner),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Automated Speed Wiring",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Stator),
+                    Amount::<Conveyable>::new(40, CuWire),
+                    Amount::<Conveyable>::new(1, HighSpeedConnector),
+                    None),
+            output: (Amount::<Conveyable>::new(4, AutomatedWiring ),)
+        },
+        tier:HardDrive(MainUnlock(Tier4(AdvancedSteel)))
+    },
+    Process {
+        name: "Automated Speed Wiring",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(2, Stator),
+                    Amount::<Conveyable>::new(40, CuWire),
+                    Amount::<Conveyable>::new(1, HighSpeedConnector),
+                    None),
+            output: (Amount::<Conveyable>::new(4, AutomatedWiring ),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
+    },
+    Process {
+        name: "Caterium Computer",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(7, CircuitBoard),
+                    Amount::<Conveyable>::new(28, Quickwire),
+                    Amount::<Conveyable>::new(12, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new(1, Computer),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Caterium Computer",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(7, CircuitBoard),
+                    Amount::<Conveyable>::new(28, Quickwire),
+                    Amount::<Conveyable>::new(12, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new(1, Computer),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
+    },
+    Process {
+        name: "Classic Battery",
+        time_s: 8,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(6, Sulfur),
+                    Amount::<Conveyable>::new(7, AlcladSheet),
+                    Amount::<Conveyable>::new(8, Plastic),
+                    Some(Amount::<Conveyable>::new(12, CuWire))),
+            output: (Amount::<Conveyable>::new(4, Battery ),)
+        },
+        tier:HardDrive(MainUnlock(Tier7(AeronauticalEngineering)))
+    },
+    Process {
+        name: "Flexible Framework",
+        time_s: 120,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, ModularFrame),
+                    Amount::<Conveyable>::new(6, SteelBeam),
+                    Amount::<Conveyable>::new(8, Rubber),
+                    None),
+            output: (Amount::<Conveyable>::new( 2, VersatileFramework),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name: "Heavy Encased Frame",
+        time_s: 64,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(8, ModularFrame),
+                    Amount::<Conveyable>::new(10, IndustrialBeam),
+                    Amount::<Conveyable>::new(36, SteelPipe),
+                    Some(Amount::<Conveyable>::new(22, Concrete))),
+            output: (Amount::<Conveyable>::new(3, HeavyModularFrame ),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Heavy Flexible Frame",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, ModularFrame),
+                    Amount::<Conveyable>::new(3, IndustrialBeam),
+                    Amount::<Conveyable>::new(20, Rubber),
+                    Some(Amount::<Conveyable>::new(104, Screws))),
+            output: (Amount::<Conveyable>::new(1, HeavyModularFrame ),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(IndustrialManufacturing)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MainUnlock(Tier8(NuclearPower)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(CateriumIngotResearch)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MAMUnlock(Quartz(QuartzResearch)))
+    },
+    Process {
+        name: "Infused Uranium Cell",
+        time_s: 12,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(5, UOre),
+                    Amount::<Conveyable>::new(3, Silica),
+                    Amount::<Conveyable>::new(5, Sulfur),
+                    Some(Amount::<Conveyable>::new(15,Quickwire))),
+            output: (Amount::<Conveyable>::new(4, EncasedUCell ),)
+        },
+        tier:HardDrive(MAMUnlock(SulfurTier(SulfurResearch)))
+    },
+    Process {
+        name: "Insulated Crystal Oscillator",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(10, CrushedQuartz),
+                    Amount::<Conveyable>::new(7, Rubber),
+                    Amount::<Conveyable>::new(1, AILimiter),
+                    None),
+            output: (Amount::<Conveyable>::new(1, CrystalOscillator),)
+        },
+        tier:HardDrive(MAMUnlock(Quartz(CrystalOscillatorResearch)))
+    },
+    Process {
+        name: "Insulated Crystal Oscillator",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(10, CrushedQuartz),
+                    Amount::<Conveyable>::new(7, Rubber),
+                    Amount::<Conveyable>::new(1, AILimiter),
+                    None),
+            output: (Amount::<Conveyable>::new(1, CrystalOscillator),)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(CateriumElectronics)))
+    },
+    Process {
+        name: "Insulated Crystal Oscillator",
+        time_s: 32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(10, CrushedQuartz),
+                    Amount::<Conveyable>::new(7, Rubber),
+                    Amount::<Conveyable>::new(1, AILimiter),
+                    None),
+            output: (Amount::<Conveyable>::new(1, CrystalOscillator),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name: "Plastic Smart Plating",
+        time_s: 24,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, ReinforcedIronPlate),
+                    Amount::<Conveyable>::new(1, Rotor),
+                    Amount::<Conveyable>::new(3, Plastic),
+                    None),
+            output: (Amount::<Conveyable>::new(2, SmartPlating),)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Radio Connection Unit",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, Heatsink),
+                    Amount::<Conveyable>::new(2, HighSpeedConnector),
+                    Amount::<Conveyable>::new(12, CrushedQuartz),
+                    None),
+            output: (Amount::<Conveyable>::new(1, RadioControlUnit),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(AdvancedAluminumProduction)))
+    },
+    Process {
+        name:"Radio Connection Unit",
+        time_s: 16,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, Heatsink),
+                    Amount::<Conveyable>::new(2, HighSpeedConnector),
+                    Amount::<Conveyable>::new(12, CrushedQuartz),
+                    None),
+            output: (Amount::<Conveyable>::new(1, RadioControlUnit),)
+        },
+        tier: HardDrive(MAMUnlock(Caterium(AILimiterResearch)))
+    },
+    Process {
+        name:"Radio Control System",
+        time_s:40,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(1, CrystalOscillator),
+                    Amount::<Conveyable>::new(10, CircuitBoard),
+                    Amount::<Conveyable>::new(60, AlCasing),
+                    Some(Amount::<Conveyable>::new(30, Rubber))),
+            output: (Amount::<Conveyable>::new(3, RadioControlUnit),)
+        },
+        tier: HardDrive(MainUnlock(Tier7(BauxiteRefinement)))
+    },
+    Process {
+        name:"Rigour Motor",
+        time_s:48,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(3, Rotor),
+                    Amount::<Conveyable>::new(3, Stator),
+                    Amount::<Conveyable>::new(1, CrystalOscillator),
+                    None),
+            output: (Amount::<Conveyable>::new(6, Motor),)
+        },
+        tier: HardDrive(MainUnlock(Tier4(AdvancedSteel)))
+    },
+    Process {
+        name:"Rigour Motor",
+        time_s:48,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(3, Rotor),
+                    Amount::<Conveyable>::new(3, Stator),
+                    Amount::<Conveyable>::new(1, CrystalOscillator),
+                    None),
+            output: (Amount::<Conveyable>::new(6, Motor),)
+        },
+        tier: HardDrive(MAMUnlock(Quartz(QuartzResearch)))
+    },
+    Process {
+        name:"Silicon High-Speed Connector",
+        time_s:40,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(60, Quickwire),
+                    Amount::<Conveyable>::new(25, Silica),
+                    Amount::<Conveyable>::new(2, CircuitBoard),
+                    None),
+            output: (Amount::<Conveyable>::new(2, HighSpeedConnector),)
+        },
+        tier: HardDrive(MAMUnlock(Caterium(HighSpeedConnectorResearch)))
+    },
+    Process {
+        name:"Silicon High-Speed Connector",
+        time_s:40,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(60, Quickwire),
+                    Amount::<Conveyable>::new(25, Silica),
+                    Amount::<Conveyable>::new(2, CircuitBoard),
+                    None),
+            output: (Amount::<Conveyable>::new(2, HighSpeedConnector),)
+        },
+        tier: HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Silicon High-Speed Connector",
+        time_s:40,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(60, Quickwire),
+                    Amount::<Conveyable>::new(25, Silica),
+                    Amount::<Conveyable>::new(2, CircuitBoard),
+                    None),
+            output: (Amount::<Conveyable>::new(2, HighSpeedConnector),)
+        },
+        tier: HardDrive(MAMUnlock(Quartz(QuartzResearch)))
+    },
+    Process {
+        name:"Super-State Computer",
+        time_s:50,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(3,Computer),
+                    Amount::<Conveyable>::new(2, EMControlRod),
+                    Amount::<Conveyable>::new(20, Battery),
+                    Some(Amount::<Conveyable>::new(45, CuWire))),
+            output: (Amount::<Conveyable>::new(2, SuperComputer),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(NuclearPower)))
+    },
+    Process {
+        name:"Super-State Computer",
+        time_s:50,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(3,Computer),
+                    Amount::<Conveyable>::new(2, EMControlRod),
+                    Amount::<Conveyable>::new(20, Battery),
+                    Some(Amount::<Conveyable>::new(45, CuWire))),
+            output: (Amount::<Conveyable>::new(2, SuperComputer),)
+        },
+        tier: HardDrive(MainUnlock(Tier7(AeronauticalEngineering)))
+    },
+    Process {
+        name:"Turbo Electric Motor",
+        time_s:64,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(7, Motor),
+                    Amount::<Conveyable>::new(9, RadioControlUnit),
+                    Amount::<Conveyable>::new(5, EMControlRod),
+                    Some(Amount::<Conveyable>::new(7, Rotor))),
+            output: (Amount::<Conveyable>::new(3, TurboMotor),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(LeadingEdgeProduction)))
+    },
+    Process {
+        name:"Turbo Electric Motor",
+        time_s:64,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(7, Motor),
+                    Amount::<Conveyable>::new(9, RadioControlUnit),
+                    Amount::<Conveyable>::new(5, EMControlRod),
+                    Some(Amount::<Conveyable>::new(7, Rotor))),
+            output: (Amount::<Conveyable>::new(3, TurboMotor),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(NuclearPower)))
+    },
+    Process {
+        name:"Turbo Pressure Motor",
+        time_s:32,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(4, Motor),
+                    Amount::<Conveyable>::new(1, PressureConversionCube),
+                    Amount::<Conveyable>::new(24, PkgdN),
+                    Some(Amount::<Conveyable>::new(8, Stator))),
+            output: (Amount::<Conveyable>::new(2, TurboMotor),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(ParticleEnrichment)))
+    },
+    Process {
+        name:"Uranium Fuel Unit",
+        time_s:300,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(100, EncasedUCell),
+                    Amount::<Conveyable>::new(10, EMControlRod),
+                    Amount::<Conveyable>::new(3, CrystalOscillator),
+                    Some(Amount::<Conveyable>::new(6, Beacon))),
+            output: (Amount::<Conveyable>::new(3, URod),)
+        },
+        tier: HardDrive(MainUnlock(Tier8(NuclearPower)))
+    },
+    Process {
+        name:"Uranium Fuel Unit",
+        time_s:300,
+        building: Manufacturer {
+            input: (Amount::<Conveyable>::new(100, EncasedUCell),
+                    Amount::<Conveyable>::new(10, EMControlRod),
+                    Amount::<Conveyable>::new(3, CrystalOscillator),
+                    Some(Amount::<Conveyable>::new(6, Beacon))),
+            output: (Amount::<Conveyable>::new(3, URod),)
+        },
+        tier: HardDrive(MAMUnlock(Quartz(QuartzResearch)))
+    },
+    Process {
+        name:"Packaged Alumina Solution",
+        time_s:1,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, AlSol))),
+            output: (Amount::<Conveyable>::new(2, PkgdAlSol),
+                    None)
+        },
+        tier: MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name:"Packaged Fuel",
+        time_s:3,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Fuel))),
+            output: (Amount::<Conveyable>::new(2, PkgdFuel),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Packaged Heavy Oil Residue",
+        time_s:4,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, HeavyOil))),
+            output: (Amount::<Conveyable>::new(2, PkgdHOil),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Packaged Liquid Biofuel",
+        time_s:3,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, LBioFuel))),
+            output: (Amount::<Conveyable>::new(2, PkgdLBiofuel),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Packaged Nitric Acid",
+        time_s:2,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(1, EmptyFluidTank),
+                    Some(Amount::<Pipeable>::new(1, NAcid))),
+            output: (Amount::<Conveyable>::new(1,PkgdNAcid),
+                     None)
+        },
+        tier: MainProgression(Tier8(ParticleEnrichment))
+    },
+    Process {
+        name:"Packaged Nitrogen Gas",
+        time_s:1,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(1, EmptyFluidTank),
+                    Some(Amount::<Pipeable>::new(4, NGas))),
+            output: (Amount::<Conveyable>::new(1, PkgdN),
+                     None)
+        },
+        tier: MainProgression(Tier8(AdvancedAluminumProduction))
+    },
+    Process {
+        name:"Packaged Oil",
+        time_s:4,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, CrudeOil))),
+            output: (Amount::<Conveyable>::new(2, PkgdOil),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Packaged Sulfuric Acid",
+        time_s:3,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, SAcid))),
+            output: (Amount::<Conveyable>::new(2, PkgdSAcid),
+                     None)
+        },
+        tier: MainProgression(Tier7(AeronauticalEngineering))
+    },
+    Process {
+        name:"Packaged Water",
+        time_s:2,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Water))),
+            output: (Amount::<Conveyable>::new(2, PkgdWater),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Packaged Turbofuel",
+        time_s:6,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Turbofuel))),
+            output: (Amount::<Conveyable>::new(2, PkgdTurbofuel),
+                     None)
+        },
+        tier: MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Packaged Turbofuel",
+        time_s:6,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Turbofuel))),
+            output: (Amount::<Conveyable>::new(2, PkgdTurbofuel),
+                     None)
+        },
+        tier: MAM(SulfurTier(TurbofuelResearch))
+    },
+    Process {
+        name:"Packaged Turbofuel",
+        time_s:6,
+        building: Packager {
+            input: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Turbofuel))),
+            output: (Amount::<Conveyable>::new(2, PkgdTurbofuel),
+                     None)
+        },
+        tier: MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name:"Unpackage Alumina Solution",
+        time_s:1,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, AlSol))),
+            input: (Amount::<Conveyable>::new(2, PkgdAlSol),
+                     None)
+        },
+        tier: MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name:"Unpackage Fuel",
+        time_s:2,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Fuel))),
+            input: (Amount::<Conveyable>::new(2, PkgdFuel),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Unpackage Heavy Oil Residue",
+        time_s:6,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, HeavyOil))),
+            input: (Amount::<Conveyable>::new(2, PkgdHOil),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Unpackage Liquid Biofuel",
+        time_s:2,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, LBioFuel))),
+            input: (Amount::<Conveyable>::new(2, PkgdLBiofuel),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Unpackage Nitric Acid",
+        time_s:3,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(1, EmptyFluidTank),
+                    Some(Amount::<Pipeable>::new(1, NAcid))),
+            input: (Amount::<Conveyable>::new(1,PkgdNAcid),
+                     None)
+        },
+        tier: MainProgression(Tier8(ParticleEnrichment))
+    },
+    Process {
+        name:"Unpackage Nitrogen Gas",
+        time_s:1,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(1, EmptyFluidTank),
+                    Some(Amount::<Pipeable>::new(4, NGas))),
+            input: (Amount::<Conveyable>::new(1, PkgdN),
+                     None)
+        },
+        tier: MainProgression(Tier8(AdvancedAluminumProduction))
+    },
+    Process {
+        name:"Unpackage Oil",
+        time_s:2,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, CrudeOil))),
+            input: (Amount::<Conveyable>::new(2, PkgdOil),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Unpackage Sulfuric Acid",
+        time_s:1,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, SAcid))),
+            input: (Amount::<Conveyable>::new(2, PkgdSAcid),
+                     None)
+        },
+        tier: MainProgression(Tier7(AeronauticalEngineering))
+    },
+    Process {
+        name:"Unpackage Water",
+        time_s:1,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Water))),
+            input: (Amount::<Conveyable>::new(2, PkgdWater),
+                     None)
+        },
+        tier: MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Unpackage Turbofuel",
+        time_s:6,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Turbofuel))),
+            input: (Amount::<Conveyable>::new(2, PkgdTurbofuel),
+                     None)
+        },
+        tier: MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Unpackage Turbofuel",
+        time_s:6,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Turbofuel))),
+            input: (Amount::<Conveyable>::new(2, PkgdTurbofuel),
+                     None)
+        },
+        tier: MAM(SulfurTier(TurbofuelResearch))
+    },
+    Process {
+        name:"Unpackage Turbofuel",
+        time_s:6,
+        building: Packager {
+            output: (Amount::<Conveyable>::new(2, EmptyCanister),
+                    Some(Amount::<Pipeable>::new(2, Turbofuel))),
+            input: (Amount::<Conveyable>::new(2, PkgdTurbofuel),
+                     None)
+        },
+        tier: MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name:"Alumina Solution",
+        time_s:6,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(12, Bauxite)),
+                     Some(Amount::<Pipeable>::new(18, Water))),
+            output: (Some(Amount::<Conveyable>::new(5, Silica)),
+                     Some(Amount::<Pipeable>::new(12, AlSol)))
+        },
+        tier:MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name:"Aluminum Scrap",
+        time_s:1,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, Coal)),
+                    Some(Amount::<Pipeable>::new(4, AlSol))),
+            output: (Some(Amount::<Conveyable>::new(6, AlScrap)),
+                     Some(Amount::<Pipeable>::new(2, Water)))
+        },
+        tier:MainProgression(Tier7(BauxiteRefinement))
+    },
+    Process {
+        name:"Fuel",
+        time_s:6,
+        building: Refinery {
+            input: (None,
+                      Some(Amount::<Pipeable>::new(6, CrudeOil))),
+            output: (Some(Amount::<Conveyable>::new(3, PolymerResin)),
+                       Some(Amount::<Pipeable>::new(4, Fuel)))
+        },
+        tier:MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Liquid Biofuel",
+        time_s:4,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(6, SolidBiofuel)),
+                      Some(Amount::<Pipeable>::new(3, Water))),
+            output: (None,
+                       Some(Amount::<Pipeable>::new(4, LBioFuel)))
+        },
+        tier:MainProgression(Tier5(AlternativeFluidTransport))
+    },
+    Process {
+        name:"Petroleum Coke",
+        time_s:6,
+        building: Refinery {
+            input: (None,
+                      Some(Amount::<Pipeable>::new(4, HeavyOil))),
+            output: (Some(Amount::<Conveyable>::new(12, PetroleumCoke)),
+                       None)
+        },
+        tier:MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Plastic",
+        time_s:6,
+        building: Refinery {
+            input: (None,
+                    Some(Amount::<Pipeable>::new(6, CrudeOil))),
+            output: (Some(Amount::<Conveyable>::new(2, Plastic)),
+                     Some(Amount::<Pipeable>::new(1, HeavyOil)))
+        },
+        tier:MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Residual Plastic",
+        time_s:6,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(6, PolymerResin)),
+                    Some(Amount::<Pipeable>::new(2, Water))),
+            output: (Some(Amount::<Conveyable>::new(2, Plastic)),
+                     None)
+        },
+        tier:MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Residual Fuel",
+        time_s:6,
+        building: Refinery {
+            input: (None,
+                    Some(Amount::<Pipeable>::new(6, HeavyOil))),
+            output: (None,
+                     Some(Amount::<Pipeable>::new(4, Fuel)))
+        },
+        tier:MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Residual Rubber",
+        time_s:6,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(4, PolymerResin)),
+                    Some(Amount::<Pipeable>::new(4, Water))),
+            output: (Some(Amount::<Conveyable>::new(2, Rubber)),
+                     None)
+        },
+        tier:MainProgression(Tier5(OilProcessing))
+    },
+    Process {
+        name:"Smokeless Powder",
+        time_s:6,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, BlackPowder)),
+                    Some(Amount::<Pipeable>::new(1, HeavyOil))),
+            output: (Some(Amount::<Conveyable>::new(2, SmokelessPowder)),
+                     None)
+        },
+        tier:MAM(SulfurTier(SmokelessPowderResearch))
+    },
+    Process {
+        name:"Sulfuric Acid",
+        time_s:6,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(5, Sulfur)),
+                    Some(Amount::<Pipeable>::new(5, Water))),
+            output: (None,
+                     Some(Amount::<Pipeable>::new(5, SAcid)))
+        },
+        tier:MainProgression(Tier7(AeronauticalEngineering))
+    },
+    Process {
+        name:"Coated Cable",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(5, CuWire)),
+                    Some(Amount::<Pipeable>::new(2, HeavyOil))),
+            output: (Some(Amount::<Conveyable>::new(9, Cable)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Diluted Packaged Fuel",
+        time_s:2,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, PkgdWater)),
+                    Some(Amount::<Pipeable>::new(1, HeavyOil))),
+            output: (Some(Amount::<Conveyable>::new(2, PkgdFuel)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Electrode Aluminum Scrap",
+        time_s:4,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(4, PetroleumCoke)),
+                    Some(Amount::<Pipeable>::new(12, AlSol))),
+            output: (Some(Amount::<Conveyable>::new(20, AlScrap)),
+                     Some(Amount::<Pipeable>::new(7, Water)))
+        },
+        tier:HardDrive(MainUnlock(Tier7(BauxiteRefinement)))
+    },
+    Process {
+        name:"Heavy Oil Residue",
+        time_s:6,
+        building: Refinery {
+            input: (None,
+                    Some(Amount::<Pipeable>::new(3, CrudeOil))),
+            output: (Some(Amount::<Conveyable>::new(2, PolymerResin)),
+                     Some(Amount::<Pipeable>::new(4, HeavyOil)))
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Polyester Fabric",
+        time_s:2,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(1, PolymerResin)),
+                    Some(Amount::<Pipeable>::new(1, Water))),
+            output: (Some(Amount::<Conveyable>::new(1, Fabric)),
+                     None)
+        },
+        tier:HardDrive(MAMUnlock(Fungi(SyntheticPolyesterFabric)))
+    },
+    Process {
+        name:"Polymer Resin",
+        time_s:6,
+        building: Refinery {
+            input: (None,
+                    Some(Amount::<Pipeable>::new(6, CrudeOil))),
+            output: (Some(Amount::<Conveyable>::new(13, PolymerResin)),
+                     Some(Amount::<Pipeable>::new(2, HeavyOil)))
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Pure Caterium Ingot",
+        time_s:5,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, CateriumOre)),
+                    Some(Amount::<Pipeable>::new(2, Water))),
+            output: (Some(Amount::<Conveyable>::new(1, CateriumIngot)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier3(CoalPower)))
+    },
+    Process {
+        name:"Pure Caterium Ingot",
+        time_s:5,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, CateriumOre)),
+                    Some(Amount::<Pipeable>::new(2, Water))),
+            output: (Some(Amount::<Conveyable>::new(1, CateriumIngot)),
+                     None)
+        },
+        tier:HardDrive(MAMUnlock(Caterium(CateriumResearch)))
+    },
+    Process {
+        name:"Pure Copper Ingot",
+        time_s:24,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(6, CuOre)),
+                    Some(Amount::<Pipeable>::new(4, Water))),
+            output: (Some(Amount::<Conveyable>::new(15, CuIngot)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier3(CoalPower)))
+    },
+    Process {
+        name:"Pure Iron Ingot",
+        time_s:12,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(7, FeOre)),
+                    Some(Amount::<Pipeable>::new(4, Water))),
+            output: (Some(Amount::<Conveyable>::new(13, FeIngot)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier3(CoalPower)))
+    },
+    Process {
+        name:"Pure Quartz Crystal",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, RawQuartz)),
+                    Some(Amount::<Pipeable>::new(5, Water))),
+            output: (Some(Amount::<Conveyable>::new(7, CrushedQuartz)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier3(CoalPower)))
+    },
+    Process {
+        name:"Pure Quartz Crystal",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(2, RawQuartz)),
+                    Some(Amount::<Pipeable>::new(5, Water))),
+            output: (Some(Amount::<Conveyable>::new(7, CrushedQuartz)),
+                     None)
+        },
+        tier:HardDrive(MAMUnlock(Quartz(QuartzResearch)))
+    },
+    Process {
+        name:"Sloppy Alumina",
+        time_s:3,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(10, Bauxite)),
+                    Some(Amount::<Pipeable>::new(10, Water))),
+            output: (None,
+                     Some(Amount::<Pipeable>::new(12, AlSol)))
+        },
+        tier:HardDrive(MainUnlock(Tier7(BauxiteRefinement)))
+    },
+    Process {
+        name:"Steamed Copper Sheet",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(3, CuIngot)),
+                    Some(Amount::<Pipeable>::new(3, Water))),
+            output: (Some(Amount::<Conveyable>::new(3, CuSheet)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier3(CoalPower)))
+    },
+    Process {
+        name:"Wet Concrete",
+        time_s:3,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(6, Limestone)),
+                    Some(Amount::<Pipeable>::new(5, Water))),
+            output: (Some(Amount::<Conveyable>::new(4, Concrete)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier3(CoalPower)))
+    },
+    Process {
+        name:"Recycled Plastic",
+        time_s:12,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(6, Rubber)),
+                    Some(Amount::<Pipeable>::new(6, Fuel))),
+            output: (Some(Amount::<Conveyable>::new(12, Plastic)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Recycled Rubber",
+        time_s:12,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(6, Plastic)),
+                    Some(Amount::<Pipeable>::new(6, Fuel))),
+            output: (Some(Amount::<Conveyable>::new(12, Rubber)),
+                     None)
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Turbo Heavy Fuel",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(4, CompactedCoal)),
+                    Some(Amount::<Pipeable>::new(5, HeavyOil))),
+            output: (None,
+                     Some(Amount::<Pipeable>::new(4, Turbofuel)))
+        },
+        tier:HardDrive(MainUnlock(Tier5(OilProcessing)))
+    },
+    Process {
+        name:"Turbo Heavy Fuel",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(4, CompactedCoal)),
+                    Some(Amount::<Pipeable>::new(5, HeavyOil))),
+            output: (None,
+                     Some(Amount::<Pipeable>::new(4, Turbofuel)))
+        },
+        tier:HardDrive(MAMUnlock(SulfurTier(CompactedCoalResearch)))
+    },
+    Process {
+        name:"Turbofuel",
+        time_s:8,
+        building: Refinery {
+            input: (Some(Amount::<Conveyable>::new(4, CompactedCoal)),
+                    Some(Amount::<Pipeable>::new(6, Fuel))),
+            output: (None,
+                     Some(Amount::<Pipeable>::new(5, Turbofuel)))
+        },
+        tier:HardDrive(MAMUnlock(SulfurTier(TurbofuelResearch)))
+    },
+    Process {
+        name:"Extract Oil",
+        time_s:60,
+        building: OilExtractor{
+            input: (Amount::<Pumpable>::new(1, OilSource),),
+            output: (Amount::<Pipeable>::new(60, CrudeOil),) },
+        tier:MainProgression(Tier5(OilProcessing))
     },
 ];
