@@ -15,9 +15,9 @@ enum Settings{
 }
 
 fn main() {
-    let setting = Settings::MinBuild;
+    let setting = Settings::MinRaw;
     let target = objects::Part::Conveyor(
-        objects::Conveyable::ReinforcedIronPlate
+        objects::Conveyable::HeavyModularFrame
     );
 
     let binding = Vec::<objects::Part>::from([target]);
