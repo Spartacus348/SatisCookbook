@@ -1,19 +1,18 @@
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier{
+pub(crate) enum Tier {
     MainProgression(ProgressTier),
     HardDrive(HardDriveTier),
-    MAM(MamTrees)
+    MAM(MamTrees),
 }
 
-
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum HardDriveTier{
+pub(crate) enum HardDriveTier {
     MainUnlock(ProgressTier),
-    MAMUnlock(MamTrees)
+    MAMUnlock(MamTrees),
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum ProgressTier{
+pub(crate) enum ProgressTier {
     Tier0(Tier0),
     Tier2(Tier2),
     Tier1(Tier1),
@@ -22,42 +21,42 @@ pub(crate) enum ProgressTier{
     Tier5(Tier5),
     Tier6(Tier6),
     Tier7(Tier7),
-    Tier8(Tier8)
+    Tier8(Tier8),
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier0{
+pub(crate) enum Tier0 {
     Onboarding,
     HubUpgrade2,
     HubUpgrade3,
-    HubUpgrade6
+    HubUpgrade6,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier1{
-    FieldResearch
+pub(crate) enum Tier1 {
+    FieldResearch,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier2{
+pub(crate) enum Tier2 {
     ResourceSinkBonus,
     PartAssembly,
-    ObstacleClearing
+    ObstacleClearing,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier3{
+pub(crate) enum Tier3 {
     CoalPower,
-    BasicSteel
+    BasicSteel,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier4{
-    AdvancedSteel
+pub(crate) enum Tier4 {
+    AdvancedSteel,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier5{
+pub(crate) enum Tier5 {
     OilProcessing,
     AlternativeFuelTransport,
     IndustrialManufacturing,
@@ -65,26 +64,24 @@ pub(crate) enum Tier5{
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier6{
-
-}
+pub(crate) enum Tier6 {}
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier7{
+pub(crate) enum Tier7 {
     BauxiteRefinement,
     AeronauticalEngineering,
-    HazmatSuit
+    HazmatSuit,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum Tier8{
+pub(crate) enum Tier8 {
     NuclearPower,
     ParticleEnrichment,
-    AdvancedAluminumProduction
+    AdvancedAluminumProduction,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum MamTrees{
+pub(crate) enum MamTrees {
     Ficsmas(FicsmasTier),
     Caterium(CateriumTier),
     SulfurTier(SulfurTier),
@@ -92,11 +89,11 @@ pub(crate) enum MamTrees{
     Fungi(FungusTier),
     Flowers(FlowerTier),
     PowerSlugs(SlugTier),
-    Quartz(QuartzTier)
+    Quartz(QuartzTier),
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum FicsmasTier{
+pub(crate) enum FicsmasTier {
     TreeUpgrade0,
     CandyCaneBasher,
     CandyCaneDecor,
@@ -110,11 +107,11 @@ pub(crate) enum FicsmasTier{
     Wreath,
     Snowfight,
     TreeUpgrade4,
-    Fireworks
+    Fireworks,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum CateriumTier{
+pub(crate) enum CateriumTier {
     CateriumResearch,
     CateriumIngotResearch,
     QuickwireResearch,
@@ -131,21 +128,29 @@ pub(crate) enum CateriumTier{
     PriorityPowerSwitchResearch,
     BulletGuidanceSystem,
     ProgrammableSplitter,
-    GeothermalGeneratorResearch
+    GeothermalGeneratorResearch,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum SulfurTier{
-    SulfurResearch, BlackPowderResearch,
-    ExperimentalPower, CompactedCoalResearch,
-    TurbofuelResearch,ExpandedToolbelt,
-    NobeliskDetonator,SmokelessPowderResearch,
-    NuclearDeterrent,ClusterNobeliskResearch,
-    ExplosiveRebarResearch,Rifle,TurboRife,InflatedPocket
+pub(crate) enum SulfurTier {
+    SulfurResearch,
+    BlackPowderResearch,
+    ExperimentalPower,
+    CompactedCoalResearch,
+    TurbofuelResearch,
+    ExpandedToolbelt,
+    NobeliskDetonator,
+    SmokelessPowderResearch,
+    NuclearDeterrent,
+    ClusterNobeliskResearch,
+    ExplosiveRebarResearch,
+    Rifle,
+    TurboRife,
+    InflatedPocket,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum OrgoTier{
+pub(crate) enum OrgoTier {
     HogResearch,
     HatcherResearch,
     StingerResearch,
@@ -156,11 +161,11 @@ pub(crate) enum OrgoTier{
     RebarGun,
     InflatedPocketDimension,
     ExpandedToolbelt,
-    HostileOrganismDetection
+    HostileOrganismDetection,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum FungusTier{
+pub(crate) enum FungusTier {
     MyceliaResearch,
     FabricResearch,
     ToxicCellularModification,
@@ -169,27 +174,27 @@ pub(crate) enum FungusTier{
     ExpandedToolbelt,
     SyntheticPolyesterFabric,
     VitaminInhaler,
-    TherapeuticInhaler
+    TherapeuticInhaler,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum FlowerTier{
+pub(crate) enum FlowerTier {
     FlowerPetalsResearch,
     ColorGun,
-    ColorCartridges
+    ColorCartridges,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum SlugTier{
+pub(crate) enum SlugTier {
     BluePowerSlugs,
     SlugScanning,
     YellowPowerShards,
     OverclockProduction,
-    PurplePowerShards
+    PurplePowerShards,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) enum QuartzTier{
+pub(crate) enum QuartzTier {
     QuartzResearch,
     CrystalResearch,
     SilicaResearch,
@@ -200,5 +205,5 @@ pub(crate) enum QuartzTier{
     ExplosiveResonanceApplication,
     TheExplorer,
     RadioSignalScanning,
-    RadarTechnology
+    RadarTechnology,
 }

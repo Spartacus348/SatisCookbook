@@ -1,40 +1,46 @@
-use crate::objects::Process;
 use crate::route_finder::ProductionNode;
+use objects::part;
+use objects::process::Process;
 
 mod objects;
 mod recipebook;
-mod tiers;
 mod route_finder;
+mod tiers;
 
-enum Settings{
+enum Settings {
     DisplayAll,
     DisplaySize,
     MinPower,
     MinRaw,
-    MinBuild
+    MinBuild,
 }
 
 fn main() {
     let setting = Settings::MinRaw;
-    let target = objects::Part::Conveyor(
-        objects::Conveyable::ReinforcedIronPlate
-    );
+    let target = part::Part::Conveyor(part::Conveyable::ReinforcedIronPlate);
 
     let binding = Vec::<Process>::new();
     let results = route_finder::generate_possibilities(&target, 60.0, binding);
 
     let path = match setting {
-        Settings::DisplayAll => {delve(&results, 0);report_size(&results,true);None},
-        Settings::DisplaySize =>{report_size(&results,true); None},
-        Settings::MinPower =>   {route_finder::walk_one_path(
-                                        &results,
-                                        route_finder::OptimizationMode::MinimizePower)},
-        Settings::MinRaw =>     {route_finder::walk_one_path(
-                                        &results,
-                                        route_finder::OptimizationMode::MinimizeResources)},
-        Settings::MinBuild =>   {route_finder::walk_one_path(
-                                        &results,
-                                        route_finder::OptimizationMode::MinimizeBuildings)},
+        Settings::DisplayAll => {
+            delve(&results, 0);
+            report_size(&results, true);
+            None
+        }
+        Settings::DisplaySize => {
+            report_size(&results, true);
+            None
+        }
+        Settings::MinPower => {
+            route_finder::walk_one_path(&results, route_finder::OptimizationMode::MinimizePower)
+        }
+        Settings::MinRaw => {
+            route_finder::walk_one_path(&results, route_finder::OptimizationMode::MinimizeResources)
+        }
+        Settings::MinBuild => {
+            route_finder::walk_one_path(&results, route_finder::OptimizationMode::MinimizeBuildings)
+        }
     };
     if let Some(path) = path {
         println!("{:?}", path);
@@ -68,42 +74,45 @@ struct SizeReport {
 }
 
 impl SizeReport {
-    fn new(below: Vec<SizeReport>) -> Self{
-        Self{
-            breadth: below.iter()
-                .map(|r| r.breadth)
-                .sum(),
-            depth: 1 + below.iter()
-                .map(|r| r.depth)
-                .max()
-                .unwrap_or(0)
+    fn new(below: Vec<SizeReport>) -> Self {
+        Self {
+            breadth: below.iter().map(|r| r.breadth).sum(),
+            depth: 1 + below.iter().map(|r| r.depth).max().unwrap_or(0),
         }
     }
 }
 
 impl Default for SizeReport {
-    fn default()->Self{
-        Self{breadth: 1, depth: 0}
+    fn default() -> Self {
+        Self {
+            breadth: 1,
+            depth: 0,
+        }
     }
 }
 
-fn report_size(results: &Vec<ProductionNode>, express: bool) ->SizeReport {
-    if express {println!("Beginning collection");}
-    let result = SizeReport::new(results.iter()
-        .map(|node| {
-            let results = node.sources.iter()
-                .map(|(_, &ref options)|
-                    match options.len(){
+fn report_size(results: &Vec<ProductionNode>, express: bool) -> SizeReport {
+    if express {
+        println!("Beginning collection");
+    }
+    let result = SizeReport::new(
+        results
+            .iter()
+            .map(|node| {
+                let results = node
+                    .sources
+                    .iter()
+                    .map(|(_, &ref options)| match options.len() {
                         0 => SizeReport::default(),
-                        _ => report_size(options, false)
-                    }
-                )
-                .collect::<Vec<SizeReport>>();
-            let mut s = SizeReport::new(results);
-            s.depth -= 1;
-            s
-        })
-        .collect::<Vec<SizeReport>>());
+                        _ => report_size(options, false),
+                    })
+                    .collect::<Vec<SizeReport>>();
+                let mut s = SizeReport::new(results);
+                s.depth -= 1;
+                s
+            })
+            .collect::<Vec<SizeReport>>(),
+    );
     if express {
         println!("End collection. Results: {:?}", result);
     }
