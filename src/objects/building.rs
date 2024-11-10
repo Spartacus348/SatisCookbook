@@ -1,5 +1,5 @@
 use crate::objects::amount::Amount;
-use crate::objects::part::{Conveyable, IsPart, Mineable, NoPart, Part, Pipeable, Pumpable};
+use crate::objects::part::{Conveyable, Mineable, Part, Pipeable, Pumpable};
 use std::fmt::Display;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -33,17 +33,10 @@ where
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub(crate) struct Building<
-    const MIN_ITEM_IN: usize,
-    const EXTRA_ITEM_IN: usize,
-    const MIN_FLUID_IN: usize,
-    const EXTRA_FLUID_IN: usize,
-    const MIN_ITEM_OUT: usize,
-    const EXTRA_ITEM_OUT: usize,
-    const MIN_FLUID_OUT: usize,
-    const EXTRA_FLUID_OUT: usize,
-    ConvInType,
-    FluidInType,
+pub(crate) struct Building<const MIN_ITEM_IN: usize, const EXTRA_ITEM_IN: usize,
+    const MIN_FLUID_IN: usize, const EXTRA_FLUID_IN: usize, const MIN_ITEM_OUT: usize,
+    const EXTRA_ITEM_OUT: usize, const MIN_FLUID_OUT: usize, const EXTRA_FLUID_OUT: usize,
+    ConvInType, FluidInType,
 > where
     ConvInType: Copy,
     FluidInType: Copy,
@@ -54,69 +47,17 @@ pub(crate) struct Building<
     output_fluid: RangeCap<MIN_FLUID_OUT, EXTRA_FLUID_OUT, Amount<Pipeable>>,
 }
 
-impl<
-        const MIN_ITEM_IN: usize,
-        const EXTRA_ITEM_IN: usize,
-        const MIN_FLUID_IN: usize,
-        const EXTRA_FLUID_IN: usize,
-        const MIN_ITEM_OUT: usize,
-        const EXTRA_ITEM_OUT: usize,
-        const MIN_FLUID_OUT: usize,
-        const EXTRA_FLUID_OUT: usize,
-        ConvInType,
-        FluidInType,
-    >
+impl<const MIN_ITEM_IN: usize, const EXTRA_ITEM_IN: usize, const MIN_FLUID_IN: usize, const EXTRA_FLUID_IN: usize,
+    const MIN_ITEM_OUT: usize, const EXTRA_ITEM_OUT: usize, const MIN_FLUID_OUT: usize, const EXTRA_FLUID_OUT: usize,
+    ConvInType, FluidInType, >
     Building<
-        MIN_ITEM_IN,
-        EXTRA_ITEM_IN,
-        MIN_FLUID_IN,
-        EXTRA_FLUID_IN,
-        MIN_ITEM_OUT,
-        EXTRA_ITEM_OUT,
-        MIN_FLUID_OUT,
-        EXTRA_FLUID_OUT,
-        ConvInType,
-        FluidInType,
-    >
+        MIN_ITEM_IN, EXTRA_ITEM_IN, MIN_FLUID_IN, EXTRA_FLUID_IN,
+        MIN_ITEM_OUT, EXTRA_ITEM_OUT, MIN_FLUID_OUT, EXTRA_FLUID_OUT, ConvInType, FluidInType, >
 where
     ConvInType: Copy,
     FluidInType: Copy,
 {
-    pub(crate) fn get_input(self: &Self) -> Vec<(Part, usize)> {
-        let temp = self.input_item.into_iter().next().unwrap().kind;
 
-        let mut inputs: Vec<(Part, usize)> = self
-            .input_item
-            .clone()
-            .into_iter()
-            .map(|item| (Part::Conveyor(item.kind), item.rate_per_period))
-            .collect();
-        inputs.append(
-            self.input_fluid
-                .clone()
-                .into_iter()
-                .map(|fluid| (Part::Pipe(fluid.kind), fluid.rate_per_period))
-                .collect(),
-        );
-        inputs
-    }
-
-    pub(crate) fn get_output(self: &Self) -> Vec<(Part, usize)> {
-        let mut outputs: Vec<(Part, usize)> = self
-            .output_item
-            .clone()
-            .into_iter()
-            .map(|item| (Part::Conveyor(item.kind), item.rate_per_period))
-            .collect();
-        outputs.append(
-            self.output_fluid
-                .clone()
-                .into_iter()
-                .map(|fluid| (Part::Pipe(fluid.kind), fluid.rate_per_period))
-                .collect(),
-        );
-        outputs
-    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -140,6 +81,8 @@ pub(crate) enum Buildings {
     OilExtractor(Building<0, 0, 1, 0, 0, 0, 1, 0, NoPart, Pumpable>),
 }
 
+type Smelter = Building<1, 0, 0, 0, 1, 0, 0, 0, Conveyable, NoPart>;
+
 impl Buildings {
     fn get_name(self: &Self) -> String {
         String::from(match self {
@@ -161,6 +104,41 @@ impl Buildings {
             Buildings::WaterExtractor { .. } => "water_extractor",
             Buildings::OilExtractor { .. } => "oil_extractor",
         })
+    }
+
+    pub(crate) fn get_input(self: &Self) -> Vec<(Part, usize)>{
+        if let x: Building = self {
+                let mut inputs: Vec<(Part, usize)> = x.input_item
+                    .clone()
+                    .into_iter()
+                    .map(|item| (Part::Conveyor(item.kind), item.rate_per_period))
+                    .collect();
+                inputs.append(
+                    x.input_fluid
+                        .clone()
+                        .into_iter()
+                        .map(|fluid| (Part::Pipe(fluid.kind), fluid.rate_per_period))
+                        .collect(),
+                );
+                inputs
+        }
+    }
+
+    pub(crate) fn get_output(self: &Self) -> Vec<(Part, usize)> {
+        let mut outputs: Vec<(Part, usize)> = self
+            .output_item
+            .clone()
+            .into_iter()
+            .map(|item| (Part::Conveyor(item.kind), item.rate_per_period))
+            .collect();
+        outputs.append(
+            self.output_fluid
+                .clone()
+                .into_iter()
+                .map(|fluid| (Part::Pipe(fluid.kind), fluid.rate_per_period))
+                .collect(),
+        );
+        outputs
     }
 }
 
